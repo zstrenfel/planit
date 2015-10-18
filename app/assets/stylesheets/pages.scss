@@ -1,3 +1,71 @@
 // Place all the styles related to the pages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+$subtle: #E9E9E9;
+
+div {
+	padding: 10px;
+	font-family: 'Open Sans', sans-serif;
+}
+
+div.container {
+  @include outer-container;
+}
+
+div.half-col {
+	@include span-columns(6);
+}
+
+div.third-col {
+	@include span-columns(4);
+}
+
+div.block {
+	@include span-columns(12);
+}
+
+.center {
+	text-align: center;
+}
+
+.button {
+	padding: 10px;
+	border-radius: 5px;
+	border: solid 2px #EFEFEF;
+	background-color: #F2F2F2;
+	height: auto;
+
+	&:hover {
+		background-color: #DDDDDD;
+	}
+}
+
+div.initial {
+	height: 300px;
+}
+
+div.secondary {
+	height: 300px;
+	text-align: center;
+	padding-top: 30px;
+	background-color: $subtle;
+}
+
+
+// Form Styles
+form {
+	padding: 3px;
+	background-color: #FDFDFD;
+	border-radius: 5px;
+	border: none;
+	// text-align: left;
+	width: 250px;
+
+	input {
+		width: 200px;
+		height: 25px;
+		border: 2px solid #EBEBEB;
+		padding-left: 5px;
+	}
+}
