@@ -3,10 +3,25 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 $subtle: #E9E9E9;
+$text-primary: .87;
+$text-secondary: .54;
+$text-tertiary: .38;
 
 div {
 	padding: 10px;
 	font-family: 'Open Sans', sans-serif;
+}
+
+h1,
+h2,
+h3 {
+	padding:0;
+	margin:0;
+	opacity: $text-primary;
+}
+
+p {
+	opacity: $text-secondary;
 }
 
 div.container {
@@ -29,6 +44,23 @@ div.block {
 	text-align: center;
 }
 
+.hidden {
+	display: none !important;
+}
+
+.no-emphasis {
+	font-size: 12px;
+	opacity: $text-tertiary;
+}
+
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+
 .button {
 	padding: 10px;
 	border-radius: 5px;
@@ -42,7 +74,7 @@ div.block {
 }
 
 div.initial {
-	height: 300px;
+	height: 350px;
 }
 
 div.secondary {
@@ -54,18 +86,53 @@ div.secondary {
 
 
 // Form Styles
+.action-container {
+	height: 270px;
+	width:240px;
+	background-color: #F7F7F7;
+	border-radius: 5px;
+	text-align: center;
+	display: inline-block;
+
+	aside {
+		text-align: right;
+		font-size: 12px;
+	}
+
+	a {
+		text-decoration: none;
+		color: #000;
+		opacity: $text-tertiary;
+
+		&:hover {
+			opacity: $text-secondary;
+		}
+	}
+}
 form {
 	padding: 3px;
-	background-color: #FDFDFD;
-	border-radius: 5px;
 	border: none;
-	// text-align: left;
-	width: 250px;
+
+	.field {
+		margin:0;
+		padding: 5px 0;
+	}
 
 	input {
 		width: 200px;
 		height: 25px;
 		border: 2px solid #EBEBEB;
 		padding-left: 5px;
+	}
+
+	input[type='checkbox'] {
+		height: 15px;
+		width: 15px;
+		margin: 2px;
+		vertical-align: middle;
+	}
+
+	input[value='Log in'] {
+		margin-top: 8px;
 	}
 }

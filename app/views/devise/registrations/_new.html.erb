@@ -1,30 +1,35 @@
-<h3>Register</h3>
+<div class="action-container register-container">
+  <h3>Register</h3>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= devise_error_messages! %>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
+    <div class="field">
+        <%= f.text_field :name, autofocus: true, :placeholder => :name %>
+    </div>
 
-  <div class="field">
-      <%= f.text_field :name, autofocus: true, :placeholder => :name %>
-  </div>
+    <div class="field">
+      <%= f.email_field :email, :placeholder => :email %>
+    </div>
 
-  <div class="field">
-    <%= f.email_field :email, :placeholder => :email %>
-  </div>
+    <div class="field">
+      <% if @minimum_password_length %>
+      <em>(<%= @minimum_password_length %> characters minimum)<br></em>
+      <% end %>
+      <%= f.password_field :password, autocomplete: "off", :placeholder => :password %>
+    </div>
 
-  <div class="field">
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)<br></em>
-    <% end %>
-    <%= f.password_field :password, autocomplete: "off", :placeholder => :password %>
-  </div>
+    <div class="field">
+      <%= f.password_field :password_confirmation, autocomplete: "off", :placeholder => "Confirm Password"  %>
+    </div>
 
-  <div class="field">
-    <%= f.password_field :password_confirmation, autocomplete: "off", :placeholder => "Confirm Password"  %>
-  </div>
+    <div class="actions">
+      <%= f.submit "Sign up", :class => "button" %>
+    </div>
+  <% end %>
 
-  <div class="actions">
-    <%= f.submit "Sign up", :class => "button" %>
-  </div>
-<% end %>
+  <aside>
+      <a href="" class="log-in">Log In</a>
+  </aside>
+</div>
 
-<%= render "devise/shared/links" %>
+<!-- <%= render "devise/shared/links" %> -->
