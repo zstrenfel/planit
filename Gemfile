@@ -48,6 +48,9 @@ group :development, :test do
   gem "better_errors"
   #prints console out better
   gem "awesome_print", require:"ap"
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+  gem 'database_cleaner'
 end
 
 group :development do

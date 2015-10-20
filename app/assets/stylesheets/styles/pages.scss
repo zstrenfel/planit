@@ -2,97 +2,34 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-$subtle: #E9E9E9;
-$text-primary: .87;
-$text-secondary: .54;
-$text-tertiary: .38;
+@import 'base/utilities/variables';
 
-div {
-	padding: 10px;
-	font-family: 'Open Sans', sans-serif;
-}
-
-h1,
-h2,
-h3 {
-	padding:0;
-	margin:0;
-	opacity: $text-primary;
-}
-
-p {
-	opacity: $text-secondary;
-}
-
-div.container {
-  @include outer-container;
-}
-
-div.half-col {
-	@include span-columns(6);
-}
-
-div.third-col {
-	@include span-columns(4);
-}
-
-div.block {
-	@include span-columns(12);
-}
-
-.center {
-	text-align: center;
-}
-
-.hidden {
-	display: none !important;
-}
-
-.no-emphasis {
-	font-size: 12px;
-	opacity: $text-tertiary;
-}
-
-.left {
-	float: left;
-}
-
-.right {
-	float: right;
-}
-
-.button {
-	padding: 10px;
-	border-radius: 5px;
-	border: solid 2px #EFEFEF;
-	background-color: #F2F2F2;
-	height: auto;
-
-	&:hover {
-		background-color: #DDDDDD;
-	}
-}
 
 div.initial {
-	height: 350px;
+	height: 300px;
 }
 
 div.secondary {
 	height: 300px;
 	text-align: center;
-	padding-top: 30px;
 	background-color: $subtle;
 }
 
+div.tertiary {
+	height: 400px;
+	padding-top: 40px;
 
+
+}
 // Form Styles
 .action-container {
-	height: 270px;
+	height: 230px;
 	width:240px;
 	background-color: #F7F7F7;
 	border-radius: 5px;
 	text-align: center;
 	display: inline-block;
+	padding: 5px;
 
 	aside {
 		text-align: right;
@@ -109,6 +46,32 @@ div.secondary {
 		}
 	}
 }
+
+div.third-col {
+	padding: 10px;
+}
+
+.top-navigation {
+	height: 45px;
+	padding: 5px;
+	font-size: .8em;
+	margin-bottom: 10px;
+	vertical-align: middle;
+	ul {
+		position: relative;
+		top: 25%;
+	}
+}
+
+.main-text {
+	font-size: 1.3em;
+	padding: 40px 0 0 40px;
+}
+
+img {
+	margin: 10px;
+}
+
 form {
 	padding: 3px;
 	border: none;
