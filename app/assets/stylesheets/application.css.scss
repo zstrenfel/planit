@@ -1,4 +1,5 @@
-@import "bourbon";
-@import "neat";
+/*
+    *= require_self
+    *= require main
+*/
 
-@import 'pages.scss';
