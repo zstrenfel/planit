@@ -20,6 +20,11 @@ class DestinationsController < ActionController::Base
   	#load the destinations into a view after he does that
   end
 
+  def index
+  	# @destinations = Destination.where("trip_id =?", params[:trip_id])
+  	@destinations = Destination.all
+  end
+
   def update
       if @destination.update(dest_params)
 	      json1 = {:status => 1, :destination => @destination}
