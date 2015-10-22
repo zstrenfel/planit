@@ -93,6 +93,7 @@ p {
 
 div.container {
   @include outer-container;
+  overflow: hidden;
 }
 
 div.half-col {
@@ -106,6 +107,10 @@ div.third-col {
 div.block {
 	@include span-columns(12);
 	padding: 10px;
+}
+
+div.content {
+	padding: 5px;
 }
 
 .center {
@@ -142,10 +147,17 @@ div.block {
 	}
 }
 
+.top-navigation {
+	height: 40px;
+	padding: 5px;
+	font-size: .8em;
+}
+
 ul.nav-menu {
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
+	vertical-align: middle;
 
 	li {
 		float: right;
