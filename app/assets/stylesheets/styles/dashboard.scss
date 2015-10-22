@@ -1,0 +1,29 @@
+@import 'base/utilities/variables';
+//main-content styles
+
+//sidebar styles
+	.menu-base {
+		@include span-columns(1);
+
+		background-color: $subtle;
+		height: 100vh;
+		font-size: .8em;
+		font-weight: 600;
+	}
+
+	.menu-open {
+		width: 180px;
+		float: left;
+		background-color: darken($subtle, 10%);
+		height: 100vh;
+		left: -180px;
+		position:fixed;
+	}
+
+.main-content {
+	@include span-columns(11);
+	background-color: red;
+}
+//trip-info styles
+//destination-list styles
+//calendar styles
