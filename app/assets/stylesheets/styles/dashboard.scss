@@ -2,28 +2,81 @@
 //main-content styles
 
 //sidebar styles
-	.menu-base {
-		@include span-columns(1);
+.menu-base {
+	@include span-columns(1);
 
-		background-color: $subtle;
-		height: 100vh;
-		font-size: .8em;
-		font-weight: 600;
+	background-color: $subtle;
+	height: 100vh;
+	font-size: .8em;
+	font-weight: 600;
+	z-index: 2;
+}
+
+.menu-open {
+	width: 180px;
+	float: left;
+	background-color: darken($subtle, 10%);
+	height: 100vh;
+	left: -180px;
+	position:fixed;
+	z-index: 1;
+	padding: 10px;
+	font-size: 1.2em;
+	font-weight: 600;
+
+	li {
+		margin: 8px 0;
+		opacity: $text-secondary;
+		cursor: pointer;
 	}
 
-	.menu-open {
-		width: 180px;
-		float: left;
-		background-color: darken($subtle, 10%);
-		height: 100vh;
-		left: -180px;
-		position:fixed;
+	li:hover {
+		opacity: $text-primary;
 	}
+}
 
 .main-content {
 	@include span-columns(11);
-	background-color: red;
+	z-index: 3;
 }
 //trip-info styles
+.trip-info {
+	@include span-columns(12);
+	background-color: $subtle;
+	margin-bottom: 20px;
+	padding: 5px;
+	overflow: auto;
+
+	h1 {
+		float: left;
+	}
+
+	aside {
+		@include span-columns(12);
+		font-size: .8em;
+	}
+
+	a.button {
+		float: right;
+		vertical-align: middle;
+	}
+}
 //destination-list styles
+.destination-list {
+	@include span-columns(4);
+	background-color: $subtle;
+}
+
+
+.map {
+	@include span-columns(8);
+	@include omega;
+	background-color: $subtle;
+}
+
+
+
+
+
+
 //calendar styles
