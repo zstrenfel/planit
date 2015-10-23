@@ -5,7 +5,6 @@ class TripsController < ApplicationController
 
     def show
         @trip = Trip.find(params[:id])
-    puts @trip.users
         render json: @trip
     end
 
@@ -54,6 +53,9 @@ class TripsController < ApplicationController
         @trip.destroy
 
         redirect_to trips_path
+    end
+
+    def invite_friends
     end
 
 
