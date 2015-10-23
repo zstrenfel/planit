@@ -32,6 +32,10 @@ gem 'bourbon'
 
 gem 'neat'
 
+gem 'bootstrap-modal-rails'
+
+gem "active_model_serializers"
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -40,6 +44,7 @@ gem 'neat'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+  gem 'ffaker'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -51,6 +56,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'database_cleaner'
+  gem 'shoulda-matchers'
 end
 
 group :development do
@@ -62,7 +68,6 @@ group :development do
 end
 
 group :test do
-  gem 'faker'
   gem 'capybara'
   gem 'guard-rspec'
   gem 'launchy'

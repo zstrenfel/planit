@@ -1,15 +1,34 @@
+<%= javascript_tag do %>
+	$(window).load(function() {
+	  	Dashboard.start();
+  	});
+
+<% end %>
+
 <div class="menu-base content center">
 	<ul>
 		<li><a href="" class="trips">Trips</a></li>
 	</ul>
 </div>
 <div class="menu-open">
-	<%= render "trips/index" %>
+	<ul>
+		<% @trips.each do |trip| %>
+			<%= content_tag :li, class: "location", :data => {:id => trip.id} do -%>
+				<%= trip.location %>
+			<% end %>
+		<% end %>
+	</ul>
 </div>
 <div class="main-content">
+
 	<div class="trip-info">
-	<%= render "trips/header" %>
+		<div class="half-col">
+			<h1>New York</h1>
+			<aside>invited: 2 dates: May 5th, 2015 - May 9th, 2015</aside>
+		</div>
+		<a href="" class="button">SAVE</a>
 	</div>
+
 	<div class="destination-list">
 	Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente illum, libero molestiae unde dolore. Praesentium provident incidunt porro nemo perferendis? Cumque deserunt perspiciatis reiciendis facere deleniti, illum temporibus laudantium eaque.
 	</div>
