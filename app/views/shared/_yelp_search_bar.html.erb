@@ -1,0 +1,7 @@
+<%= form_for @search do |f| %>
+  <%= f.label :destination %>
+  <%= f.text_field :destination %>
+  <%= f.label :address %>
+  <%= f.text_field :address %>  
+  <%= f.submit "Search!" %>
+<% end %>

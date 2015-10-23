@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get 'pages/index'
+  get 'search' => 'destinations#search'
 
   root 'pages#index'
 
