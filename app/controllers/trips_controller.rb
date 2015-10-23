@@ -5,7 +5,8 @@ class TripsController < ApplicationController
 
     def show
         @trip = Trip.find(params[:id])
-        render json: @trip, :include => :users
+    puts @trip.users
+        render json: @trip
     end
 
     def new

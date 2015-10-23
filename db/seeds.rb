@@ -21,8 +21,18 @@ trip1 = Trip.create({
     user.password =  "password"
     user.password_confirmation = "password"
     user.trips << trip1
-    trip1.users << user
+    # trip1.users << user
     user.save!
   end
 end
+
+z = User.create({
+  name: 'Zach',
+  email: 'zwstrenfel@gmail.com',
+  password: 'password',
+  password_confirmation: 'password'
+})
+
+z.trips << trip1
+
 
