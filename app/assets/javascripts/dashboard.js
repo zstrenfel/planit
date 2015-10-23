@@ -1,6 +1,6 @@
 var Dashboard = (function() {
     //variables set here
-    var apiUrl = 'localhost:3000';
+    var apiUrl = 'http://localhost:3000';
 
     //methods
 
@@ -42,7 +42,24 @@ var Dashboard = (function() {
     };
 
     var insertHeader = function(data) {
-        //do something here
+        var $target = $('.trip-info');
+        var trip = data.trip;
+        var users = trip.users;
+        var user_count = Object.keys(users).length;
+
+        $target.html('').append(
+            '<div class="half-col">' +
+            '<h1>' + trip.location + '</h1>' +
+            '<aside><b>invited: </b>' + user_count + '<b>&nbsp; &nbsp; &nbsp; dates: </b>' + trip.start_date + ' - ' + trip.end_date + '</aside>' +
+            '<aside><a href="" data-function="invite-friends">' + 'Invite more friends' + '</a></aside>'+
+            '</div>' +
+            '<a href="" class="button">SAVE</a>'
+        );
+
+        $('a[data-function="invite-friends"]').on('click', function(e) {
+            e.preventDefault();
+            console.log('add friends');
+        })
     };
 
     //watches menu for open/close
@@ -56,14 +73,13 @@ var Dashboard = (function() {
             } else {
                 $menu.animate({"left": '+=' + width}, 'slow','swing');
             }
-            $menu.animate("slide", { direction: "left" }, 1000);
         })
     };
 
     var attachLocationHandler = function(e) {
         $('li.location').on('click', function() {
-            var url = '/trip/' + $(this).data('id');
-            makeGetRequest(url, insertHeader, onSuccess, onFailure);
+            var url = '/trips/' + $(this).data('id');
+            makeGetRequest(url, onSuccess, onFailure);
         })
 
         var onSuccess = function(data) {
@@ -72,17 +88,22 @@ var Dashboard = (function() {
         var onFailure = function() {
             console.log("failure to get location information");
         }
+    };
 
-
-
-    }
+    var attachCreateEditHandler = function() {
+        $('.create-trip').on('click', function() {
+            alert('create/edit here');
+        })
+    };
 
     //initiates everything how it should be
     var start = function() {
         console.log("starting");
         attachMenuHandler();
         attachLocationHandler();
+        attachCreateEditHandler();
     };
+
 
     return {
         start: start

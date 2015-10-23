@@ -2,7 +2,6 @@
 	$(window).load(function() {
 	  	Dashboard.start();
   	});
-
 <% end %>
 
 <div class="menu-base content center">
@@ -11,22 +10,11 @@
 	</ul>
 </div>
 <div class="menu-open">
-	<ul>
-		<% @trips.each do |trip| %>
-			<%= content_tag :li, class: "location", :data => {:id => trip.id} do -%>
-				<%= trip.location %>
-			<% end %>
-		<% end %>
-	</ul>
+	<%= render "pages/partials/menu" %>
 </div>
 <div class="main-content">
 
 	<div class="trip-info">
-		<div class="half-col">
-			<h1>New York</h1>
-			<aside>invited: 2 dates: May 5th, 2015 - May 9th, 2015</aside>
-		</div>
-		<a href="" class="button">SAVE</a>
 	</div>
 
 	<div class="destination-list">
