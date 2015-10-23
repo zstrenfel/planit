@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :trips
   #pages routes
   get 'pages/index'
+  get '/' to: 'pages#index'
   root to: 'pages#index'
   get '/dashboard', to: 'pages#dashboard'
 
