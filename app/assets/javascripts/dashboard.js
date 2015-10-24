@@ -160,7 +160,8 @@ var Dashboard = (function() {
             var dest = {}; // Prepare the smile object to send to the server
             dest.id = 4;
             dest.name = "Paris";
-            dest.address = "121 Dream Lane, France"
+            dest.address = "121 Dream Lane, France";
+            dest.trip_id = 1;
 
          
             // FINISH ME (Task 4): collect the rest of the data for the smile

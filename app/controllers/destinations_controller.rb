@@ -4,9 +4,11 @@ class DestinationsController < ApplicationController
 
   def create
   	#make default null values for time and date
+    @trip = Trip.find(params[:trip_id])
   	@destination = Destination.new(dest_params)
   	puts @destination
 	  if @destination.save
+        @trip.destinations << @destination
 	      json1 = {:status => 1, :destination => @destination}
 	      render :json => json1
 	  else
@@ -54,7 +56,7 @@ def destroy
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def dest_params
-      params.require(:destination).permit(:name, :date, :time, :address, :date)
+      params.require(:destination).permit(:name, :date, :time, :address, :date, :trip_id)
     end
   
 
