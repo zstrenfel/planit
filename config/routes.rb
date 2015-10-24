@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
+  post '/trips/:id/invite', to: 'trips#invite_friends'
+  #pages routes
   get 'pages/index'
-  get 'search' => 'destinations#search'
-
-  root 'pages#index'
+  root to: 'pages#index'
+  get '/dashboard', to: 'pages#dashboard'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
