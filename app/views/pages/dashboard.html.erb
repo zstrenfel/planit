@@ -1,15 +1,39 @@
+<%= javascript_tag do %>
+	$(window).load(function() {
+	  	Dashboard.start();
+  	});
+<% end %>
+<!-- offscreen -->
+<div class="invite-friends">
+	<h2>Invite Friends</h2>
+	<i>Please separate each email by a comma; existing users will be added automatically</i>
+	<textarea rows="4" cols="30" data-function="submit-friends">
+	</textarea>
+	<div class="half-col">
+		<a href="" class="invite left">submit</a>
+	</div>
+	<div class="half-col">
+		<a href="" class="close right">close</a>
+	</div>
+</div>
+<!--  -->
+
+
 <div class="menu-base content center">
 	<ul>
 		<li><a href="" class="trips">Trips</a></li>
 	</ul>
 </div>
 <div class="menu-open">
-	<%= render "trips/index" %>
+	<%= render "pages/partials/menu" %>
 </div>
 <div class="main-content">
 	<div class="trip-info">
-	<%= render "trips/header" %>
+		<div class="half-col">
+			<h1>No Trip Selected</h1>
+		</div>
 	</div>
+
 	<div class="destination-list">
 	Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente illum, libero molestiae unde dolore. Praesentium provident incidunt porro nemo perferendis? Cumque deserunt perspiciatis reiciendis facere deleniti, illum temporibus laudantium eaque.
 	</div>

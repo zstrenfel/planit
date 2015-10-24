@@ -12,16 +12,7 @@
 #  user_id    :integer
 #
 
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+class TripSerializer < ActiveModel::Serializer
+  attributes :id, :location, :name, :start_date, :end_date, :users
 
-one:
-  location: MyString
-  name: MyString
-  start: 2015-10-15
-  end: 2015-10-15
-
-two:
-  location: MyString
-  name: MyString
-  start: 2015-10-15
-  end: 2015-10-15
+end

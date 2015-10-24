@@ -10,6 +10,22 @@
 	font-size: .8em;
 	font-weight: 600;
 	z-index: 2;
+
+	a {
+		color: $medium-gray;
+
+		&:active,
+		&:focus,
+		&:hover {
+			color: shade($medium-gray, 25%);
+		}
+	}
+
+	.img {
+		fill: $medium-gray;
+		margin: 0;
+	}
+
 }
 
 .menu-open {
@@ -18,7 +34,7 @@
 	background-color: darken($subtle, 10%);
 	height: 100vh;
 	left: -180px;
-	position:fixed;
+	position:absolute;
 	z-index: 1;
 	padding: 10px;
 	font-size: 1.2em;
@@ -26,8 +42,11 @@
 
 	li {
 		margin: 8px 0;
-		opacity: $text-secondary;
 		cursor: pointer;
+	}
+
+	li.create-trip {
+		color: $blue;
 	}
 
 	li:hover {
@@ -42,7 +61,7 @@
 //trip-info styles
 .trip-info {
 	@include span-columns(12);
-	background-color: $subtle;
+	border-bottom: 1px solid $subtle;
 	margin-bottom: 20px;
 	padding: 5px;
 	overflow: auto;
@@ -67,16 +86,26 @@
 	background-color: $subtle;
 }
 
+//invite friends
+.invite-friends {
+	border-radius: $base-border-radius;
+	background-color: $light-gray;
+	height: 230px;
+	width: 600px;
+	left: 50%;
+	top: -230px;
+    margin-left: -300px;
+    position: absolute;
+    z-index: 100;
+    padding: 10px;
+}
 
+//map styles
 .map {
 	@include span-columns(8);
 	@include omega;
 	background-color: $subtle;
 }
-
-
-
-
 
 
 //calendar styles
