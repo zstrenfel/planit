@@ -41,12 +41,12 @@ var Destination = (function() {
     };
         
     /**
-     * Insert dest into smiles container in UI
-     * @param  {Object}  smile       smile JSON
+     * Insert dest into Itinerary List Table
+     * @param  {Object}  dest       smile JSON
      * @param  {boolean} beginning   if true, insert smile at the beginning of the list of smiles
      * @return {None}
      */
-    var insertDest = function(dest_obj) {
+    var insertDest = function(dest) {
       // Find a <table> element with id="myTable":
       var table = document.getElementById("destTable");
 
@@ -60,9 +60,9 @@ var Destination = (function() {
 
 
       // Add some text to the new cells:
-      id_cell.innerHTML = dest_obj.id;
-      name_cell.innerHTML = dest_obj.name;
-      address_cell.innerHTML = dest_obj.address;
+      id_cell.innerHTML = dest.id;
+      name_cell.innerHTML = dest.name;
+      address_cell.innerHTML = dest.address;
     };
     
 
@@ -155,6 +155,7 @@ var Destination = (function() {
       <td><%= destination.id %></td>
       <td><%= destination.name %></td>
       <td><%= destination.address %></td>
+      </td>
     </tr>
   <% end %>
 </table>

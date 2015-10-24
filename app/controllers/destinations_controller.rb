@@ -33,6 +33,12 @@ class DestinationsController < ApplicationController
 
   end
 
+def destroy
+    @destination = Destination.find(params[:id])
+    @destination.destroy
+    render :json => { :status => 1} 
+  end
+
   def destroy_all
   	  Destination.each do |dest|
       dest.destroy

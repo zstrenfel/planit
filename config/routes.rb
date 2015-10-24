@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :destinations, only: [:index]
   get 'statics/wat'
   post '/api/destinations', to:'destinations#create'
+   delete 'destinations', to: 'destination#delete'
 
 
   # The priority is based upon order of creation: first created -> highest priority.
