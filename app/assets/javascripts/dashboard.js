@@ -1,6 +1,6 @@
 var Dashboard = (function() {
     //variables set here
-    var apiUrl = 'http://localhost:3000';
+    var apiUrl = 'https://planit-169.herokuapp.com';
     var trip_id;
     var create;
     var submit;
