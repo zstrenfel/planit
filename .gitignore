@@ -16,5 +16,10 @@
 !/log/.keep
 /tmp
 
+<<<<<<< HEAD
 # Ignore application configuration
 /config/application.yml
+=======
+# Ignore Spec Files
+/spec
+>>>>>>> 63bc1d2f5247d0106d5de31d457c1ae22e131efa

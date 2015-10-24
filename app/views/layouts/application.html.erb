@@ -4,11 +4,34 @@
   <title>Planit</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600' rel='stylesheet' type='text/css'>
   <%= csrf_meta_tags %>
 </head>
 <body>
+<div class="container">
+	<!-- header logic for all pages (splash and dash) -->
+	<header class="block top-navigation">
+		<ul class="nav-menu">
+		<% if user_signed_in? %>
+			<li>
+			<%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
+			</li>
+			<% else %>
+			<li>
+				<a href="" class="log-in">Log In</a>
+			</li>
+			<li>
+				<a href="">About</a>
+			</li>
+		<% end %>
+		</ul>
+	</header>
+	<!-- End header logic -->
+	<p class="notice"><%= notice %></p>
+	<p class="alert"><%= alert %></p>
 
 <%= yield %>
 
+</div>
 </body>
 </html>

@@ -1,0 +1,174 @@
+// /* General Stles for Planit App
+//  * Created By Zach Strenfel
+//  * CS 169, UC Berkeley
+//  * Fall 2015
+// */
+
+// // Browser CSS Resets
+// html, body, div, span, applet, object, iframe,
+// h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+// a, abbr, acronym, address, big, cite, code,
+// del, dfn, em, img, ins, kbd, q, s, samp,
+// small, strike, strong, sub, sup, tt, var,
+// b, u, i, center,
+// dl, dt, dd, ol, ul, li,
+// fieldset, form, label, legend,
+// table, caption, tbody, tfoot, thead, tr, th, td,
+// article, aside, canvas, details, embed,
+// figure, figcaption, footer, header, hgroup,
+// menu, nav, output, ruby, section, summary,
+// time, mark, audio, video {
+// 	margin: 0;
+// 	padding: 0;
+// 	border: 0;
+// 	font-size: 100%;
+// 	font: inherit;
+// 	vertical-align: baseline;
+// }
+// /* HTML5 display-role reset for older browsers */
+// article, aside, details, figcaption, figure,
+// footer, header, hgroup, menu, nav, section {
+// 	display: block;
+// }
+// body {
+// 	line-height: 1;
+// }
+// ol, ul {
+// 	list-style: none;
+// }
+
+// a {
+// 	text-decoration: none;
+// 	color: $link;
+
+// 	&:hover {
+// 		color: darken($link, 10%);
+// 	}
+// }
+
+// blockquote, q {
+// 	quotes: none;
+// }
+// blockquote:before, blockquote:after,
+// q:before, q:after {
+// 	content: '';
+// 	content: none;
+// }
+// table {
+// 	border-collapse: collapse;
+// 	border-spacing: 0;
+// }
+
+// //End Browser Resets
+// div {
+// 	font-family: 'Open Sans', sans-serif;
+// }
+
+
+// h1,
+// h2,
+// h3 {
+// 	padding:0;
+// 	margin:5px 0;
+// 	opacity: $text-primary;
+// 	font-weight: bold;
+// }
+
+// h1 {font-size:2em}
+// h2 {font-size:1.7em}
+// h3 {font-size:1.3em}
+// h4 {
+// 	font-size: 1.1em;
+// 	padding:0;
+// 	margin:5px 0;
+// 	opacity: $text-primary;
+// 	font-weight: 600;
+// }
+
+// p {
+// 	opacity: $text-secondary;
+// 	line-height: 1.3em;
+// 	opacity: $text-primary;
+// }
+
+div.container {
+  @include outer-container;
+  overflow: hidden;
+}
+
+div.half-col {
+	@include span-columns(6);
+}
+
+div.third-col {
+	@include span-columns(4);
+}
+
+div.block {
+	@include span-columns(12);
+	padding: 10px;
+}
+
+div.content {
+	padding: 5px;
+}
+
+.center {
+	text-align: center;
+}
+
+.hidden {
+	display: none !important;
+}
+
+.no-emphasis {
+	font-size: 12px;
+	opacity: $text-tertiary;
+}
+
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+
+// .button {
+// 	padding: 10px;
+// 	border-radius: 5px;
+// 	border: solid 2px darken($primary, 5%);
+// 	background-color: $primary;
+// 	height: auto;
+// 	width: auto;
+
+// 	&:hover {
+// 		background-color: darken($primary, 10%);
+// 	}
+// }
+
+.top-navigation {
+	height: 40px;
+	padding: 5px;
+	font-size: .8em;
+}
+
+ul.nav-menu {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	vertical-align: middle;
+
+	li {
+		float: right;
+	}
+
+	a {
+		display: block;
+		width: 60px;
+		text-decoration: none;
+	}
+}
+
+
+

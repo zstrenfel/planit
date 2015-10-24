@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  devise_for :users
+  resources :trips
   post '/trips/:id/invite', to: 'trips#invite_friends'
   #pages routes
   get 'pages/index'

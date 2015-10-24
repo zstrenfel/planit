@@ -7,8 +7,9 @@ gem 'yelp', require: 'yelp'
 gem 'zeus'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.4'
-# Use sqlite3 as the database for Active Record
-#gem 'sqlite3'
+
+gem 'pg'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -29,6 +30,16 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 #annotates model info
 gem 'annotate'
+#adds users, user authentication, etc. https://github.com/plataformatec/devise
+gem 'devise'
+
+gem 'bourbon'
+
+gem 'neat'
+
+gem 'bootstrap-modal-rails'
+
+gem "active_model_serializers"
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -38,6 +49,7 @@ gem 'annotate'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+  gem 'ffaker'
 
 group :production do
   #gem 'pg'
@@ -53,6 +65,10 @@ group :development, :test do
   gem "better_errors"
   #prints console out better
   gem "awesome_print", require:"ap"
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+  gem 'database_cleaner'
+  gem 'shoulda-matchers'
 end
 
 group :development do
@@ -61,5 +77,11 @@ group :development do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+end
+
+group :test do
+  gem 'capybara'
+  gem 'guard-rspec'
+  gem 'launchy'
 end
 

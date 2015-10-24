@@ -1,0 +1,89 @@
+// Place all the styles related to the pages controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import 'base/utilities/variables';
+
+
+div.initial {
+	height: 300px;
+}
+
+div.secondary {
+	height: 300px;
+	text-align: center;
+	background-color: $subtle;
+}
+
+div.tertiary {
+	height: 400px;
+	padding-top: 40px;
+
+
+}
+// Form Styles
+.action-container {
+	height: 250px;
+	width:240px;
+	background-color: #F7F7F7;
+	border-radius: 5px;
+	text-align: center;
+	display: inline-block;
+	padding: 5px;
+
+	aside {
+		text-align: right;
+		font-size: 12px;
+	}
+
+	a {
+		text-decoration: none;
+		color: #000;
+		opacity: $text-tertiary;
+
+		&:hover {
+			opacity: $text-secondary;
+		}
+	}
+}
+
+div.third-col {
+	padding: 10px;
+}
+
+.main-text {
+	font-size: 1.3em;
+	padding: 40px 0 0 40px;
+}
+
+img {
+	margin: 10px;
+}
+
+form {
+	padding: 3px;
+	border: none;
+
+	.field {
+		margin:0;
+		padding: 5px 0;
+	}
+
+	input {
+		width: 200px;
+		height: 30px;
+		border: 2px solid #EBEBEB;
+		padding-left: 5px;
+	}
+
+	input[type='checkbox'] {
+		height: 15px;
+		width: 15px;
+		margin: 2px;
+		vertical-align: middle;
+	}
+
+	input[value='Log in'] {
+		margin-top: 8px;
+	}
+}
