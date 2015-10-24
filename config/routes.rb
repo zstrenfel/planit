@@ -8,9 +8,9 @@ Rails.application.routes.draw do
   get '/dashboard', to: 'pages#dashboard'
 
   resources :destinations, only: [:index]
-  get 'statics/wat'
   post '/api/destinations', to:'destinations#create'
-   delete 'destinations', to: 'destination#delete'
+  delete 'destinations', to: 'destinations#delete'
+  get '/api/destinations', to: 'destinations#load_all'
 
 
   # The priority is based upon order of creation: first created -> highest priority.

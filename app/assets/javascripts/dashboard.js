@@ -2,6 +2,7 @@ var Dashboard = (function() {
     //variables set here
     var apiUrl = 'http://localhost:3000';
     var trip_id;
+    var create;
 
     //methods
 
@@ -131,6 +132,7 @@ var Dashboard = (function() {
 
         var onSuccess = function(data) {
             insertHeader(data);
+            console.log(data);
         };
         var onFailure = function() {
             console.log("failure to get location information");
@@ -144,13 +146,116 @@ var Dashboard = (function() {
     };
 
 
+    /**
+     * Add event handlers for submitting the create form.
+     * @return {None}
+     */
+    var attachCreateDestHandler = function(e) {
+
+        // The handler for the Post button in the form
+        create.on('click', function (e) {
+            e.preventDefault (); // Tell the browser to skip its default click action
+
+          
+            var dest = {}; // Prepare the smile object to send to the server
+            dest.id = 4;
+            dest.name = "Paris";
+            dest.address = "121 Dream Lane, France"
+
+         
+            // FINISH ME (Task 4): collect the rest of the data for the smile
+            var onSuccess = function(data) {
+                if (!data.errors){
+                    console.log(data);
+                    insertDest(data["destination"]);
+                }else{
+                    for (i in data.errors){ 
+                        console.log(data.errors[i]); 
+                    } 
+                }
+                // FINISH ME (Task 4): insert smile at the beginning of the smiles container
+            };
+            var onFailure = function(data) { 
+                console.log("failure");
+
+            };
+            
+            // FINISH ME (Task 4): make a POST request to create the smile, then 
+            //            hide the form and show the 'Shared a smile...' button
+            url = "/api/destinations"
+            makePostRequest(url, dest, onSuccess, onFailure);
+
+        });
+
+    };
+
+        /**
+     * Insert dest into Itinerary List Table
+     * @param  {Object}  dest       smile JSON
+     * @param  {boolean} beginning   if true, insert smile at the beginning of the list of smiles
+     * @return {None}
+     */
+    var insertDest = function(dest) {
+      // Find a <table> element with id="myTable":
+      var table = document.getElementById("destTable");
+
+      // Create an empty <tr> element and add it to the 1st position of the table:
+      var row = table.insertRow(1);
+
+      // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
+      var id_cell = row.insertCell(0);
+      var name_cell = row.insertCell(1);
+      var address_cell = row.insertCell(2);
+
+
+      // Add some text to the new cells:
+      id_cell.innerHTML = dest.id;
+      name_cell.innerHTML = dest.name;
+      address_cell.innerHTML = dest.address;
+    };
+
+    var insertAllDest = function(dests){
+    	for (i in dests){
+    		insertDest(dests[i]);
+    	}
+    };
+
+    var loadDest = function(){
+
+    	var onSuccess = function(data) {
+                if (!data.errors){
+                    console.log(data);
+                    insertAllDest(data);
+                }else{
+                    for (i in data.errors){ 
+                        console.log(data.errors[i]); 
+                    } 
+                }
+                // FINISH ME (Task 4): insert smile at the beginning of the smiles container
+            };
+            var onFailure = function(data) { 
+                console.log("failure");
+
+            };
+
+
+    	url = "/api/destinations"
+        makeGetRequest(url, onSuccess, onFailure);
+    };
+
+
     //initiates everything how it should be
     var start = function() {
         console.log("starting");
 
+
         attachMenuHandler();
         attachLocationHandler();
         attachCreateEditHandler();
+        loadDest();
+        create = $(".create");
+        attachCreateDestHandler();
+
     };
 
 
