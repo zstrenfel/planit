@@ -1,6 +1,7 @@
 class TripsController < ApplicationController
     def index
         @trips = Trip.all
+        #render json: Trip.all
     end
    
     def show
@@ -24,12 +25,13 @@ class TripsController < ApplicationController
         if @trip.save
             redirect_to @trip
             #json1 = {:status => 1, :trip => @trip}
-	        #render :json => json1
+	          #render :json => json1
+	          
             
         else
             render 'new'
             #json1 = {:status => -1, :errors => @trip.errors}
-	        #render :json => json1
+	          #render :json => json1
         end
     end
     
