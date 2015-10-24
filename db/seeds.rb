@@ -26,9 +26,17 @@ trip1 = Trip.create({
   end
 end
 
+User.create({
+  name: 'Tuber',
+  email: 'tuber@a.com',
+  password: 'password',
+  password_confirmation: 'password'
+})
+
+
 z = User.create({
   name: 'Zach',
-  email: 'zwstrenfel@gmail.com',
+  email: 'zstrenfel@gmail.com',
   password: 'password',
   password_confirmation: 'password'
 })

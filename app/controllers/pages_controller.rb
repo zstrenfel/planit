@@ -11,7 +11,6 @@ class PagesController < ApplicationController
       redirect_to :root
     else
       @trips = current_user.trips
-
     end
   end
 end

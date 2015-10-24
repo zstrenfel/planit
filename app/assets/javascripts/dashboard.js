@@ -1,6 +1,7 @@
 var Dashboard = (function() {
     //variables set here
     var apiUrl = 'http://localhost:3000';
+    var trip_id;
 
     //methods
 
@@ -44,9 +45,59 @@ var Dashboard = (function() {
     var insertHeader = function(data) {
         var $target = $('.trip-info');
         var trip = data.trip;
+        var height = $('.invite-friends').height() + 70;
+        var down = false;
+        var $textarea = $('textarea[data-function="submit-friends"]');
+
+        //update header with ajax return info
+        updateHeader($target, trip);
+
+        //watch invite friends for click
+        $('a[data-function="invite-friends"]').on('click', function(e) {
+            e.preventDefault();
+            if (!down) {
+                $('.invite-friends').animate({"top": '+=' + height}, 'slow','swing');
+                $('.main-content').css('opacity', .5);
+                down = true;
+            }
+        });
+
+        //watch submit/invite button for click
+        $('a.invite').on('click', function(e) {
+            e.preventDefault();
+            var text = $textarea.val();
+            var emails;
+            $('.invite-friends').animate({"top": '-=' + height}, 'slow','swing');
+            $('.main-content').delay(500).css('opacity', 1);
+            $textarea.val('');
+            down = false;
+            emails = text.replace(/\s+/g, '').split(',');
+
+            var onSuccess = function(data) {
+                updateHeader($target, data);
+            }
+
+            var onFailure = function() {
+                console.log("error inviting friends");
+            }
+
+            makePostRequest('/trips/' + trip_id + '/invite/', {'emails': emails}, onSuccess, onFailure);
+        })
+
+
+        $('.close').on('click', function(e){
+            e.preventDefault();
+            $('.invite-friends').animate({"top": '-=' + height}, 'slow','swing');
+            $('.main-content').delay(500).css('opacity', 1);
+            $textarea.val('');
+            down = false;
+        })
+    };
+
+    var updateHeader = function($target, trip) {
+        console.log('updating');
         var users = trip.users;
         var user_count = Object.keys(users).length;
-
         $target.html('').append(
             '<div class="half-col">' +
             '<h1>' + trip.location + '</h1>' +
@@ -55,12 +106,7 @@ var Dashboard = (function() {
             '</div>' +
             '<a href="" class="button">SAVE</a>'
         );
-
-        $('a[data-function="invite-friends"]').on('click', function(e) {
-            e.preventDefault();
-            console.log('add friends');
-        })
-    };
+    }
 
     //watches menu for open/close
     var attachMenuHandler = function(e) {
@@ -79,6 +125,7 @@ var Dashboard = (function() {
     var attachLocationHandler = function(e) {
         $('li.location').on('click', function() {
             var url = '/trips/' + $(this).data('id');
+            trip_id = $(this).data('id');
             makeGetRequest(url, onSuccess, onFailure);
         })
 
@@ -96,9 +143,11 @@ var Dashboard = (function() {
         })
     };
 
+
     //initiates everything how it should be
     var start = function() {
         console.log("starting");
+
         attachMenuHandler();
         attachLocationHandler();
         attachCreateEditHandler();

@@ -3,6 +3,21 @@
 	  	Dashboard.start();
   	});
 <% end %>
+<!-- offscreen -->
+<div class="invite-friends">
+	<h2>Invite Friends</h2>
+	<i>Please separate each email by a comma; existing users will be added automatically</i>
+	<textarea rows="4" cols="30" data-function="submit-friends">
+	</textarea>
+	<div class="half-col">
+		<a href="" class="invite left">submit</a>
+	</div>
+	<div class="half-col">
+		<a href="" class="close right">close</a>
+	</div>
+</div>
+<!--  -->
+
 
 <div class="menu-base content center">
 	<ul>
@@ -13,8 +28,10 @@
 	<%= render "pages/partials/menu" %>
 </div>
 <div class="main-content">
-
 	<div class="trip-info">
+		<div class="half-col">
+			<h1>No Trip Selected</h1>
+		</div>
 	</div>
 
 	<div class="destination-list">

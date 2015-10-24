@@ -61,7 +61,7 @@
 //trip-info styles
 .trip-info {
 	@include span-columns(12);
-	background-color: $subtle;
+	border-bottom: 1px solid $subtle;
 	margin-bottom: 20px;
 	padding: 5px;
 	overflow: auto;
@@ -86,16 +86,26 @@
 	background-color: $subtle;
 }
 
+//invite friends
+.invite-friends {
+	border-radius: $base-border-radius;
+	background-color: $light-gray;
+	height: 230px;
+	width: 600px;
+	left: 50%;
+	top: -230px;
+    margin-left: -300px;
+    position: absolute;
+    z-index: 100;
+    padding: 10px;
+}
 
+//map styles
 .map {
 	@include span-columns(8);
 	@include omega;
 	background-color: $subtle;
 }
-
-
-
-
 
 
 //calendar styles

@@ -56,6 +56,20 @@ class TripsController < ApplicationController
     end
 
     def invite_friends
+        @trip = Trip.find(params[:id])
+        @emails = params[:emails]
+
+        @emails.each do |email|
+            invitee = User.find_by(email: email)
+            if (invitee) && (not @trip.users.include?(invitee))
+                @trip.users << invitee
+            elsif not invitee
+                p "no such invitee exists"
+                p current_user.name
+                PageMailer.invite_email(current_user, invitee).deliver_now
+            end
+        end
+        render json: @trip
     end
 
 
