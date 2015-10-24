@@ -7,6 +7,11 @@ Rails.application.routes.draw do
   root to: 'pages#index'
   get '/dashboard', to: 'pages#dashboard'
 
+  resources :destinations, only: [:index]
+  post '/api/destinations', to:'destinations#create'
+  delete 'destinations', to: 'destinations#delete'
+  get '/api/destinations', to: 'destinations#load_all'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

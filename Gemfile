@@ -37,8 +37,6 @@ gem 'bourbon'
 
 gem 'neat'
 
-gem 'bootstrap-modal-rails'
-
 gem "active_model_serializers"
 
 # Use ActiveModel has_secure_password

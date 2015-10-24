@@ -6,13 +6,15 @@
 
 
 div.initial {
-	height: 300px;
+	// height: 300px;
+	height: auto;
+	overflow: auto;
 }
 
 div.secondary {
 	height: 300px;
 	text-align: center;
-	background-color: $subtle;
+	background-color: #F7F7F7;
 }
 
 div.tertiary {
@@ -23,27 +25,18 @@ div.tertiary {
 }
 // Form Styles
 .action-container {
-	height: 250px;
+	height: auto;
+	overflow: auto;
 	width:240px;
 	background-color: #F7F7F7;
 	border-radius: 5px;
 	text-align: center;
 	display: inline-block;
-	padding: 5px;
+	padding: 10px;
 
 	aside {
 		text-align: right;
 		font-size: 12px;
-	}
-
-	a {
-		text-decoration: none;
-		color: #000;
-		opacity: $text-tertiary;
-
-		&:hover {
-			opacity: $text-secondary;
-		}
 	}
 }
 
@@ -58,32 +51,4 @@ div.third-col {
 
 img {
 	margin: 10px;
-}
-
-form {
-	padding: 3px;
-	border: none;
-
-	.field {
-		margin:0;
-		padding: 5px 0;
-	}
-
-	input {
-		width: 200px;
-		height: 30px;
-		border: 2px solid #EBEBEB;
-		padding-left: 5px;
-	}
-
-	input[type='checkbox'] {
-		height: 15px;
-		width: 15px;
-		margin: 2px;
-		vertical-align: middle;
-	}
-
-	input[value='Log in'] {
-		margin-top: 8px;
-	}
 }

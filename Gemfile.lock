@@ -51,8 +51,6 @@ GEM
       rack (>= 0.9.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    bootstrap-modal-rails (2.2.5)
-      railties (>= 3.1)
     bourbon (4.2.6)
       sass (~> 3.4)
       thor (~> 0.19)
@@ -242,7 +240,6 @@ DEPENDENCIES
   annotate
   awesome_print
   better_errors
-  bootstrap-modal-rails
   bourbon
   byebug
   capybara
