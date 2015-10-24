@@ -16,6 +16,19 @@
 		<a href="" class="close right">close</a>
 	</div>
 </div>
+<div class="create-edit-trip">
+	<h2>Create Trip</h2>
+	<div class="divider-line"></div>
+	<form action="" class="trip-form">
+		<input type="text" name="location" placeholder ="Location">
+		<input type="text" name="name" placeholder="Trip Name">
+		<input type="text" name="start-date" placeholder = "Start Date">
+		<input type="text" name="end-date" placeholder = "End Date">
+		<a href="" data-function="save-trip">submit</a>
+		<a href="" class="right" data-function="create-trip-close">Close</a>
+	</form>
+
+</div>
 <!--  -->
 
 
@@ -30,8 +43,11 @@
 <div class="main-content">
 	<div class="trip-info">
 		<div class="half-col">
-			<h1>No Trip Selected</h1>
+			<h1 data-header="location">No Trip Selected</h1>
+			<aside data-header="invited-dates"></aside>
+			<aside><a href="" data-function="invite-friends" class="hidden">Invite more friends</a></aside>
 		</div>
+		<a href="" class="button hidden" data-function="form-save">SAVE</a>
 	</div>
 
 	<div class="destination-list">
@@ -52,7 +68,7 @@
 <div class="big create">+</div>
 	</div>
 	<div class="map">
-	Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit suscipit consectetur, placeat alias eos temporibus autem tempora cum odio asperiores provident perspiciatis deleniti saepe recusandae. Harum iusto, ex tenetur neque.
+	<img src="https://api.fnkr.net/testimg/800x300/00CED1/FFF/?text=img+placeholder">
 	</div>
 	<!-- For Iter 2 -->
 	<div class="calendar" style="display: hidden">

@@ -12,9 +12,9 @@ class DestinationsController < ApplicationController
 	  else
 	    json1 = {:status => -1, :errors => @destination.errors}
 	    render :json => json1
-	  end  
+	  end
 
-  	
+
   	#load the destinations into a view after he does that
   end
 
@@ -41,14 +41,14 @@ class DestinationsController < ApplicationController
 def destroy
     @destination = Destination.find(params[:id])
     @destination.destroy
-    render :json => { :status => 1} 
+    render :json => { :status => 1}
   end
 
   def destroy_all
   	  Destination.each do |dest|
       dest.destroy
     end
-    render :json => { :status => 1} 
+    render :json => { :status => 1}
   end
 
   private
@@ -56,6 +56,6 @@ def destroy
     def dest_params
       params.require(:destination).permit(:name, :date, :time, :address, :date)
     end
-  
+
 
 end

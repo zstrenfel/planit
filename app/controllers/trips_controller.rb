@@ -17,20 +17,15 @@ class TripsController < ApplicationController
     end
 
     def create
-        #render plain: params[:trip].inspect
         @trip = Trip.new(trip_params)
-
-        puts @trip
+        @trip.users << current_user
 
         if @trip.save
-            redirect_to @trip
-            #json1 = {:status => 1, :trip => @trip}
-	        #render :json => json1
-
+            p "saved"
+            render :json => @trip
         else
-            render 'new'
-            #json1 = {:status => -1, :errors => @trip.errors}
-	        #render :json => json1
+            redirect_to root
+            p "error making trip. see controller to debug"
         end
     end
 
@@ -75,6 +70,6 @@ class TripsController < ApplicationController
 
     private
         def trip_params
-            params.require(:trip).permit(:name, :location, :start, :end)
+            params.require(:trip).permit(:name, :location, :start_date, :end_date)
         end
 end
