@@ -1,5 +1,6 @@
 <div class="action-container login-container hidden">
   <h3>Log in</h3>
+  <div class="divider-line"></div>
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <div class="field">
       <%= f.email_field :email, autofocus: true, :placeholder => :email %>
@@ -11,21 +12,21 @@
 
     <% if devise_mapping.rememberable? -%>
       <div class="field">
-        <%= f.check_box :remember_me, class: 'right' %>
         <%= f.label :remember_me, class: 'no-emphasis right' %>
+        <%= f.check_box :remember_me, class: 'right' %>
       </div>
     <% end -%>
 
-    <div class="actions">
+    <div class="actions block">
       <%= f.submit "Log in", class: 'button'%>
     </div>
   <% end %>
 
-  <aside>
-      <a href="" class="register">Register</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <div class="block no-emphasis">
+    <a href="" class="left register">Register</a>
        <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
-        <%= link_to "Forgot your password?", new_password_path(resource_name) %><br />
+        <%= link_to "Forgot your password?", new_password_path(resource_name), class: 'right' %><br />
       <% end -%>
-  </aside>
+  </div>
 </div>
 
