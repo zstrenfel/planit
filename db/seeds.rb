@@ -41,6 +41,8 @@ z = User.create({
   password_confirmation: 'password'
 })
 
+
+
 z.trips << trip1
 
 

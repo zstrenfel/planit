@@ -16,7 +16,13 @@
 			<li>
 			<%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
 			</li>
-			<% else %>
+			<li>
+				<%= link_to "Account", edit_user_registration_path %>
+			</li>
+			<li>
+				<%= link_to('Home', root_path) %>
+			</li>
+		<% else %>
 			<li>
 				<a href="" class="log-in">Log In</a>
 			</li>
