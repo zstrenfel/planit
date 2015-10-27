@@ -52,9 +52,10 @@ group :development, :test do
   #prints console out better
   gem "awesome_print", require:"ap"
   gem 'rspec-rails'
+  gem 'shoulda-matchers'
   gem 'factory_girl_rails'
   gem 'database_cleaner'
-  gem 'shoulda-matchers'
+
 end
 
 group :development do
