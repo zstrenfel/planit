@@ -1,6 +1,6 @@
 var Dashboard = (function() {
     //variables set here
-    // var apiUrl = 'https://planit-169.herokuapp.com';
+    var apiUrl = 'https://planit-169.herokuapp.com';
     var trip_id;
     var create;
     var submit;
