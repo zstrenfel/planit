@@ -1,6 +1,7 @@
 var Dashboard = (function() {
     //variables set here
     var apiUrl = 'https://planit-169.herokuapp.com';
+    apiUrl = '';
     var trip_id;
     var create;
     var submit;
@@ -223,7 +224,8 @@ var Dashboard = (function() {
 
             };
             var that = this;
-            url = "/api/destinations"
+            url = "/api/destinations?trip_id=" + trip_id;
+            console.log(url);
             makePostRequest(url, dest, onSuccess, onFailure);
 
 
@@ -231,51 +233,9 @@ var Dashboard = (function() {
         });
     };
 
-    //     // The handler for the Post button in the form
-    //     submit.on('click', '.submit-input', function (e) {
-    //         e.preventDefault (); // Tell the browser to skip its default click action
-
-
-    //         var dest = {}; // Prepare the smile object to send to the server
-    //         dest.id = 4;
-    //         dest.trip_id = 1;
-
-    //         var name = create.find('.name-input').val();
-    //         var address = create.find('.address-input').val();
-    //         dest.
-
-
-    //         // FINISH ME (Task 4): collect the rest of the data for the smile
-    //         var onSuccess = function(data) {
-    //             if (!data.errors){
-    //                 console.log(data);
-    //                 insertDest(data["destination"]);
-    //             }else{
-    //                 for (i in data.errors){
-    //                     console.log(data.errors[i]);
-    //                 }
-    //             }
-    //             // FINISH ME (Task 4): insert smile at the beginning of the smiles container
-    //         };
-    //         var onFailure = function(data) {
-    //             console.log("failure");
-
-    //         };
-
-    //         // FINISH ME (Task 4): make a POST request to create the smile, then
-    //         //            hide the form and show the 'Shared a smile...' button
-    //         url = "/api/destinations"
-    //         makePostRequest(url, dest, onSuccess, onFailure);
-
-    //     });
-
-    // };
-
-
         /**
      * Insert dest into Itinerary List Table
-     * @param  {Object}  dest       smile JSON
-     * @param  {boolean} beginning   if true, insert smile at the beginning of the list of smiles
+     * @param  {Object}  dest        JSON
      * @return {None}
      */
     var insertDest = function(dest) {
@@ -292,21 +252,21 @@ var Dashboard = (function() {
 
 
       // Add some text to the new cells:
-      id_cell.innerHTML = dest.id;
       name_cell.innerHTML = dest.name;
       address_cell.innerHTML = dest.address;
+      id_cell.innerHTML = dest.id;
     };
 
     var insertAllDest = function(dests){
-    	for (i in dests){
-    		insertDest(dests[i]);
+    	d = dests["destinations"];
+    	for (i in d){
+    		insertDest(d[i]);
     	}
     };
 
     var loadDest = function(){
     	var onSuccess = function(data) {
                 if (!data.errors){
-                    console.log(data);
                     insertAllDest(data);
                 }else {
                     for (i in data.errors){
@@ -321,7 +281,8 @@ var Dashboard = (function() {
             };
 
 
-    	url = "/api/destinations"
+    	url = "/api/destinations?trip_id=" + trip_id;
+    	console.log(url);
         makeGetRequest(url, onSuccess, onFailure);
     };
 
