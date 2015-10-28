@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   resources :destinations, only: [:index]
   post '/api/destinations', to:'destinations#create'
-  delete 'destinations', to: 'destinations#delete'
+  delete 'destinations', to: 'destinations#destroy_all'
   get '/api/destinations', to: 'destinations#load_all'
 
 

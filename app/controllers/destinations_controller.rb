@@ -21,11 +21,22 @@ class DestinationsController < ApplicationController
   end
 
   def index
-  	@destinations = Destination.all.order("created_at DESC")
+  	@destinations = Destination.all.order("created_at ASC")
   end
 
   def load_all
-    @destinations = Destination.all.order("created_at ASC")
+    if !params[:trip_id]
+      render :json => {:status => -1, :errors => "Required field 'trip_id' missing"} 
+      return
+    end
+      
+    @destinations = Destination.where("trip_id = ?", params[:trip_id]).order("created_at ASC")
+
+    if @destinations.blank?
+      render :json => {:status => -1, :errors => "Invalid trip id"}
+      return
+    end
+
     render :json => @destinations
   end
 
@@ -47,8 +58,9 @@ def destroy
   end
 
   def destroy_all
-  	  Destination.each do |dest|
+  	  Destination.all.each do |dest|
       dest.destroy
+
     end
     render :json => { :status => 1}
   end
