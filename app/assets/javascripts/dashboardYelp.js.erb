@@ -1,17 +1,39 @@
 var DashboardYelp = (function() {
+    
+    var oauth = OAuth({
+        consumer: {
+            public: <%= ENV['consumer_key'] %>,
+            secret: <%= ENV['consumer_secret'] %>
+        },
+        signature_method: 'HMAC-SHA1'
+    });
+
+    var token = {
+        public: <%= ENV['token'] %>,
+        secret: <%= ENV['token_secret'] %>
+    };
+
     var yelpUrl = "https://api.yelp.com";
 
     // Send search request to Yelp API.
     var makeSearchRequest = function(url, onSuccess, onFailure) {
-        $.ajax({
-            type: "GET",
+        var request_data = {
             url: yelpUrl + url,
+            method: 'POST',
+            data: {
+                status: 'OAuth request signed'
+            }
+        };
+        $.ajax({
+            type: request_data.method,
+            url: request_data.url,
             term: term,
             location: location,
             limit: 10,
             dataType: "json",
             success: onSuccess,
-            error: onFailure
+            error: onFailure,
+            data: oauth.authorize(request_data, token)
         });
         $("search-results-header").append("Best " + term " near " + location);
     };
@@ -24,7 +46,7 @@ var DashboardYelp = (function() {
             });
         };
         var onFailure = function() {
-
+            console.log("error searching Yelp");
         };
         makeSearchRequest(yelpUrl + "/v2/search?term=" + term + "&location=" + location,
                           onSuccess, onFailure);

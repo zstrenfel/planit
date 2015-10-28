@@ -1,14 +1,10 @@
 source 'https://rubygems.org'
 
-gem 'capybara'
-gem 'jasmine'
-gem 'figaro'
 gem 'yelp', require: 'yelp'
-gem 'zeus'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.4'
 
-gem 'pg'
+#gem 'pg'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
@@ -63,7 +59,6 @@ group :development, :test do
   gem "better_errors"
   #prints console out better
   gem "awesome_print", require:"ap"
-  gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'database_cleaner'
   gem 'shoulda-matchers'
@@ -78,8 +73,8 @@ group :development do
 end
 
 group :test do
-  gem 'capybara'
   gem 'guard-rspec'
   gem 'launchy'
+  gem 'jasmine'
 end
 

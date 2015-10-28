@@ -16,6 +16,4 @@ class ApplicationController < ActionController::Base
     # return the path based on resource
     return '/dashboard'
   end
-
-
 end

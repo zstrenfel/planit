@@ -1,15 +1,7 @@
-<%= javascript_tag do %>
-    $(window).load(function() {
-        Dashboard.start();
-    });
-<% end %>
 <div class="search-bar">
-    <div class="search-term">
-    </div>
-    <div class="search-location">
-    </div>
-    <div class="search-button">
-    </div>
+    <input class="search-term" type="text" size="25" value="Find...">
+    <input class="search-location" type="text" size="25" value="Near...">
+    <input class="search-button" type="submit" value="Search">
 </div>
 <div class="search-results-header"></div>
 <div class="search-results-list">
