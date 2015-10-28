@@ -9,6 +9,7 @@ class DestinationsController < ApplicationController
   	puts @destination
 	  if @destination.save
         @trip.destinations << @destination
+        p @trip
 	      json1 = {:status => 1, :destination => @destination}
 	      render :json => json1
 	  else
@@ -26,10 +27,10 @@ class DestinationsController < ApplicationController
 
   def load_all
     if !params[:trip_id]
-      render :json => {:status => -1, :errors => "Required field 'trip_id' missing"} 
+      render :json => {:status => -1, :errors => "Required field 'trip_id' missing"}
       return
     end
-      
+
     @destinations = Destination.where("trip_id = ?", params[:trip_id]).order("created_at ASC")
 
     if @destinations.blank?

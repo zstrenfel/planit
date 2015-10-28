@@ -14,5 +14,5 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require pages
-//= require dashboard
+//= require dashboardV2
 

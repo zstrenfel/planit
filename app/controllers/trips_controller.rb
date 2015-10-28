@@ -51,6 +51,10 @@ class TripsController < ApplicationController
     end
 
     def invite_friends
+        if !params[:id]
+          render :json => {:status => -1, :errors => "Required field 'trip_id' missing"}
+          return
+        end
         @trip = Trip.find(params[:id])
         @emails = params[:emails]
 
@@ -67,6 +71,22 @@ class TripsController < ApplicationController
         render json: @trip
     end
 
+    def destinations
+        if !params[:id]
+          render :json => {:status => -1, :errors => "Required field 'trip_id' missing"}
+          return
+        end
+
+        @trip = Trip.find(params[:id])
+        @destinations = @trip.destinations
+
+        if @destinations.blank?
+          render :json => {:status => -1, :errors => "Invalid trip id"}
+          return
+        end
+
+        render :json => { destinations: @destinations}
+    end
 
     private
         def trip_params
