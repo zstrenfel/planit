@@ -1,12 +1,12 @@
-var Dashboard = (function() {
-    //variables set here
-    var apiUrl = 'https://planit-169.herokuapp.com';
-    apiUrl = '';
+Dashboard = (function() {
+    var trip_id;
+    // var apiUrl = 'https://planit-169.herokuapp.com';
+    var apiUrl = '';
     var trip_id;
     var create;
     var submit;
 
-    //methods
+
 
     /**
     * HTTP GET request
@@ -45,66 +45,69 @@ var Dashboard = (function() {
         });
     };
 
-    var insertHeader = function(data) {
-        var $target = $('.trip-info');
-        var trip = data.trip;
-        var height = $('.invite-friends').height() + 70;
-        var down = false;
-        var $textarea = $('textarea[data-function="submit-friends"]');
+    /** One-stop shop to update the dashboard. This will make the request to get
+      * TRIP object, and pass it to the necessary call on click. Please put any
+      * functions that need to be called here.
+      */
+     var updateDash = function(data) {
+        var url = '/trips/' + trip_id;
+        var onSuccess = function(data) {
+            console.log("succesfully updated dash");
+            updateHeader(data.trip);
+            resetTable();
+            insertAllDest(data.trip);
+        };
 
-        //update header with ajax return info
-        updateHeader($target, trip);
+        var onFailure = function() {
+            console.log("something went wrong");
+        }
 
-        //watch invite friends for click
-        $('a[data-function="invite-friends"]').on('click', function(e) {
-            e.preventDefault();
-            if (!down) {
-                $('.invite-friends').animate({"top": '+=' + height}, 'slow','swing');
-                $('.main-content').css('opacity', .5);
-                down = true;
-            }
-        });
-
-        //watch submit/invite button for click
-        $('a.invite').on('click', function(e) {
-            e.preventDefault();
-            var text = $textarea.val();
-            var emails;
-            $('.invite-friends').animate({"top": '-=' + height}, 'slow','swing');
-            $('.main-content').delay(500).css('opacity', 1);
-            $textarea.val('');
-            down = false;
-            emails = text.replace(/\s+/g, '').split(',');
-
-            var onSuccess = function(data) {
-                updateHeader($target, data);
-            }
-
-            var onFailure = function() {
-                console.log("error inviting friends");
-            }
-
-            makePostRequest('/trips/' + trip_id + '/invite/', {'emails': emails}, onSuccess, onFailure);
-        })
-        $('.close').on('click', function(e){
-            e.preventDefault();
-            $('.invite-friends').animate({"top": '-=' + height}, 'slow','swing');
-            $('.main-content').delay(500).css('opacity', 1);
-            $textarea.val('');
-            down = false;
-        })
+        //if the ajax call has already been made
+        if (data) {
+            onSuccess(data);
+        } else {
+            makeGetRequest(url, onSuccess, onFailure)
+        }
     };
 
-    var updateHeader = function($target, trip) {
+    var updateHeader = function(trip) {
         console.log('updating');
+        // var trip = data.trip;
         var users = trip.users;
         var user_count = Object.keys(users).length;
+        console.log(trip);
         $('h1[data-header="location"]').html(trip.location);
         $('aside[data-header="invited-dates"').html("invited: " + user_count + " dates: " + trip.start_date + " - " + trip.end_date);
         $('a[data-function="invite-friends"').removeClass('hidden');
         $('a[data-function="form-save"').removeClass('hidden');
         menu_close();
     }
+
+    var toggleElement = function($that, offset, toggle) {
+        var height = $that.height() + offset;
+        if (toggle === "down") {
+            $that.animate({"top": '+=' + height}, 'slow','swing');
+            $('.main-content').css('opacity', .5);
+        } else {
+            $that.animate({"top": '-=' + height}, 'slow','swing');
+            $('.main-content').css('opacity', 1);
+        }
+    }
+
+
+/**
+ * ========================Handlers go below here =====================
+ * ====================================================================
+ */
+
+    var attachLocationHandler = function(e) {
+        $('li.location').on('click', function() {
+            trip_id = $(this).data('id');
+            updateDash();
+        })
+    };
+
+/** =======================Menu Handlers + Functions ========================= */
 
     //watches menu for open/close
     var attachMenuHandler = function(e) {
@@ -132,66 +135,9 @@ var Dashboard = (function() {
         $menu.animate({"left": '+=' + width}, 'slow','swing');
     }
 
-    var attachLocationHandler = function(e) {
-        $('li.location').on('click', function() {
-            var url = '/trips/' + $(this).data('id');
-            trip_id = $(this).data('id');
-            makeGetRequest(url, onSuccess, onFailure);
-        })
+/** =========================End Menu Handler ============================= */
 
-        var onSuccess = function(data) {
-            insertHeader(data);
-            loadDest(data.trip.destinations);
-            console.log("trip id " + trip_id);
-            console.log(data);
-        };
-        var onFailure = function() {
-            console.log("failure to get location information");
-        }
-    };
-
-    /**
-     * Add event handlers for submitting the create form.
-     * @return {None}
-     */
-    var attachCreateDestHandler = function(e) {
-
-        // The handler for the Post button in the form
-        create.on('click', function (e) {
-            e.preventDefault (); // Tell the browser to skip its default click action
-
-
-            var dest = {}; // Prepare the smile object to send to the server
-            dest.name = "Paris";
-            dest.address = "121 Dream Lane, France";
-            dest.trip_id = 1;
-
-
-            // FINISH ME (Task 4): collect the rest of the data for the smile
-            var onSuccess = function(data) {
-                if (!data.errors){
-                    console.log(data);
-                    insertDest(data["destination"]);
-                }else{
-                    for (i in data.errors){
-                        console.log(data.errors[i]);
-                    }
-                }
-                // FINISH ME (Task 4): insert smile at the beginning of the smiles container
-            };
-            var onFailure = function(data) {
-                console.log("failure");
-            };
-
-            // FINISH ME (Task 4): make a POST request to create the smile, then
-            //            hide the form and show the 'Shared a smile...' button
-            url = "/api/destinations"
-            makePostRequest(url, dest, onSuccess, onFailure);
-
-        });
-
-    };
-
+/** =========================Destination Handler + Functions ============== */
     var attachSubmitDestHandler = function(e) {
         submit.on('click', '.submit-input', function(e){
             e.preventDefault ();
@@ -202,10 +148,12 @@ var Dashboard = (function() {
             dest.address = address;
             dest.trip_id = 1;
 
-          	var onSuccess = function(data) {
+            var onSuccess = function(data) {
                 if (!data.errors){
                     console.log(data);
                     insertDest(data["destination"]);
+                    submit.find('.name-input').val('')
+                    submit.find('.address-input').val('')
                 }else{
                     for (i in data.errors){
                         console.log(data.errors[i]);
@@ -241,65 +189,49 @@ var Dashboard = (function() {
       var name_cell = row.insertCell(1);
       var address_cell = row.insertCell(2);
 
-
       // Add some text to the new cells:
       name_cell.innerHTML = dest.name;
       address_cell.innerHTML = dest.address;
       id_cell.innerHTML = dest.id;
     };
 
-    var insertAllDest = function(dests){
-    	d = dests["destinations"];
-    	for (i in d){
-    		insertDest(d[i]);
-    	}
+    var insertAllDest = function(trip){
+        var d = trip.destinations;
+        for (i in d){
+            insertDest(d[i]);
+        }
     };
 
-    // var loadDest = function(){
-    // 	var onSuccess = function(data) {
-    //             if (!data.errors){
-    //                 console.log(data);
-    //                 insertAllDest(data);
-    //             }else {
-    //                 console.log(data.errors);
-    //             }
-    //             // FINISH ME (Task 4): insert smile at the beginning of the smiles container
-    //         };
-    //         var onFailure = function(data) {
-    //             console.log("failure");
-    //         };
+    var resetTable = function() {
+        $('#destTable tr').not('.table-initial').remove();
+    }
 
-    // 	url = "trips/" + trip_id + "/destinations";
-    // 	console.log(url);
-    //     makeGetRequest(url, onSuccess, onFailure);
-    // };
+/** =======================End of destinations handlers ======================= */
 
-
-
-
+/** =======================Create Trip Handlers/Functions ===================== */
     var  attachCreateTripHandler= function(e) {
         var down = false;
-        var height = $('.create-edit-trip').height() + 70;
         var trip ={};
+
         $('.create-trip').on('click', function() {
             if (!down) {
-                $('.create-edit-trip').animate({"top": '+=' + height}, 'slow','swing');
-                $('.main-content').css('opacity', .5);
+                toggleElement($('.create-edit-trip'), 70, "down");
                 down = true;
             }
-
         })
+
+        //close without saving clear form
         $('a[data-function ="create-trip-close"]').on('click', function(e) {
             e.preventDefault();
-            $('.create-edit-trip').animate({"top": '-=' + height}, 'slow','swing');
-            $('.main-content').css('opacity', 1);
-            down = false;
+            toggleElement($('.create-edit-trip'), 70, "up");
             $('.trip-form').trigger("reset");
+            down = false;
         })
+
+        //save then save trip to db
         $('a[data-function ="save-trip"]').on('click', function(e) {
             e.preventDefault();
-            $('.create-edit-trip').animate({"top": '-=' + height}, 'slow','swing');
-            $('.main-content').css('opacity', 1);
+            toggleElement($('.create-edit-trip'), 70, "up");
             down = false;
             //getting trip fields
             trip.location = $('input[name="location').val();
@@ -311,19 +243,15 @@ var Dashboard = (function() {
             var valid = validateTripForm(trip); //returns true or false
 
             var onSuccess = function(data) {
-                console.log('successful');
-                console.log(data);
                 trip_id = data.trip.id;
-                updateHeader($('.trip-info'), data.trip)
+                updateDash();
             };
 
             var onFailure = function(data) {
                 console.log("failed to create a new trip object");
             }
 
-            if(valid) {
-                //make ajax call
-                console.log("valid");
+            if (valid) {
                 makePostRequest('/trips/', trip, onSuccess, onFailure);
                 $('.trip-form').trigger("reset");
             } else {
@@ -337,23 +265,63 @@ var Dashboard = (function() {
     var validateTripForm = function(trip) {
         return true;
     }
+/** ========================= End Location Handlers ============================ */
 
+/** ========================= Add Friends Handlers ==============================*/
 
-    //initiates everything how it should be
+    var attachFriendHandler = function(e) {
+        var down = false;
+        var $textarea = $('textarea[data-function="submit-friends"]');
+
+        //watch invite friends for click
+        $('a[data-function="invite-friends"]').on('click', function(e) {
+            e.preventDefault();
+            if (!down) {
+                toggleElement($('.invite-friends'), 70, "down");
+                down = true;
+            }
+
+        //watch submit/invite button for click
+        $('a.invite').on('click', function(e) {
+            e.preventDefault();
+            var text = $textarea.val();
+            var emails;
+            toggleElement($('.invite-friends'), 70, "up");
+            $textarea.val('');
+            down = false;
+
+            emails = text.replace(/\s+/g, '').split(',');
+            var onSuccess = function(data) {
+                updateDash(data);
+            }
+            var onFailure = function() {
+                console.log("error inviting friends");
+            }
+
+            makePostRequest('/trips/' + trip_id + '/invite/', {'emails': emails}, onSuccess, onFailure);
+        })
+        $('.close').on('click', function(e){
+            e.preventDefault();
+            toggleElement($('.invite-friends'), 70, "up");
+            $textarea.val('');
+            down = false;
+        })
+        });
+    }
+/** =========================End Handlers ===================================== */
+
     var start = function() {
-        console.log("starting");
+        create = $(".create");
+        submit = $(".submit");
 
         attachMenuHandler();
         attachLocationHandler();
-        loadDest();
-        create = $(".create");
-        attachCreateTripHandler();
-        submit = $(".submit");
         attachSubmitDestHandler();
+        attachFriendHandler();
+        attachCreateTripHandler();
     };
-
 
     return {
         start: start
     };
-})()
+})();

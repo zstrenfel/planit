@@ -5,6 +5,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.4'
 
 gem 'pg'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -34,6 +35,8 @@ gem 'neat'
 
 gem "active_model_serializers"
 
+gem 'rack-cors', :require => 'rack/cors' 
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -52,9 +55,10 @@ group :development, :test do
   #prints console out better
   gem "awesome_print", require:"ap"
   gem 'rspec-rails'
+  gem 'shoulda-matchers'
   gem 'factory_girl_rails'
   gem 'database_cleaner'
-  gem 'shoulda-matchers'
+
 end
 
 group :development do

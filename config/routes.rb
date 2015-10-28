@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
   resources :trips
   post '/trips/:id/invite', to: 'trips#invite_friends'
+  get '/trips/:id/destinations', to: 'trips#destinations'
   #pages routes
   get 'pages/index'
   root to: 'pages#index'
@@ -9,8 +10,8 @@ Rails.application.routes.draw do
 
   resources :destinations, only: [:index]
   post '/api/destinations', to:'destinations#create'
-  delete 'destinations', to: 'destinations#delete'
-  get '/api/destinations', to: 'destinations#load_all'
+  delete 'destinations', to: 'destinations#destroy_all'
+  # get '/api/destinations', to: 'destinations#load_all'
 
 
   # The priority is based upon order of creation: first created -> highest priority.
