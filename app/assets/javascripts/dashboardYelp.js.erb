@@ -40,23 +40,29 @@ var DashboardYelp = (function() {
 
     // Activate search button.
     var attachSearchHandler = function(e) {
-        var onSuccess = function(data) {
-            data.businesses.each(function(biz) {
-                insertResult(biz);
-            });
-        };
-        var onFailure = function() {
-            console.log("error searching Yelp");
-        };
+        searchButton.on('click', function(e) {
+            var onSuccess = function(data) {
+                data.businesses.each(function(biz) {
+                    insertResult(biz);
+                });
+            };
+            var onFailure = function() {
+                console.log("error searching Yelp");
+            };
+        });
+        term = $(".search-term").html();
+        location = $(".search-location").html();
         makeSearchRequest(yelpUrl + "/v2/search?term=" + term + "&location=" + location,
                           onSuccess, onFailure);
     };
 
     // Handle Yelp response (display search result).
     var insertResult = function(biz) {
-        newResult = $(resultTemplate);
+        var newResult = $(resultTemplate);
         newResult.find(".result-name").text(biz.name);
         newResult.find(".result-address").text(biz.location.address);
+        resultsList.append(newResult);
+        resultsList.append("bizname = " + biz.name);
         destData = { "name": biz.name, "address": biz.location.address };
         initAddButton(destData);
     };
@@ -64,31 +70,30 @@ var DashboardYelp = (function() {
     // Initialize add button with destination data and attach click handler
     var initAddButton = function(destData) {
         var attachAddButtonHandler = function(e) {
-        // The handler for the Post button in the form
-        addButton.on('click', function (e) {
-            e.preventDefault (); // Tell the browser to skip its default click action
-            var dest = {}; // Prepare the dest object to send to the server
-            dest.name = destData["name"];
-            dest.address = destData["address"];
-         
-            // collect the rest of the data for the dest
-            var onSuccess = function(data) {
-                if (!data.errors){
-                    console.log(data);
-                    insertDest(data["destination"]);
-                }else{
-                    for (i in data.errors){ 
-                        console.log(data.errors[i]); 
-                    } 
-                }
-            };
-            var onFailure = function(data) { 
-                console.log("failure");
-            };
-            url = "/api/destinations"
-            makePostRequest(url, dest, onSuccess, onFailure);
-        });
-    };
+            addButton.on('click', function (e) {
+                e.preventDefault (); // Tell the browser to skip its default click action
+                var dest = {}; // Prepare the dest object to send to the server
+                dest.name = destData["name"];
+                dest.address = destData["address"];
+             
+                // collect the rest of the data for the dest
+                var onSuccess = function(data) {
+                    if (!data.errors){
+                        console.log(data);
+                        insertDest(data["destination"]);
+                    }else{
+                        for (i in data.errors){ 
+                            console.log(data.errors[i]); 
+                        } 
+                    }
+                };
+                var onFailure = function(data) { 
+                    console.log("failure");
+                };
+                url = "/api/destinations"
+                makePostRequest(url, dest, onSuccess, onFailure);
+            });
+        };
     };
     
     //Create a new Destination
@@ -125,10 +130,9 @@ var DashboardYelp = (function() {
     // Handle requests to Yelp.
     // Handle responses from Yelp.
     var start = function() {
-        term = $(".search-term").html();
-        location = $(".search-location").html();
+        searchButton = $(".search-button");
         addButton = $(".add-button");
-        del = $(".delete");
+        resultsList = $(".search-results-list");
         resultTemplate = $(".search-results-list .search-result").outerHTML;
         attachSearchHandler();
         initAddButton();

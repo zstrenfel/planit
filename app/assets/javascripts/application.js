@@ -15,4 +15,5 @@
 //= require turbolinks
 //= require pages
 //= require dashboard
+//= require dashboardYelp
 
