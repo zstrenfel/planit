@@ -2,21 +2,21 @@ var DashboardYelp = (function() {
     
     var oauth = OAuth({
         consumer: {
-            public: <%= ENV['consumer_key'] %>,
-            secret: <%= ENV['consumer_secret'] %>
+            // public: <%= ENV['consumer_key'] %>,
+            // secret: <%= ENV['consumer_secret'] %>
         },
         signature_method: 'HMAC-SHA1'
     });
 
     var token = {
-        public: <%= ENV['token'] %>,
-        secret: <%= ENV['token_secret'] %>
+        // public: <%= ENV['token'] %>,
+        // secret: <%= ENV['token_secret'] %>
     };
 
     var yelpUrl = "https://api.yelp.com";
 
     // Send search request to Yelp API.
-    var makeSearchRequest = function(url, onSuccess, onFailure) {
+    var makeSearchRequest = function(url, term, location, onSuccess, onFailure) {
         var request_data = {
             url: yelpUrl + url,
             method: 'POST',
@@ -35,7 +35,7 @@ var DashboardYelp = (function() {
             error: onFailure,
             data: oauth.authorize(request_data, token)
         });
-        $("search-results-header").append("Best " + term " near " + location);
+        $("search-results-header").append("Best " + term + " near " + location);
     };
 
     // Activate search button.
@@ -53,7 +53,7 @@ var DashboardYelp = (function() {
         term = $(".search-term").html();
         location = $(".search-location").html();
         makeSearchRequest(yelpUrl + "/v2/search?term=" + term + "&location=" + location,
-                          onSuccess, onFailure);
+                          term, location, onSuccess, onFailure);
     };
 
     // Handle Yelp response (display search result).
@@ -90,7 +90,7 @@ var DashboardYelp = (function() {
                 var onFailure = function(data) { 
                     console.log("failure");
                 };
-                url = "/api/destinations"
+                url = "/api/destinations";
                 makePostRequest(url, dest, onSuccess, onFailure);
             });
         };
@@ -141,5 +141,4 @@ var DashboardYelp = (function() {
     return {
         start: start
     };
-
 })();
