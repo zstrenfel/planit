@@ -310,15 +310,51 @@ Dashboard = (function() {
     }
 /** =========================End Handlers ===================================== */
 
+var addresses = ['Asia', 'Europe'];
+    var map;
+    var infowindow = [];
+
+    function initializeMap(){
+        var myOptions = {
+            zoom: 1,
+            center: new google.maps.LatLng(0, 0),
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        map = new google.maps.Map(document.getElementById("Map"), myOptions);
+        for (var x = 0; x < addresses.length; x++) {
+            addMarker(addresses[x], map);
+        };
+   
+    }
+
+    function addMarker(address, map){
+        // calls Google API to convert address to latitudinal/longitudinal value 
+        $.getJSON('http://maps.googleapis.com/maps/api/geocode/json?address='+address+'&sensor=false', null, function (data) {
+            var p = data.results[0].geometry.location
+            var latlng = new google.maps.LatLng(p.lat, p.lng);
+            new google.maps.Marker({
+                position: latlng,
+                map: map
+            });
+
+        });        
+
+    }
+
+
+/** ==MAP== **/
+
     var start = function() {
         create = $(".create");
         submit = $(".submit");
 
+        initializeMap();
         attachMenuHandler();
         attachLocationHandler();
         attachSubmitDestHandler();
         attachFriendHandler();
         attachCreateTripHandler();
+        //initializeMap();
     };
 
     return {
