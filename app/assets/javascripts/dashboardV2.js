@@ -185,20 +185,21 @@ Dashboard = (function() {
       var row = table.insertRow(1);
 
       // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
-      var id_cell = row.insertCell(0);
-      var name_cell = row.insertCell(1);
-      var address_cell = row.insertCell(2);
+    
+      var name_cell = row.insertCell(0);
+      var address_cell = row.insertCell(1);
 
       // Add some text to the new cells:
       name_cell.innerHTML = dest.name;
       address_cell.innerHTML = dest.address;
-      id_cell.innerHTML = dest.id;
+      addMarker(dest.address,map);
     };
 
     var insertAllDest = function(trip){
         var d = trip.destinations;
         for (i in d){
             insertDest(d[i]);
+            // addMarker(d[i]["address"],map);
         }
     };
 
@@ -310,9 +311,9 @@ Dashboard = (function() {
     }
 /** =========================End Handlers ===================================== */
 
-var addresses = ['Asia', 'Europe'];
     var map;
     var infowindow = [];
+    var bounds = []; 
 
     function initializeMap(){
         var myOptions = {
@@ -321,9 +322,7 @@ var addresses = ['Asia', 'Europe'];
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         map = new google.maps.Map(document.getElementById("Map"), myOptions);
-        for (var x = 0; x < addresses.length; x++) {
-            addMarker(addresses[x], map);
-        };
+        bounds = new google.maps.LatLngBounds();
    
     }
 
@@ -332,10 +331,13 @@ var addresses = ['Asia', 'Europe'];
         $.getJSON('http://maps.googleapis.com/maps/api/geocode/json?address='+address+'&sensor=false', null, function (data) {
             var p = data.results[0].geometry.location
             var latlng = new google.maps.LatLng(p.lat, p.lng);
-            new google.maps.Marker({
+            marker = new google.maps.Marker({
                 position: latlng,
                 map: map
             });
+            bounds.extend(marker.position);
+            map.fitBounds(bounds);
+            // map.setZoom(8);
 
         });        
 
