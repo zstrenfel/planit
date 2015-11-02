@@ -45,6 +45,23 @@ Dashboard = (function() {
         });
     };
 
+    /**
+    * HTTP DELETE request
+    * @param  {string}   url       URL path, e.g. "/api/smiles"
+    * @param  {function} onSuccess   callback method to execute upon request success (200 status)
+    * @param  {function} onFailure   callback method to execute upon request failure (non-200 status)
+    * @return {None}
+    */
+   var makeDeleteRequest = function(url, onSuccess, onFailure) {
+       $.ajax({
+           type: 'DELETE',
+           url: apiUrl + url,
+           dataType: "json",
+           success: onSuccess,
+           error: onFailure
+       });
+   };    
+
     /** One-stop shop to update the dashboard. This will make the request to get
       * TRIP object, and pass it to the necessary call on click. Please put any
       * functions that need to be called here.
@@ -55,7 +72,9 @@ Dashboard = (function() {
             console.log("succesfully updated dash");
             updateHeader(data.trip);
             resetTable();
+            initializeMap();
             insertAllDest(data.trip);
+
         };
 
         var onFailure = function() {
@@ -188,10 +207,12 @@ Dashboard = (function() {
     
       var name_cell = row.insertCell(0);
       var address_cell = row.insertCell(1);
+      // var delete_cell = row.insertCell(2);
 
       // Add some text to the new cells:
       name_cell.innerHTML = dest.name;
       address_cell.innerHTML = dest.address;
+      // delete_cell.innerHTML = "<div class='del'>x</div>";
       addMarker(dest.address,map);
     };
 
@@ -199,7 +220,6 @@ Dashboard = (function() {
         var d = trip.destinations;
         for (i in d){
             insertDest(d[i]);
-            // addMarker(d[i]["address"],map);
         }
     };
 
@@ -337,7 +357,15 @@ Dashboard = (function() {
             });
             bounds.extend(marker.position);
             map.fitBounds(bounds);
-            // map.setZoom(8);
+
+            var infowindow = new google.maps.InfoWindow();
+            google.maps.event.addListener(marker, 'click', (function(marker) {
+            return function() {
+                var content = address;
+                infowindow.setContent(content);
+                infowindow.open(map, marker);
+            }
+            })(marker));
 
         });        
 
@@ -350,13 +378,11 @@ Dashboard = (function() {
         create = $(".create");
         submit = $(".submit");
 
-        initializeMap();
         attachMenuHandler();
         attachLocationHandler();
         attachSubmitDestHandler();
         attachFriendHandler();
         attachCreateTripHandler();
-        //initializeMap();
     };
 
     return {
