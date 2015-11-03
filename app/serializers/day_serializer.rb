@@ -12,10 +12,9 @@
 #  trip_id    :integer
 #
 
-require 'test_helper'
+class DaySerializer < ActiveModel::Serializer
+  attributes :id, :date, :start_time, :end_time, :home_base
 
-class DayTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  has_many :destinations
+  # belongs_to :trip
 end

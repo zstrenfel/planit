@@ -11,19 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151022231234) do
+ActiveRecord::Schema.define(version: 20151101233911) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "days", force: :cascade do |t|
     t.date     "date"
-    t.time     "start"
-    t.time     "end"
+    t.time     "start_time"
+    t.time     "end_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string   "homebase"
+    t.string   "home_base"
+    t.integer  "trip_id"
   end
+
+  add_index "days", ["trip_id"], name: "index_days_on_trip_id", using: :btree
 
   create_table "destinations", force: :cascade do |t|
     t.string   "name"

@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_filter :cors_preflight_check
   skip_before_filter  :verify_authenticity_token
+  include ActionController::Serialization
+
 
   def cors_preflight_check
     headers['Access-Control-Allow-Origin'] = '*'

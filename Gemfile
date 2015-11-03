@@ -35,7 +35,9 @@ gem 'neat'
 
 gem "active_model_serializers"
 
-gem 'rack-cors', :require => 'rack/cors' 
+gem 'rack-cors', :require => 'rack/cors'
+
+gem 'validates_timeliness', '~> 3.0'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

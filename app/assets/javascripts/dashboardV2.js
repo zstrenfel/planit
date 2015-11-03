@@ -59,7 +59,7 @@ Dashboard = (function() {
            success: onSuccess,
            error: onFailure
        });
-   };    
+   };
 
     /** One-stop shop to update the dashboard. This will make the request to get
       * TRIP object, and pass it to the necessary call on click. Please put any
@@ -277,7 +277,7 @@ Dashboard = (function() {
       var row = table.insertRow(1);
 
       // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
-    
+
       var name_cell = row.insertCell(0);
       var address_cell = row.insertCell(1);
       var edit_cell = row.insertCell(2);
@@ -410,7 +410,7 @@ Dashboard = (function() {
 
     var map;
     var infowindow = [];
-    var bounds = []; 
+    var bounds = [];
 
     function initializeMap(){
         var myOptions = {
@@ -420,11 +420,11 @@ Dashboard = (function() {
         };
         map = new google.maps.Map(document.getElementById("Map"), myOptions);
         bounds = new google.maps.LatLngBounds();
-   
+
     }
 
     function addMarker(address, map){
-        // calls Google API to convert address to latitudinal/longitudinal value 
+        // calls Google API to convert address to latitudinal/longitudinal value
         $.getJSON('http://maps.googleapis.com/maps/api/geocode/json?address='+address+'&sensor=false', null, function (data) {
             var p = data.results[0].geometry.location
             var latlng = new google.maps.LatLng(p.lat, p.lng);
@@ -444,7 +444,7 @@ Dashboard = (function() {
             }
             })(marker));
 
-        });        
+        });
 
     }
 
@@ -543,12 +543,16 @@ Dashboard = (function() {
             row.insertCell(3).innerHTML = '<div class="add" id="' + id + '">+</div>';
             $('#'+id).data('destInfo', { 'name': obj.name, 'address': obj.vicinity });
         }
-            
+
 
     } else if (status == google.maps.places.PlacesServiceStatus.ZERO_RESULTS) {
         alert('Sorry, nothing is found');
     }
 }
+/** ========================= End Add Friends Handlers ===================================== */
+
+/** ========================= Calendar Handlers ===================================== */
+
 
 /** =========================End Handlers ===================================== */
 

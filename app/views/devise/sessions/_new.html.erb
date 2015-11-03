@@ -3,11 +3,11 @@
   <div class="divider-line"></div>
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <div class="field">
-      <%= f.email_field :email, autofocus: true, :placeholder => :email %>
+      <%= f.email_field :email, autofocus: true, :placeholder => :email, id: "login-email" %>
     </div>
 
     <div class="field">
-      <%= f.password_field :password, autocomplete: "off", :placeholder => :password  %>
+      <%= f.password_field :password, autocomplete: "off", :placeholder => :password, id: "login-pw"  %>
     </div>
 
     <% if devise_mapping.rememberable? -%>
