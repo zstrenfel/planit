@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
   resources :trips
-  resources :days, only: [:index, :create, :update, :destroy]
+  resources :days, only: [:index, :create, :update, :destroy, :show]
   resources :destinations, only: [:index]
 
   get 'pages/index'

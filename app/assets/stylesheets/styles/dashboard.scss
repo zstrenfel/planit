@@ -165,8 +165,27 @@
 
 }
 
+.cal-container {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
+	position:relative;
+
+	.dest {
+		position: absolute;
+		height: 60px;
+		top: 50px;
+		left: 1500px;
+		background-color: red;
+		z-index: 100;
+		width: 100px;
+		opacity: .6;
+	}
+}
+
 .calendar table.cal-dests {
-	width: auto;
+	width: 100%;
 	height: auto;
 	background-color: white;
 	overflow-x: scroll;
@@ -189,6 +208,7 @@
 
 	td {
 		padding: 0;
+		height: 60px;
 	}
 
 	.half-cell {

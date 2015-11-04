@@ -430,7 +430,11 @@ Dashboard = (function() {
     var attachCalendarHandlers = function() {
         //needs to add an ajax call to update the day on change
         $('.cal-dates').on('click', 'td', function() {
-            console.log(this);
+            //change color of selected
+            //load data for that day
+            //update calendar with that data
+            var id = $(this).data("date-id");
+            makeGetRequest('/days/' + id, addCalDestinations, onFailureGlobal);
         })
     };
 
@@ -462,11 +466,13 @@ Dashboard = (function() {
         })
     }
 
-    var addCalDestinations = function(dest) {
-        if (dest) {
-            //load it in here and take it off the destination list
+    var addCalDestinations = function(data) {
+        var day = data.day;
+        if (day.destinations) {
+            $('.cal-container').prepend('<div class="dest">&nbsp;</div>');
             console.log('destinations have arrived');
         } else {
+            console.log(JSON.stringify(day));
             console.log('no destinations to log');
         }
     }

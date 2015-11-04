@@ -13,6 +13,8 @@ class DaysController < ApplicationController
   # GET /days/1
   # GET /days/1.json
   def show
+    @day = Day.find(params[:id])
+    render json: @day
   end
 
   # GET /days/new
