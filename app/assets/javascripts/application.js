@@ -14,6 +14,6 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require pages
+//= require oauth-1.0a
 //= require dashboard
 //= require dashboardYelp
-//= require oauth-1.0a
