@@ -16,7 +16,8 @@ class Day < ActiveRecord::Base
   belongs_to :trip
   has_many :destinations
 
-  validates :home_base, presence: true
-  validates :start_time, presence: true
-  validates :end_time, presence: true
+  validates :date, presence: true
+  # validates :home_base, presence: true
+  # validates :start_time, presence: true
+  # validates :end_time, presence: true
 end

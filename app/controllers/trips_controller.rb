@@ -22,6 +22,7 @@ class TripsController < ApplicationController
 
         if @trip.save
             p "saved"
+            create_days
             render :json => @trip
         else
             redirect_to root
@@ -88,8 +89,17 @@ class TripsController < ApplicationController
         render :json => { destinations: @destinations}
     end
 
+
+
     private
         def trip_params
             params.require(:trip).permit(:name, :location, :start_date, :end_date)
+        end
+
+        def create_days
+            days = (@trip.start_date..@trip.end_date).map(&:to_s)
+            days.each do |day|
+                @trip.days.create({date: day})
+            end
         end
 end

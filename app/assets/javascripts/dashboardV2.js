@@ -80,11 +80,12 @@ Dashboard = (function() {
      var updateDash = function(data) {
         var url = '/trips/' + trip_id;
         var onSuccess = function(data) {
-            console.log("succesfully updated dash");
+            console.log("succesfully updated dash " + JSON.stringify(data.trip));
             updateHeader(data.trip);
             resetTable();
             initializeMap();
             insertAllDest(data.trip);
+            updateCalendarTime(data.trip);
 
         };
 
@@ -304,6 +305,9 @@ Dashboard = (function() {
       address_cell.innerHTML = dest.address;
       edit_cell.innerHTML = "<div class='edit' id='"+ dest.id + "'>Edit</div>";
       delete_cell.innerHTML = "<div class='del' id='"+ dest.id + "'>x</div>";
+
+      row.setAttribute('data-dest-id',dest.id);
+      // delete_cell.innerHTML = "<div class='del'>x</div>";
       addMarker(dest.address,map);
     };
 
@@ -425,40 +429,49 @@ Dashboard = (function() {
 /** ========================= Add Map Handlers ==============================*/
     var attachCalendarHandlers = function() {
         //needs to add an ajax call to update the day on change
-        $('.change-time-frame').on('click', function(e) {
-            e.preventDefault();
-            var update = {}
-            update.start_time = $('select[name="start_time"').val();
-            update.end_time = $('select[name="end_time"').val();
-
-            makePutRequest('/days/1/', update, updateCalendarTime, onFailureGlobal);
+        $('.cal-dates').on('click', 'td', function() {
+            console.log(this);
         })
     };
 
     var updateCalendarTime = function(data) {
-        var day = data.day;
-        var $calendar = $(".day .table");
+        var day = data.days;
         var times = ["12AM", "1AM", "2AM", "3AM", "4AM", "5AM", "6AM", "7AM", "8AM", "9AM", "10AM", "11AM",
                  "12PM", "1PM", "2PM", "3PM", "4PM", "5PM", "6PM", "7PM", "8PM", "9PM", "10PM", "11PM"];
-        var start_time = new Date(day.start_time);
-        var end_time = new Date(day.end_time);
-        var start_index = start_time.getUTCHours();
-        var end_index = end_time.getUTCHours();
-
-
-        if (start_index > end_index) {
-            conosole.log("start time cannot be after the end time");
-            return;
-        }
-
-        var time_frame = times.slice (start_index, end_index + 1);
-
-        $calendar.append('<div class="tr" data-row="0">');
-        time_frame.forEach(function(time_block) {
-            $calendar.append('<div class="th time-label" data-time=' + '"' + time_block + '"' + '> '+ time_block + '</div>');
+        times.forEach(function(time_block) {
+            $('.calendar-hours').append('<th> '+ time_block + '</th>');
+            $('tr[data-row="0"]').append('<td>' + '<div class="half-cell">&nbsp;</div>' + '<div class="half-cell">&nbsp;</div>' +
+                                         '</td>');
         });
-        $calendar.append('</div>');
+        addCalDates(data.days);
     }
+
+    var addCalDates = function(days) {
+        var monthNames = [
+                          "January", "February", "March",
+                          "April", "May", "June", "July",
+                          "August", "September", "October",
+                          "November", "December"
+                        ];
+        days.forEach(function(day) {
+            var date_split = day.date.split('-');
+            var month = monthNames[date_split[1] - 1];
+            var date = date_split[2];
+            console.log(day);
+            $('table.cal-dates').append('<td data-date-id="' + day.id + '">' + date + " " + month + '</td>');
+        })
+    }
+
+    var addCalDestinations = function(dest) {
+        if (dest) {
+            //load it in here and take it off the destination list
+            console.log('destinations have arrived');
+        } else {
+            console.log('no destinations to log');
+        }
+    }
+
+
 
 /** =========================End Handlers ===================================== */
 
