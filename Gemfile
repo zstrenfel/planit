@@ -4,7 +4,7 @@ gem 'yelp', require: 'yelp'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.4'
 
-#gem 'pg'
+gem 'pg'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
@@ -35,6 +35,8 @@ gem 'neat'
 
 gem "active_model_serializers"
 
+gem 'rack-cors', :require => 'rack/cors' 
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -59,9 +61,10 @@ group :development, :test do
   gem "better_errors"
   #prints console out better
   gem "awesome_print", require:"ap"
+  gem 'shoulda-matchers'
   gem 'factory_girl_rails'
   gem 'database_cleaner'
-  gem 'shoulda-matchers'
+
 end
 
 group :development do

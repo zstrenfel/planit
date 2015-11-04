@@ -1,3 +1,4 @@
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <%= javascript_tag do %>
 	$(window).load(function() {
 	  	Dashboard.start();
@@ -17,6 +18,19 @@
 		<a href="" class="close right">close</a>
 	</div>
 </div>
+<div class="create-edit-trip">
+	<h2>Create Trip</h2>
+	<div class="divider-line"></div>
+	<form action="" class="trip-form">
+		<input type="text" name="location" placeholder ="Location">
+		<input type="text" name="name" placeholder="Trip Name">
+		<input type="text" name="start-date" placeholder = "Start Date">
+		<input type="text" name="end-date" placeholder = "End Date">
+		<a href="" data-function="save-trip">submit</a>
+		<a href="" class="right" data-function="create-trip-close">Close</a>
+	</form>
+
+</div>
 <!--  -->
 
 
@@ -31,30 +45,47 @@
 <div class="main-content">
 	<div class="trip-info">
 		<div class="half-col">
-			<h1>No Trip Selected</h1>
+			<h1 data-header="location">No Trip Selected</h1>
+			<aside data-header="invited-dates"></aside>
+			<aside><a href="" data-function="invite-friends" class="hidden">Invite more friends</a></aside>
 		</div>
+		<a href="" class="button hidden" data-function="form-save">SAVE</a>
 	</div>
 
 	<%= render 'shared/yelp_search' %>
 	<div class="destination-list">
 		<h1>Destinations</h1>
 		<table id="destTable">
-		<!--   <tr>
-		    <th>Destinations</th>
-		  </tr> -->
-		 <tr>
-		    <td>Id:</td>
+		 <tr class="table-initial">
 		    <td>Name:</td>
 		    <td>Address:</td>
+		    <!-- <td>Delete:</td> -->
 		 </tr>
 
 
 		</table>
+
 		<div class="big create">+</div>
 	</div>
-	<div class="map">
-	Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit suscipit consectetur, placeat alias eos temporibus autem tempora cum odio asperiores provident perspiciatis deleniti saepe recusandae. Harum iusto, ex tenetur neque.
+
+	<div class="submit">
+
+		<h1>Create Destination</h1>
+		<form method="get" action="index.html" class="form">
+                        <input type="text" placeholder="Name" class="name-input" name="name" />
+                        <input type="text" placeholder="Address" class="address-input" name="address" />
+                        <input type="submit" class="submit-input my-button" id="create-button"></input>
+
+
+
 	</div>
+
+	<div id="Map" style="width: 800px; height: 300px;">
+	</div>
+
+	<!-- <div class="map">
+	<img src="https://api.fnkr.net/testimg/800x300/00CED1/FFF/?text=img+placeholder">
+	</div> -->
 	<!-- For Iter 2 -->
 	<div class="calendar" style="display: hidden">
 	</div>

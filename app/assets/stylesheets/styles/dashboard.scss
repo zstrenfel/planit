@@ -86,6 +86,12 @@
 	background-color: $subtle;
 }
 
+.form{
+	width:500px;
+	float: left;
+	margin-bottom: 20px;
+}
+
 //invite friends
 .invite-friends {
 	border-radius: $base-border-radius;
@@ -98,6 +104,19 @@
     position: absolute;
     z-index: 100;
     padding: 10px;
+}
+
+.create-edit-trip {
+	border-radius: $base-border-radius;
+	background-color: $light-gray;
+	height: 280px;
+	width: 400px;
+	left: 50%;
+	top: -280px;
+	margin-left: -200px;
+	position: absolute;
+	z-index: 100;
+	padding: 10px;
 }
 
 //map styles
