@@ -64,6 +64,7 @@ group :development, :test do
   gem 'shoulda-matchers'
   gem 'factory_girl_rails'
   gem 'database_cleaner'
+  gem 'jasmine'
 
 end
 
@@ -78,6 +79,5 @@ end
 group :test do
   gem 'guard-rspec'
   gem 'launchy'
-  gem 'jasmine'
 end
 
