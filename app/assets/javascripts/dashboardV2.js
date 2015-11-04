@@ -45,6 +45,18 @@ Dashboard = (function() {
         });
     };
 
+    var makePutRequest = function(url, data, onSuccess, onFailure) {
+        $.ajax({
+            type: 'PUT',
+            url: apiUrl + url,
+            data: JSON.stringify(data),
+            contentType: "application/json",
+            dataType: "json",
+            success: onSuccess,
+            error: onFailure
+        });
+    }
+
     /**
     * HTTP DELETE request
     * @param  {function} onSuccess   callback method to execute upon request success (200 status)
@@ -110,6 +122,10 @@ Dashboard = (function() {
             $that.animate({"top": '-=' + height}, 'slow','swing');
             $('.main-content').css('opacity', 1);
         }
+    }
+
+    var onFailureGlobal = function(data) {
+        console.log(data);
     }
 
 
@@ -407,6 +423,44 @@ Dashboard = (function() {
 /** =========================End Friend Handlers ===================================== */
 
 /** ========================= Add Map Handlers ==============================*/
+    var attachCalendarHandlers = function() {
+        //needs to add an ajax call to update the day on change
+        $('.change-time-frame').on('click', function(e) {
+            e.preventDefault();
+            var update = {}
+            update.start_time = $('select[name="start_time"').val();
+            update.end_time = $('select[name="end_time"').val();
+
+            makePutRequest('/days/1/', update, updateCalendarTime, onFailureGlobal);
+        })
+    };
+
+    var updateCalendarTime = function(data) {
+        var day = data.day;
+        var $calendar = $(".day .table");
+        var times = ["12AM", "1AM", "2AM", "3AM", "4AM", "5AM", "6AM", "7AM", "8AM", "9AM", "10AM", "11AM",
+                 "12PM", "1PM", "2PM", "3PM", "4PM", "5PM", "6PM", "7PM", "8PM", "9PM", "10PM", "11PM"];
+        var start_time = new Date(day.start_time);
+        var end_time = new Date(day.end_time);
+        var start_index = start_time.getUTCHours();
+        var end_index = end_time.getUTCHours();
+
+
+        if (start_index > end_index) {
+            conosole.log("start time cannot be after the end time");
+            return;
+        }
+
+        var time_frame = times.slice (start_index, end_index + 1);
+
+        $calendar.append('<div class="tr" data-row="0">');
+        time_frame.forEach(function(time_block) {
+            $calendar.append('<div class="th time-label" data-time=' + '"' + time_block + '"' + '> '+ time_block + '</div>');
+        });
+        $calendar.append('</div>');
+    }
+
+/** =========================End Handlers ===================================== */
 
     var map;
     var infowindow = [];
@@ -445,7 +499,6 @@ Dashboard = (function() {
             })(marker));
 
         });
-
     }
 
 /** =========================End Map Handlers ===================================== */
@@ -491,7 +544,6 @@ Dashboard = (function() {
             makePostRequest(url, dest, onSuccess, onFailure);
 
         });
-
     }
 
     function findPlaces() {
@@ -569,7 +621,11 @@ Dashboard = (function() {
         attachSubmitDestHandler();
         attachFriendHandler();
         attachCreateTripHandler();
+<<<<<<< HEAD
         initializeSearch();
+=======
+        attachCalendarHandlers();
+>>>>>>> before i'm deleting everything and making it 24 hours
     };
 
     return {

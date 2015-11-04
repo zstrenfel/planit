@@ -137,40 +137,64 @@
 		<div class="labels"></div>
 		<div class="day">
 			<h3>May 4th</h3>
-			<aside>
-				Start Time: <input type="text" text="" name="start_time" placeholder="8:00AM">
-				End Time: <input type="text" text="" name="end_time" placeholder="11:00PM">
-			</aside>
-			<table>
-				<tr class="headings">
-					<td>8:00 AM</td>
-					<td>8:00 AM</td>
-					<td>8:00 AM</td>
-					<td>8:00 AM</td>
-					<td>8:00 AM</td>
-					<td>8:00 AM</td>
-					<td>8:00 AM</td>
-					<td>8:00 AM</td>
-					<td>8:00 AM</td>
-					<td>8:00 AM</td>
-					<td>8:00 AM</td>
-					<td>8:00 AM</td>
-				</tr>
-				<tr class="calendar-row" data-number="1">
-					<td class="hour"></td>
-					<td class="hour"></td>
-					<td class="hour"></td>
-					<td class="hour"></td>
-					<td class="hour"></td>
-					<td class="hour"></td>
-					<td class="hour"></td>
-					<td class="hour"></td>
-					<td class="hour"></td>
-					<td class="hour"></td>
-					<td class="hour"></td>
-					<td class="hour"></td>
-				</tr>
-			</table>
+			Start Time:
+			<select name="start_time" id="">
+				<option value="12AM">12:00AM</option>
+				<option value="1AM">1:00AM</option>
+				<option value="2AM">2:00AM</option>
+				<option value="3AM">3:00AM</option>
+				<option value="4AM">4:00AM</option>
+				<option value="5AM">5:00AM</option>
+				<option value="6AM">6:00AM</option>
+				<option value="7AM">7:00AM</option>
+				<option value="8AM">8:00AM</option>
+				<option value="9AM" selected>9:00AM</option>
+				<option value="10AM">10:00AM</option>
+				<option value="11AM">11:00AM</option>
+				<option value="12PM">12:00PM</option>
+				<option value="1PM">1:00PM</option>
+				<option value="2PM">2:00PM</option>
+				<option value="3PM">3:00PM</option>
+				<option value="4PM">4:00PM</option>
+				<option value="5PM">5:00PM</option>
+				<option value="6PM">6:00PM</option>
+				<option value="7PM">7:00PM</option>
+				<option value="8PM">8:00PM</option>
+				<option value="9PM">9:00PM</option>
+				<option value="10PM">10:00PM</option>
+				<option value="11PM">11:00PM</option>
+			</select>
+			End Time:
+			<select name="end_time" id="">
+				<option value="12AM">12:00AM</option>
+				<option value="1AM">1:00AM</option>
+				<option value="2AM">2:00AM</option>
+				<option value="3AM">3:00AM</option>
+				<option value="4AM">4:00AM</option>
+				<option value="5AM">5:00AM</option>
+				<option value="6AM">6:00AM</option>
+				<option value="7AM">7:00AM</option>
+				<option value="8AM">8:00AM</option>
+				<option value="9AM">9:00AM</option>
+				<option value="10AM">10:00AM</option>
+				<option value="11AM">11:00AM</option>
+				<option value="12PM">12:00PM</option>
+				<option value="1PM">1:00PM</option>
+				<option value="2PM">2:00PM</option>
+				<option value="3PM">3:00PM</option>
+				<option value="4PM">4:00PM</option>
+				<option value="5PM">5:00PM</option>
+				<option value="6PM">6:00PM</option>
+				<option value="7PM">7:00PM</option>
+				<option value="8PM">8:00PM</option>
+				<option value="9PM">9:00PM</option>
+				<option value="10PM" selected>10:00PM</option>
+				<option value="11PM">11:00PM</option>
+			</select>
+			<button data-day-id="1" class="change-time-frame">Submit</button>
+			<div class="table">
+			</div>
+
 		</div>
 	</div>
 	<!-- For Iter 2 -->

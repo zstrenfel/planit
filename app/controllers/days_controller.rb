@@ -43,14 +43,11 @@ class DaysController < ApplicationController
   # PATCH/PUT /days/1
   # PATCH/PUT /days/1.json
   def update
-    respond_to do |format|
       if @day.update(day_params)
-        format.html { redirect_to @day, notice: 'Day was successfully updated.' }
-        format.json { render :show, status: :ok, location: @day }
+        render :json => @day
       else
-        format.html { render :edit }
-        format.json { render json: @day.errors, status: :unprocessable_entity }
-      end
+        redirect_to root
+        p "error making trip. see controller to debug"
     end
   end
 
@@ -72,6 +69,6 @@ class DaysController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def day_params
-      params[:day]
+      params.require(:day).permit(:date, :start_time, :end_time, :home_base)
     end
 end
