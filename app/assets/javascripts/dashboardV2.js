@@ -329,7 +329,9 @@ Dashboard = (function() {
         })
         });
     }
-/** =========================End Handlers ===================================== */
+/** =========================End Friend Handlers ===================================== */
+
+/** ========================= Add Map Handlers ==============================*/
 
     var map;
     var infowindow = [];
@@ -371,18 +373,97 @@ Dashboard = (function() {
 
     }
 
+/** =========================End Map Handlers ===================================== */
+
+/** ========================= Add Search Handlers ==============================*/
+
+    function initializeSearch(){
+        submit1.on('click',  function(e){
+            e.preventDefault();
+            findPlaces();
+        });
+
+        $("#destList").on('click', ".add", function(e){
+            e.preventDefault();
+            dest = {};
+            dest.name = "Empire State Building";
+            dest.address = "New York";
+            insertDest(dest);
+
+        });
+
+    }
+
+    function findPlaces() {
+
+        // prepare variables (filter)
+        var type = document.getElementById('gmap_type').value;
+        // var radius = document.getElementById('gmap_radius').value;
+        var radius = 5000;
+        var keyword = document.getElementById('gmap_keyword').value;
+
+        var lat = document.getElementById('lat').value;
+        var lng = document.getElementById('lng').value;
+        var cur_location = new google.maps.LatLng(lat, lng);
+
+        // prepare request to Places
+        var request = {
+            location: cur_location,
+            radius: radius,
+            types: [type]
+        };
+        if (keyword) {
+            request.keyword = [keyword];
+        }
+
+        // send request
+        // service = new google.maps.places.PlacesService(map);
+        service = new google.maps.places.PlacesService($('#myDiv').get(0));
+        // service.search(request, createMarkers);
+        service.search(request, createList);
+    }
+
+    function createList(results, status){
+    if (status == google.maps.places.PlacesServiceStatus.OK) {
+        console.log(results);
+        var table = document.getElementById("destList");
+        for (var i = 0; i < results.length; i++) {
+            obj = results[i];
+            var rating = ""
+            if (obj.rating != undefined){
+                rating = obj.rating;
+            }
+
+            obj = results[i];
+            var row = table.insertRow(1);
+            row.insertCell(0).innerHTML = obj.name;
+            row.insertCell(1).innerHTML = obj.vicinity;
+            row.insertCell(2).innerHTML = rating;
+            row.insertCell(3).innerHTML = '<div class="add">+</div>';
+        }
+            
+
+    } else if (status == google.maps.places.PlacesServiceStatus.ZERO_RESULTS) {
+        alert('Sorry, nothing is found');
+    }
+}
+
+/** =========================End Handlers ===================================== */
+
 
 /** ==MAP== **/
 
     var start = function() {
         create = $(".create");
         submit = $(".submit");
+        submit1 = $(".search-button");
 
         attachMenuHandler();
         attachLocationHandler();
         attachSubmitDestHandler();
         attachFriendHandler();
         attachCreateTripHandler();
+        initializeSearch();
     };
 
     return {
