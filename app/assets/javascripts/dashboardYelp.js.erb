@@ -1,16 +1,15 @@
 var DashboardYelp = (function() {
-    
     var oauth = OAuth({
         consumer: {
-            // public: <%= ENV['consumer_key'] %>,
-            // secret: <%= ENV['consumer_secret'] %>
+            public: 'IeRXFUw8ahSfjDE0aHZ0XQ',
+            secret: 'RtqSfcASQ55OEx_0MsaGco2M0j4'
         },
         signature_method: 'HMAC-SHA1'
     });
 
     var token = {
-        // public: <%= ENV['token'] %>,
-        // secret: <%= ENV['token_secret'] %>
+        public: 'NN_cOw_0h2QhbtTTtNQF2H4V1OmyHgsu',
+        secret: '0RJP3gBbfqaAlxP899r3uiDzIGs'
     };
 
     var yelpUrl = "https://api.yelp.com";
