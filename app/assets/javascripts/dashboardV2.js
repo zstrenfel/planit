@@ -165,14 +165,11 @@ Dashboard = (function() {
             var dest = {};
             dest.name = name;
             dest.address = address;
-            dest.trip_id = 1;
 
             var onSuccess = function(data) {
                 if (!data.errors){
                     console.log(data);
                     insertDest(data["destination"]);
-                    submit.find('.name-input').val('')
-                    submit.find('.address-input').val('')
                 }else{
                     for (i in data.errors){
                         console.log(data.errors[i]);
@@ -385,10 +382,32 @@ Dashboard = (function() {
 
         $("#destList").on('click', ".add", function(e){
             e.preventDefault();
-            dest = {};
+
+            // var name = submit.find('.name-input').val();
+            // var address = submit.find('.address-input').val();
+            var dest = {};
             dest.name = "Empire State Building";
             dest.address = "New York";
-            insertDest(dest);
+
+            var onSuccess = function(data) {
+                if (!data.errors){
+                    console.log(data);
+                    insertDest(data["destination"]);
+                }else{
+                    for (i in data.errors){
+                        console.log(data.errors[i]);
+                    }
+                }
+
+            };
+            var onFailure = function(data) {
+                console.log("failure");
+
+            };
+            var that = this;
+            url = "/api/destinations?trip_id=" + trip_id;
+            console.log(url);
+            makePostRequest(url, dest, onSuccess, onFailure);
 
         });
 
