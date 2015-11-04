@@ -386,8 +386,11 @@ Dashboard = (function() {
             // var name = submit.find('.name-input').val();
             // var address = submit.find('.address-input').val();
             var dest = {};
-            dest.name = "Empire State Building";
-            dest.address = "New York";
+            // dest.name = "Empire State Building";
+            // dest.address = "New York";
+
+            dest.name = $('#'+this.id).data('destInfo')["name"];
+            dest.address = $('#'+this.id).data('destInfo')["address"];
 
             var onSuccess = function(data) {
                 if (!data.errors){
@@ -452,13 +455,14 @@ Dashboard = (function() {
             if (obj.rating != undefined){
                 rating = obj.rating;
             }
-
+            var id = obj.name.replace(/\s+/g, '');
             obj = results[i];
             var row = table.insertRow(1);
             row.insertCell(0).innerHTML = obj.name;
             row.insertCell(1).innerHTML = obj.vicinity;
             row.insertCell(2).innerHTML = rating;
-            row.insertCell(3).innerHTML = '<div class="add">+</div>';
+            row.insertCell(3).innerHTML = '<div class="add" id="' + id + '">+</div>';
+            $('#'+id).data('destInfo', { 'name': obj.name, 'address': obj.vicinity });
         }
             
 
