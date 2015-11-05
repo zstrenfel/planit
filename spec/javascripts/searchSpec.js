@@ -17,3 +17,20 @@ xdescribe("Search for destinations", function() {
   });
 
 });
+
+xdescribe("Update dashboard - chain of events", function() {
+  
+  it("calls the appropriate methods", function() {
+    // inside onSuccess
+    expect(updateHeader).toHaveBeenCalledWith(data.trip);
+    expect(resetTable).toHaveBeenCalled();
+    expect(initializeMap).toHaveBeenCalled();
+    expect(insertAllDest).toHaveBeenCalledWith(data.trip);
+  });
+
+});
+
+xdescribe("Ajax requests", function() {
+  
+});
+

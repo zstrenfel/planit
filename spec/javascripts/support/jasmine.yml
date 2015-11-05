@@ -12,7 +12,7 @@
 #
 src_files:
   - assets/application.js
-
+  - assets/mock-ajax.js
 # stylesheets
 #
 # Return an array of stylesheet filepaths relative to src_dir to include before jasmine specs.

@@ -1,4 +1,4 @@
-describe("Player", function() {
+xdescribe("Player", function() {
   var player;
   var song;
 

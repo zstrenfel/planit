@@ -15,6 +15,4 @@
 //= require turbolinks
 //= require pages
 //= require dashboardV2
-//= require jasmine_examples/Player
-//= require jasmine_examples/Song
 
