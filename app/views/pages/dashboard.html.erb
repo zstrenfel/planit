@@ -3,7 +3,6 @@
 <%= javascript_tag do %>
 	$(window).load(function() {
 	  	Dashboard.start();
-	  	DashboardYelp.start();
   	});
 <% end %>
 <!-- offscreen -->
@@ -53,7 +52,6 @@
 		<a href="" class="button hidden" data-function="form-save">SAVE</a>
 	</div>
 
-	<%= render 'shared/yelp_search' %>
 	<div class="destination-list">
 		<h1>Destinations</h1>
 		<table id="destTable">
