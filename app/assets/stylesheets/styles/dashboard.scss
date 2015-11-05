@@ -126,5 +126,16 @@
 	background-color: $subtle;
 }
 
+//search styles
+.search {
+	@include span-columns(7);
+	@include omega;
+	background-color: $subtle;
+}
+
+#destList{
+	float: left;
+}
+
 
 //calendar styles

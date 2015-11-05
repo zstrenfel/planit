@@ -1,4 +1,5 @@
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<!-- <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script> -->
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
 <%= javascript_tag do %>
 	$(window).load(function() {
 	  	Dashboard.start();
@@ -80,7 +81,44 @@
 
 	</div>
 
-	<div id="Map" style="width: 800px; height: 300px;">
+	<div class="search">
+		<div id="myDiv"></div>
+		<div class="actions">
+		    <div class="button">
+		        <label for="gmap_where">Where:</label>
+		        <input id="gmap_where" type="text" name="gmap_where" /></div>
+		    <div id="button2" class="button" onclick="findAddress(); return false;">Search for address</div>
+		    <div class="button">
+		        <label for="gmap_keyword">Keyword (optional):</label>
+		        <input id="gmap_keyword" type="text" name="gmap_keyword" /></div>
+		    <div class="button">
+		        <label for="gmap_type">Type:</label>
+		        <select id="gmap_type">
+		            <option value="art_gallery">art_gallery</option>
+		            <option value="bar">bar</option>
+		            <option value="cafe">cafe</option>
+		            <option value="food">food</option>
+		            <option value="store">store</option>
+		        </select>
+		    </div>
+		    <input type="hidden" id="lat" name="lat" value="40.7143528" />
+		    <input type="hidden" id="lng" name="lng" value="-74.0059731" />
+		    <!-- <div type ="submit" class="search-button button">Search for objects</div> -->
+		    <input type="submit" class="search-button my-button" id="create-button"></input>
+
+
+	</div>
+		    <table id="destList">
+		    	<tr>
+		    		<td> Name </td>
+		    		<td> Address </td>
+		    		<td> Rating </td>
+		    		<td class="add">Add</td>
+		    	</tr>
+		    </table>
+		</div>
+
+	<div id="Map" class="map" style="width: 800px; height: 300px;">
 	</div>
 
 	<!-- <div class="map">
