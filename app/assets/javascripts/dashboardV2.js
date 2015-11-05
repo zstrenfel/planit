@@ -526,6 +526,7 @@ Dashboard = (function() {
     function createList(results, status){
     if (status == google.maps.places.PlacesServiceStatus.OK) {
         console.log(results);
+        $("#destList").find("tr:gt(0)").remove();
         var table = document.getElementById("destList");
         for (var i = 0; i < results.length; i++) {
             obj = results[i];
