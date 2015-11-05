@@ -47,7 +47,6 @@ Dashboard = (function() {
 
     /**
     * HTTP DELETE request
-    * @param  {string}   url       URL path, e.g. "/api/smiles"
     * @param  {function} onSuccess   callback method to execute upon request success (200 status)
     * @param  {function} onFailure   callback method to execute upon request failure (non-200 status)
     * @return {None}
@@ -186,7 +185,84 @@ Dashboard = (function() {
             console.log(url);
             makePostRequest(url, dest, onSuccess, onFailure);
         });
+
+
+        $('#destTable').on('click', '.del', function(e){
+            e.preventDefault ();
+
+            var onSuccess = function(data) {
+                if (!data.errors){
+                    console.log(data);
+                    console.log("DELETED!");
+                }else{
+                    for (i in data.errors){
+                        console.log(data.errors[i]);
+                    }
+                }
+
+            };
+            var onFailure = function(data) {
+                console.log("failure");
+
+            };
+            var that = this;
+            id = this.id;
+            url = "/api/destinations?id=" + id;
+            console.log(url);
+            makeDeleteRequest(url, onSuccess, onFailure);
+        });
+
+
+
+        $('#destTable').on('click', '.edit', function(e){
+            e.preventDefault();
+            $('.edit_form').removeClass('hide');
+            $('.edit_form .submit-input').attr('id',this.id);
+        });
+
+
+        $('.edit_form').on('click', '.submit-input', function(e){
+            e.preventDefault ();
+            var date = $('.edit_form').find('.date-input').val();
+            var time = $('.edit_form').find('.time-input').val();
+            var duration = $('.edit_form').find('.duration-input').val();
+
+            var dest = {};
+            dest.date = date;
+            dest.time = time;
+            dest.duration = duration;
+
+            var onSuccess = function(data) {
+                if (!data.errors){
+                    console.log(data);
+                    insertDest(data["destination"]);
+                }else{
+                    for (i in data.errors){
+                        console.log(data.errors[i]);
+                    }
+                }
+
+            };
+            var onFailure = function(data) {
+                console.log("failure");
+
+            };
+            var that = this;
+            var id = this.id;
+            url = "/api/destinations/edit?id=" + id;
+            console.log(url);
+            makePostRequest(url, dest, onSuccess, onFailure);
+        });
+
+
+
+
+
     };
+
+
+
+
 
         /**
      * Insert dest into Itinerary List Table
@@ -204,12 +280,14 @@ Dashboard = (function() {
     
       var name_cell = row.insertCell(0);
       var address_cell = row.insertCell(1);
-      // var delete_cell = row.insertCell(2);
+      var edit_cell = row.insertCell(2);
+      var delete_cell = row.insertCell(3);
 
       // Add some text to the new cells:
       name_cell.innerHTML = dest.name;
       address_cell.innerHTML = dest.address;
-      // delete_cell.innerHTML = "<div class='del'>x</div>";
+      edit_cell.innerHTML = "<div class='edit' id='"+ dest.id + "'>Edit</div>";
+      delete_cell.innerHTML = "<div class='del' id='"+ dest.id + "'>x</div>";
       addMarker(dest.address,map);
     };
 

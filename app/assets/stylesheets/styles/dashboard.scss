@@ -133,9 +133,20 @@
 	background-color: $subtle;
 }
 
-#destList{
-	float: left;
+.edit_form{
+	@include span-columns(2);
+	@include omega;
+	background-color: $subtle;
+	
 }
+
+.hide{
+	visibility: hidden;	
+}
+
+/*#destList{
+	float: left;
+}*/
 
 
 //calendar styles
