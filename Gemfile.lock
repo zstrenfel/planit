@@ -74,6 +74,7 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
+    docile (1.1.5)
     erubis (2.7.0)
     execjs (2.6.0)
     factory_girl (4.5.0)
@@ -145,6 +146,7 @@ GEM
       nenv (~> 0.1)
       shellany (~> 0.0)
     orm_adapter (0.5.0)
+    pg (0.18.3)
     phantomjs (1.9.8.0)
     pry (0.10.3)
       coderay (~> 1.1.0)
@@ -225,6 +227,11 @@ GEM
     shoulda-matchers (3.0.1)
       activesupport (>= 4.0.0)
     simple_oauth (0.3.1)
+    simplecov (0.10.0)
+      docile (~> 1.1.0)
+      json (~> 1.8)
+      simplecov-html (~> 0.10.0)
+    simplecov-html (0.10.0)
     slop (3.6.0)
     spring (1.4.0)
     sprockets (3.4.0)
@@ -285,6 +292,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   shoulda-matchers
+  simplecov
   spring
   sqlite3
   turbolinks
