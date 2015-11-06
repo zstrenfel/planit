@@ -43,6 +43,7 @@ class DestinationsController < ApplicationController
 
   def update
      @destination = Destination.find(params[:id])
+     p dest_params
       if @destination.update(dest_params)
 	      json1 = {:status => 1, :destination => @destination}
 	      render :json => json1
@@ -70,7 +71,7 @@ def destroy
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def dest_params
-      params.require(:destination).permit(:name, :date, :time, :address, :trip_id)
+      params.require(:destination).permit(:name, :date, :time, :address, :trip_id, :duration)
     end
 
 

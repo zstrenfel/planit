@@ -262,24 +262,14 @@ Dashboard = (function() {
             };
             var onFailure = function(data) {
                 console.log("failure");
-
             };
             var that = this;
             var id = this.id;
             url = "/api/destinations/edit?id=" + id;
             console.log(url);
-            makePostRequest(url, dest, onSuccess, onFailure);
+            makePutRequest(url, dest, onSuccess, onFailure);
         });
-
-
-
-
-
     };
-
-
-
-
 
         /**
      * Insert dest into Itinerary List Table
@@ -488,7 +478,7 @@ Dashboard = (function() {
                       'width': dest.duration * 75 + 'px',
                        'top': 50 + (row * 60)+ 'px',
                        'background-color': colors[color_index] };
-        var $dest_div = $('<div></div>').attr("data-dest-id", dest.id).attr("data-cal-row", row).addClass("dest").html(dest.ne);
+        var $dest_div = $('<div></div>').attr("data-dest-id", dest.id).attr("data-cal-row", row).addClass("dest").html(dest.name);
         var start = hours.indexOf(date.getUTCHours());
         var end = start + dest.duration + 1;
         var time_block = hours.slice(start, end);
@@ -701,11 +691,8 @@ Dashboard = (function() {
         attachSubmitDestHandler();
         attachFriendHandler();
         attachCreateTripHandler();
-<<<<<<< HEAD
         initializeSearch();
-=======
         attachCalendarHandlers();
->>>>>>> before i'm deleting everything and making it 24 hours
     };
 
     return {

@@ -12,8 +12,10 @@ Rails.application.routes.draw do
   get '/trips/:id/destinations', to: 'trips#destinations'
 
 
+
   post '/api/destinations', to:'destinations#create'
   delete 'destinations', to: 'destinations#destroy_all'
+  put 'api/destinations/edit', to: 'destinations#update'
 
 
 
