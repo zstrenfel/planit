@@ -166,6 +166,7 @@ Dashboard = (function() {
             dest.name = name;
             dest.address = address;
             dest.trip_id = 1;
+            dest.like_count = 0;
 
             var onSuccess = function(data) {
                 if (!data.errors){
@@ -189,6 +190,7 @@ Dashboard = (function() {
             console.log(url);
             makePostRequest(url, dest, onSuccess, onFailure);
         });
+        
     };
 
         /**
@@ -208,6 +210,57 @@ Dashboard = (function() {
       var name_cell = row.insertCell(0);
       var address_cell = row.insertCell(1);
       // var delete_cell = row.insertCell(2);
+      
+      var like_cell = row.insertCell(2);
+      like_cell.innerHTML = '<%= link_to 'like', vote_path(@post), class: 'vote', remote: true, data: { type: :json } %>';
+      //'<button id="like-btn" type="button">Like</button>';
+      var like_count_cell = row.insertCell(3);
+      like_count_cell.innerHTML= dest.like_count;
+
+      $('#like-btn').click(function() {
+        dest.like_count += 1;
+        like_count_cell.innerHTML=dest.like_count;
+        sortTable();
+      })
+    
+      var sortTable= function() {
+        for (var i = 0, row; row = table.rows[i]; i++) {
+          var j = i + 1;
+          if i[3] > j[3] {
+            return 
+          }
+
+    // get the text of n-th <td> of <tr> 
+    var A = $(a).children('td').eq(n).text().toUpperCase();
+    var B = $(b).children('td').eq(n).text().toUpperCase();
+    if(A < B) {
+     return -1*f;
+    }
+    if(A > B) {
+     return 1*f;
+    }
+    return 0;
+  });
+
+  $.each(rows, function(index, row) {
+    $('#mytable').children('tbody').append(row);
+  });
+}
+var f_sl = 1; // flag to toggle the sorting order
+var f_nm = 1; // flag to toggle the sorting order
+$("#sl").click(function(){
+    f_sl *= -1; // toggle the sorting order
+    var n = $(this).prevAll().length;
+    sortTable(f_sl,n);
+});
+$("#nm").click(function(){
+    f_nm *= -1; // toggle the sorting order
+    var n = $(this).prevAll().length;
+    sortTable(f_nm,n);
+});
+      }
+
+
 
       // Add some text to the new cells:
       name_cell.innerHTML = dest.name;
@@ -226,7 +279,9 @@ Dashboard = (function() {
     var resetTable = function() {
         $('#destTable tr').not('.table-initial').remove();
     }
-
+    
+        
+    
 /** =======================End of destinations handlers ======================= */
 
 /** =======================Create Trip Handlers/Functions ===================== */
@@ -457,6 +512,7 @@ Dashboard = (function() {
         create = $(".create");
         submit = $(".submit");
         submit1 = $(".search-button");
+        like = $(".like-btn");
 
         attachMenuHandler();
         attachLocationHandler();
@@ -464,6 +520,7 @@ Dashboard = (function() {
         attachFriendHandler();
         attachCreateTripHandler();
         initializeSearch();
+        attachLikeHandler();
     };
 
     return {
