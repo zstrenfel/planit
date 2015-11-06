@@ -227,7 +227,7 @@ Dashboard = (function() {
 /** =======================End of destinations handlers ======================= */
 
 /** =======================Create Trip Handlers/Functions ===================== */
-    var  attachCreateTripHandler= function(e) {
+    var attachCreateTripHandler= function(e) {
         var down = false;
         var trip ={};
 
