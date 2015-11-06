@@ -212,8 +212,8 @@ Dashboard = (function() {
       // var delete_cell = row.insertCell(2);
       
       var like_cell = row.insertCell(2);
-      like_cell.innerHTML = '<%= link_to 'like', vote_path(@post), class: 'vote', remote: true, data: { type: :json } %>';
-      //'<button id="like-btn" type="button">Like</button>';
+      like_cell.innerHTML = '<button id="like-btn" type="button">Like</button>';
+      //<%= link_to 'like', vote_path(@post), class: 'vote', remote: true, data: { type: :json } %>';
       var like_count_cell = row.insertCell(3);
       like_count_cell.innerHTML= dest.like_count;
 
@@ -223,15 +223,15 @@ Dashboard = (function() {
         sortTable();
       })
     
-      var sortTable= function() {
+      /*var sortTable= function() {
         for (var i = 0, row; row = table.rows[i]; i++) {
           var j = i + 1;
           if i[3] > j[3] {
             return 
-          }
+          }*/
 
     // get the text of n-th <td> of <tr> 
-    var A = $(a).children('td').eq(n).text().toUpperCase();
+    /*var A = $(a).children('td').eq(n).text().toUpperCase();
     var B = $(b).children('td').eq(n).text().toUpperCase();
     if(A < B) {
      return -1*f;
@@ -258,7 +258,7 @@ $("#nm").click(function(){
     var n = $(this).prevAll().length;
     sortTable(f_nm,n);
 });
-      }
+      }*/
 
 
 
