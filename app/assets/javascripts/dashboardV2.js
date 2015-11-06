@@ -166,6 +166,7 @@ Dashboard = (function() {
             dest.name = name;
             dest.address = address;
             dest.trip_id = 1;
+            dest.like_count = 0;
 
             var onSuccess = function(data) {
                 if (!data.errors){
@@ -189,6 +190,7 @@ Dashboard = (function() {
             console.log(url);
             makePostRequest(url, dest, onSuccess, onFailure);
         });
+        
     };
 
         /**
@@ -208,6 +210,19 @@ Dashboard = (function() {
       var name_cell = row.insertCell(0);
       var address_cell = row.insertCell(1);
       // var delete_cell = row.insertCell(2);
+      
+      var like_cell = row.insertCell(2);
+      like_cell.innerHTML = '<button id="like-btn" type="button">Like</button>';
+      var like_count_cell = row.insertCell(3);
+      like_count_cell.innerHTML= dest.like_count;
+
+      $('#like-btn').click(function() {
+        dest.like_count += 1;
+        like_count_cell.innerHTML=dest.like_count;
+      })
+    
+
+
 
       // Add some text to the new cells:
       name_cell.innerHTML = dest.name;
@@ -226,7 +241,9 @@ Dashboard = (function() {
     var resetTable = function() {
         $('#destTable tr').not('.table-initial').remove();
     }
-
+    
+        
+    
 /** =======================End of destinations handlers ======================= */
 
 /** =======================Create Trip Handlers/Functions ===================== */
@@ -457,6 +474,7 @@ Dashboard = (function() {
         create = $(".create");
         submit = $(".submit");
         submit1 = $(".search-button");
+        like = $(".like-btn");
 
         attachMenuHandler();
         attachLocationHandler();
@@ -464,6 +482,7 @@ Dashboard = (function() {
         attachFriendHandler();
         attachCreateTripHandler();
         initializeSearch();
+        attachLikeHandler();
     };
 
     return {
