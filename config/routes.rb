@@ -20,10 +20,11 @@ Rails.application.routes.draw do
 
   post '/api/destinations', to:'destinations#create'
   delete 'destinations', to: 'destinations#destroy_all'
+
   delete '/api/destinations', to: 'destinations#destroy'
   put 'api/destinations/edit', to: 'destinations#update'
 
-
+  
 
 
 

@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-
+gem 'yelp', require: 'yelp'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.4'
 
@@ -51,7 +51,13 @@ gem 'jquery-ui-rails'
 # gem 'capistrano-rails', group: :development
   gem 'ffaker'
 
+group :production do
+  #gem 'pg'
+  gem 'rails_12factor'
+end
+
 group :development, :test do
+  gem 'sqlite3'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   #Creates a better error page
@@ -59,10 +65,11 @@ group :development, :test do
   #prints console out better
   gem "awesome_print", require:"ap"
   gem 'rspec-rails'
+  gem 'capybara'
   gem 'shoulda-matchers'
   gem 'factory_girl_rails'
   gem 'database_cleaner'
-
+  gem 'jasmine'
 end
 
 group :development do
@@ -74,8 +81,8 @@ group :development do
 end
 
 group :test do
-  gem 'capybara'
   gem 'guard-rspec'
   gem 'launchy'
+  gem 'simplecov'
 end
 

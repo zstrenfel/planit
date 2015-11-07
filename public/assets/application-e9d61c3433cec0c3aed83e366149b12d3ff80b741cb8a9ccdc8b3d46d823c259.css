@@ -1,0 +1,596 @@
+/*
+
+
+*/
+/* line 1, /home/sean/Documents/planit/app/assets/stylesheets/base/bitters/_buttons.scss */
+button, input[type="button"], input[type="reset"], input[type="submit"] {
+  appearance: none;
+  background-color: #477dca;
+  border: 0;
+  border-radius: 3px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+  font-size: 1em;
+  -webkit-font-smoothing: antialiased;
+  font-weight: 600;
+  line-height: 1;
+  padding: 0.65em 1.3em;
+  text-decoration: none;
+  transition: background-color 150ms ease;
+  user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+/* line 21, /home/sean/Documents/planit/app/assets/stylesheets/base/bitters/_buttons.scss */
+button:hover, button:focus, input[type="button"]:hover, input[type="button"]:focus, input[type="reset"]:hover, input[type="reset"]:focus, input[type="submit"]:hover, input[type="submit"]:focus {
+  background-color: #3964a2;
+  color: #fff;
+}
+/* line 27, /home/sean/Documents/planit/app/assets/stylesheets/base/bitters/_buttons.scss */
+button:disabled, input[type="button"]:disabled, input[type="reset"]:disabled, input[type="submit"]:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+/* line 31, /home/sean/Documents/planit/app/assets/stylesheets/base/bitters/_buttons.scss */
+button:disabled:hover, input[type="button"]:disabled:hover, input[type="reset"]:disabled:hover, input[type="submit"]:disabled:hover {
+  background-color: #477dca;
+}
+
+/* line 1, /home/sean/Documents/planit/app/assets/stylesheets/base/bitters/_forms.scss */
+fieldset {
+  background-color: #f7f7f7;
+  border: 1px solid #ddd;
+  margin: 0 0 0.65em;
+  padding: 1.3em;
+}
+
+/* line 8, /home/sean/Documents/planit/app/assets/stylesheets/base/bitters/_forms.scss */
+input,
+label,
+select {
+  display: block;
+  font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+  font-size: 1em;
+}
+
+/* line 16, /home/sean/Documents/planit/app/assets/stylesheets/base/bitters/_forms.scss */
+label {
+  font-weight: 600;
+  margin-bottom: 0.325em;
+}
+/* line 20, /home/sean/Documents/planit/app/assets/stylesheets/base/bitters/_forms.scss */
+label.required::after {
+  content: "*";
+}
+/* line 24, /home/sean/Documents/planit/app/assets/stylesheets/base/bitters/_forms.scss */
+label abbr {
+  display: none;
+}
+
+/* line 29, /home/sean/Documents/planit/app/assets/stylesheets/base/bitters/_forms.scss */
+input[type="color"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="email"], input[type="month"], input[type="number"], input[type="password"], input[type="search"], input[type="tel"], input[type="text"], input[type="time"], input[type="url"], input[type="week"], input:not([type]), textarea,
+select[multiple=multiple] {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06);
+  box-sizing: border-box;
+  font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+  font-size: 1em;
+  margin-bottom: 0.65em;
+  padding: 0.43333em;
+  transition: border-color 150ms ease;
+  width: 100%;
+}
+/* line 43, /home/sean/Documents/planit/app/assets/stylesheets/base/bitters/_forms.scss */
+input[type="color"]:hover, input[type="date"]:hover, input[type="datetime"]:hover, input[type="datetime-local"]:hover, input[type="email"]:hover, input[type="month"]:hover, input[type="number"]:hover, input[type="password"]:hover, input[type="search"]:hover, input[type="tel"]:hover, input[type="text"]:hover, input[type="time"]:hover, input[type="url"]:hover, input[type="week"]:hover, input:not([type]):hover, textarea:hover,
+select[multiple=multiple]:hover {
+  border-color: #b1b1b1;
+}
+/* line 47, /home/sean/Documents/planit/app/assets/stylesheets/base/bitters/_forms.scss */
+input[type="color"]:focus, input[type="date"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="email"]:focus, input[type="month"]:focus, input[type="number"]:focus, input[type="password"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="text"]:focus, input[type="time"]:focus, input[type="url"]:focus, input[type="week"]:focus, input:not([type]):focus, textarea:focus,
+select[multiple=multiple]:focus {
+  border-color: #477dca;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06), 0 0 5px rgba(55, 112, 192, 0.7);
+  outline: none;
+}
+/* line 53, /home/sean/Documents/planit/app/assets/stylesheets/base/bitters/_forms.scss */
+input[type="color"]:disabled, input[type="date"]:disabled, input[type="datetime"]:disabled, input[type="datetime-local"]:disabled, input[type="email"]:disabled, input[type="month"]:disabled, input[type="number"]:disabled, input[type="password"]:disabled, input[type="search"]:disabled, input[type="tel"]:disabled, input[type="text"]:disabled, input[type="time"]:disabled, input[type="url"]:disabled, input[type="week"]:disabled, input:not([type]):disabled, textarea:disabled,
+select[multiple=multiple]:disabled {
+  background-color: #f2f2f2;
+  cursor: not-allowed;
+}
+/* line 57, /home/sean/Documents/planit/app/assets/stylesheets/base/bitters/_forms.scss */
+input[type="color"]:disabled:hover, input[type="date"]:disabled:hover, input[type="datetime"]:disabled:hover, input[type="datetime-local"]:disabled:hover, input[type="email"]:disabled:hover, input[type="month"]:disabled:hover, input[type="number"]:disabled:hover, input[type="password"]:disabled:hover, input[type="search"]:disabled:hover, input[type="tel"]:disabled:hover, input[type="text"]:disabled:hover, input[type="time"]:disabled:hover, input[type="url"]:disabled:hover, input[type="week"]:disabled:hover, input:not([type]):disabled:hover, textarea:disabled:hover,
+select[multiple=multiple]:disabled:hover {
+  border: 1px solid #ddd;
+}
+
+/* line 63, /home/sean/Documents/planit/app/assets/stylesheets/base/bitters/_forms.scss */
+textarea {
+  resize: vertical;
+}
+
+/* line 67, /home/sean/Documents/planit/app/assets/stylesheets/base/bitters/_forms.scss */
+input[type="search"] {
+  appearance: none;
+}
+
+/* line 71, /home/sean/Documents/planit/app/assets/stylesheets/base/bitters/_forms.scss */
+input[type="checkbox"],
+input[type="radio"] {
+  display: inline;
+  margin-right: 0.325em;
+}
+/* line 76, /home/sean/Documents/planit/app/assets/stylesheets/base/bitters/_forms.scss */
+input[type="checkbox"] + label,
+input[type="radio"] + label {
+  display: inline-block;
+}
+
+/* line 81, /home/sean/Documents/planit/app/assets/stylesheets/base/bitters/_forms.scss */
+input[type="file"] {
+  margin-bottom: 0.65em;
+  width: 100%;
+}
+
+/* line 86, /home/sean/Documents/planit/app/assets/stylesheets/base/bitters/_forms.scss */
+select {
+  margin-bottom: 1.3em;
+  max-width: 100%;
+  width: auto;
+}
+
+/* line 1, /home/sean/Documents/planit/app/assets/stylesheets/base/bitters/_lists.scss */
+ul,
+ol {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+/* line 20, /home/sean/Documents/planit/app/assets/stylesheets/base/bitters/_lists.scss */
+dl {
+  margin-bottom: 0.65em;
+}
+/* line 23, /home/sean/Documents/planit/app/assets/stylesheets/base/bitters/_lists.scss */
+dl dt {
+  font-weight: bold;
+  margin-top: 0.65em;
+}
+/* line 28, /home/sean/Documents/planit/app/assets/stylesheets/base/bitters/_lists.scss */
+dl dd {
+  margin: 0;
+}
+
+/* line 1, /home/sean/Documents/planit/app/assets/stylesheets/base/bitters/_tables.scss */
+table {
+  border-collapse: collapse;
+  font-feature-settings: "kern", "liga", "tnum";
+  margin: 0.65em 0;
+  table-layout: fixed;
+  width: 100%;
+}
+
+/* line 9, /home/sean/Documents/planit/app/assets/stylesheets/base/bitters/_tables.scss */
+th {
+  border-bottom: 1px solid #a6a6a6;
+  font-weight: 600;
+  padding: 0.65em 0;
+  text-align: left;
+}
+
+/* line 16, /home/sean/Documents/planit/app/assets/stylesheets/base/bitters/_tables.scss */
+td {
+  border-bottom: 1px solid #ddd;
+  padding: 0.65em 0;
+}
+
+/* line 21, /home/sean/Documents/planit/app/assets/stylesheets/base/bitters/_tables.scss */
+tr,
+td,
+th {
+  vertical-align: middle;
+}
+
+/* line 1, /home/sean/Documents/planit/app/assets/stylesheets/base/bitters/_typography.scss */
+body {
+  color: #333;
+  font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+  font-feature-settings: "kern", "liga", "pnum";
+  font-size: 1em;
+  line-height: 1.3;
+}
+
+/* line 9, /home/sean/Documents/planit/app/assets/stylesheets/base/bitters/_typography.scss */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+  font-size: 1em;
+  line-height: 1.2;
+  margin: 0;
+}
+
+/* line 21, /home/sean/Documents/planit/app/assets/stylesheets/base/bitters/_typography.scss */
+h1 {
+  font-size: 2em;
+}
+
+/* line 22, /home/sean/Documents/planit/app/assets/stylesheets/base/bitters/_typography.scss */
+h2 {
+  font-size: 1.7em;
+}
+
+/* line 23, /home/sean/Documents/planit/app/assets/stylesheets/base/bitters/_typography.scss */
+h3 {
+  font-size: 1.3em;
+}
+
+/* line 25, /home/sean/Documents/planit/app/assets/stylesheets/base/bitters/_typography.scss */
+p {
+  margin: 0 0 0.65em;
+  color: #999;
+}
+
+/* line 30, /home/sean/Documents/planit/app/assets/stylesheets/base/bitters/_typography.scss */
+a {
+  color: #477dca;
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+/* line 35, /home/sean/Documents/planit/app/assets/stylesheets/base/bitters/_typography.scss */
+a:active, a:focus, a:hover {
+  color: #355e98;
+}
+
+/* line 42, /home/sean/Documents/planit/app/assets/stylesheets/base/bitters/_typography.scss */
+hr {
+  border-bottom: 1px solid #ddd;
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+  margin: 1.3em 0;
+}
+
+/* line 50, /home/sean/Documents/planit/app/assets/stylesheets/base/bitters/_typography.scss */
+img,
+picture {
+  margin: 0;
+  max-width: 100%;
+}
+
+/* line 4, /home/sean/Documents/planit/app/assets/neat/grid/_box-sizing.scss */
+html {
+  box-sizing: border-box;
+}
+
+/* line 9, /home/sean/Documents/planit/app/assets/neat/grid/_box-sizing.scss */
+*, *::after, *::before {
+  box-sizing: inherit;
+}
+
+/* line 2, /home/sean/Documents/planit/app/assets/stylesheets/base/global.scss */
+div.container {
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+}
+/* line 20, /home/sean/Documents/planit/app/assets/bourbon/addons/_clearfix.scss */
+div.container::after {
+  clear: both;
+  content: "";
+  display: table;
+}
+
+/* line 7, /home/sean/Documents/planit/app/assets/stylesheets/base/global.scss */
+div.half-col {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 48.82117%;
+}
+/* line 89, /home/sean/Documents/planit/app/assets/neat/grid/_span-columns.scss */
+div.half-col:last-child {
+  margin-right: 0;
+}
+
+/* line 11, /home/sean/Documents/planit/app/assets/stylesheets/base/global.scss */
+div.third-col {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 31.76157%;
+}
+/* line 89, /home/sean/Documents/planit/app/assets/neat/grid/_span-columns.scss */
+div.third-col:last-child {
+  margin-right: 0;
+}
+
+/* line 15, /home/sean/Documents/planit/app/assets/stylesheets/base/global.scss */
+div.block {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 100%;
+  padding: 10px;
+}
+/* line 89, /home/sean/Documents/planit/app/assets/neat/grid/_span-columns.scss */
+div.block:last-child {
+  margin-right: 0;
+}
+
+/* line 20, /home/sean/Documents/planit/app/assets/stylesheets/base/global.scss */
+div.content {
+  padding: 5px;
+}
+
+/* line 24, /home/sean/Documents/planit/app/assets/stylesheets/base/global.scss */
+.center {
+  text-align: center;
+}
+
+/* line 28, /home/sean/Documents/planit/app/assets/stylesheets/base/global.scss */
+.hidden {
+  display: none !important;
+}
+
+/* line 32, /home/sean/Documents/planit/app/assets/stylesheets/base/global.scss */
+.no-emphasis {
+  font-size: 12px;
+  opacity: 0.54;
+}
+
+/* line 37, /home/sean/Documents/planit/app/assets/stylesheets/base/global.scss */
+.left {
+  float: left;
+}
+
+/* line 41, /home/sean/Documents/planit/app/assets/stylesheets/base/global.scss */
+.right {
+  float: right;
+}
+
+/* line 45, /home/sean/Documents/planit/app/assets/stylesheets/base/global.scss */
+.divider-line {
+  border-bottom: 1px solid #ddd;
+  width: 95%;
+  margin: 5px 0 8px;
+}
+
+/* line 51, /home/sean/Documents/planit/app/assets/stylesheets/base/global.scss */
+.spacer {
+  background-color: #ddd;
+  height: 100%;
+}
+
+/* line 56, /home/sean/Documents/planit/app/assets/stylesheets/base/global.scss */
+.top-navigation {
+  height: 40px;
+  padding: 5px;
+  font-size: .8em;
+  border-bottom: 1px solid #F7F7F7;
+}
+
+/* line 63, /home/sean/Documents/planit/app/assets/stylesheets/base/global.scss */
+ul.nav-menu {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  vertical-align: middle;
+}
+/* line 69, /home/sean/Documents/planit/app/assets/stylesheets/base/global.scss */
+ul.nav-menu li {
+  float: right;
+}
+/* line 73, /home/sean/Documents/planit/app/assets/stylesheets/base/global.scss */
+ul.nav-menu a {
+  display: block;
+  width: 60px;
+  text-decoration: none;
+}
+
+/* line 8, /home/sean/Documents/planit/app/assets/stylesheets/styles/pages.scss */
+div.initial {
+  height: auto;
+  overflow: auto;
+}
+
+/* line 14, /home/sean/Documents/planit/app/assets/stylesheets/styles/pages.scss */
+div.secondary {
+  height: 300px;
+  text-align: center;
+  background-color: #F7F7F7;
+}
+
+/* line 20, /home/sean/Documents/planit/app/assets/stylesheets/styles/pages.scss */
+div.tertiary {
+  height: 400px;
+  padding-top: 40px;
+}
+
+/* line 27, /home/sean/Documents/planit/app/assets/stylesheets/styles/pages.scss */
+.action-container {
+  height: auto;
+  overflow: auto;
+  width: 240px;
+  background-color: #F7F7F7;
+  border-radius: 5px;
+  text-align: center;
+  display: inline-block;
+  padding: 10px;
+}
+/* line 37, /home/sean/Documents/planit/app/assets/stylesheets/styles/pages.scss */
+.action-container aside {
+  text-align: right;
+  font-size: 12px;
+}
+
+/* line 43, /home/sean/Documents/planit/app/assets/stylesheets/styles/pages.scss */
+div.third-col {
+  padding: 10px;
+}
+
+/* line 47, /home/sean/Documents/planit/app/assets/stylesheets/styles/pages.scss */
+.main-text {
+  font-size: 1.3em;
+  padding: 40px 0 0 40px;
+}
+
+/* line 52, /home/sean/Documents/planit/app/assets/stylesheets/styles/pages.scss */
+img {
+  margin: 10px;
+}
+
+/* line 5, /home/sean/Documents/planit/app/assets/stylesheets/styles/dashboard.scss */
+.menu-base {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 6.17215%;
+  background-color: #E9E9E9;
+  height: 100vh;
+  font-size: .8em;
+  font-weight: 600;
+  z-index: 2;
+}
+/* line 89, /home/sean/Documents/planit/app/assets/neat/grid/_span-columns.scss */
+.menu-base:last-child {
+  margin-right: 0;
+}
+/* line 14, /home/sean/Documents/planit/app/assets/stylesheets/styles/dashboard.scss */
+.menu-base a {
+  color: #999;
+}
+/* line 17, /home/sean/Documents/planit/app/assets/stylesheets/styles/dashboard.scss */
+.menu-base a:active, .menu-base a:focus, .menu-base a:hover {
+  color: #737373;
+}
+/* line 24, /home/sean/Documents/planit/app/assets/stylesheets/styles/dashboard.scss */
+.menu-base .img {
+  fill: #999;
+  margin: 0;
+}
+
+/* line 31, /home/sean/Documents/planit/app/assets/stylesheets/styles/dashboard.scss */
+.menu-open {
+  width: 180px;
+  float: left;
+  background-color: #d0d0d0;
+  height: 100vh;
+  left: -180px;
+  position: absolute;
+  z-index: 1;
+  padding: 10px;
+  font-size: 1.2em;
+  font-weight: 600;
+}
+/* line 43, /home/sean/Documents/planit/app/assets/stylesheets/styles/dashboard.scss */
+.menu-open li {
+  margin: 8px 0;
+  cursor: pointer;
+}
+/* line 48, /home/sean/Documents/planit/app/assets/stylesheets/styles/dashboard.scss */
+.menu-open li.create-trip {
+  color: #477dca;
+}
+/* line 52, /home/sean/Documents/planit/app/assets/stylesheets/styles/dashboard.scss */
+.menu-open li:hover {
+  opacity: 0.87;
+}
+
+/* line 57, /home/sean/Documents/planit/app/assets/stylesheets/styles/dashboard.scss */
+.main-content {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 91.4702%;
+  z-index: 3;
+}
+/* line 89, /home/sean/Documents/planit/app/assets/neat/grid/_span-columns.scss */
+.main-content:last-child {
+  margin-right: 0;
+}
+
+/* line 62, /home/sean/Documents/planit/app/assets/stylesheets/styles/dashboard.scss */
+.trip-info {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 100%;
+  border-bottom: 1px solid #E9E9E9;
+  margin-bottom: 20px;
+  padding: 5px;
+  overflow: auto;
+}
+/* line 89, /home/sean/Documents/planit/app/assets/neat/grid/_span-columns.scss */
+.trip-info:last-child {
+  margin-right: 0;
+}
+/* line 69, /home/sean/Documents/planit/app/assets/stylesheets/styles/dashboard.scss */
+.trip-info h1 {
+  float: left;
+}
+/* line 73, /home/sean/Documents/planit/app/assets/stylesheets/styles/dashboard.scss */
+.trip-info aside {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 100%;
+  font-size: .8em;
+}
+/* line 89, /home/sean/Documents/planit/app/assets/neat/grid/_span-columns.scss */
+.trip-info aside:last-child {
+  margin-right: 0;
+}
+/* line 78, /home/sean/Documents/planit/app/assets/stylesheets/styles/dashboard.scss */
+.trip-info a.button {
+  float: right;
+  vertical-align: middle;
+}
+
+/* line 84, /home/sean/Documents/planit/app/assets/stylesheets/styles/dashboard.scss */
+.destination-list {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 31.76157%;
+  background-color: #E9E9E9;
+}
+/* line 89, /home/sean/Documents/planit/app/assets/neat/grid/_span-columns.scss */
+.destination-list:last-child {
+  margin-right: 0;
+}
+
+/* line 90, /home/sean/Documents/planit/app/assets/stylesheets/styles/dashboard.scss */
+.invite-friends {
+  border-radius: 3px;
+  background-color: #ddd;
+  height: 230px;
+  width: 600px;
+  left: 50%;
+  top: -230px;
+  margin-left: -300px;
+  position: absolute;
+  z-index: 100;
+  padding: 10px;
+}
+
+/* line 104, /home/sean/Documents/planit/app/assets/stylesheets/styles/dashboard.scss */
+.map {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 65.88078%;
+  margin-right: 0;
+  background-color: #E9E9E9;
+}
+/* line 89, /home/sean/Documents/planit/app/assets/neat/grid/_span-columns.scss */
+.map:last-child {
+  margin-right: 0;
+}

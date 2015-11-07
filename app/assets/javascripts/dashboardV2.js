@@ -92,6 +92,7 @@ Dashboard = (function() {
             findAddress(geocoder);
             editTripForm(data.trip);
 
+
         };
 
         var onFailure = function() {
@@ -387,10 +388,6 @@ Dashboard = (function() {
 
       var name_cell = row.insertCell(0);
       var address_cell = row.insertCell(1);
-      var edit_cell = row.insertCell(2);
-      var delete_cell = row.insertCell(3);
-      // var delete_cell = row.insertCell(2);
-
       var like_cell = row.insertCell(2);
       like_cell.innerHTML = '<input type="button" id="like-btn" type="button" value = "Like" + dest.like_count</input>';
       //<%= link_to 'like', vote_path(@post), class: 'vote', remote: true, data: { type: :json } %>';
@@ -421,7 +418,6 @@ Dashboard = (function() {
         store = null;
         }
 
-
       // Add some text to the new cells:
       name_cell.innerHTML = dest.name;
       address_cell.innerHTML = dest.address;
@@ -448,7 +444,7 @@ Dashboard = (function() {
 /** =======================End of destinations handlers ======================= */
 
 /** =======================Create Trip Handlers/Functions ===================== */
-    var  attachCreateTripHandler= function(e) {
+    var attachCreateTripHandler= function(e) {
         var down = false;
         var trip ={};
 
@@ -550,6 +546,7 @@ Dashboard = (function() {
         })
         });
     }
+
 /** =========================End Friend Handlers ===================================== */
 
 /** ========================= Add Map Handlers ==============================*/
@@ -856,7 +853,6 @@ Dashboard = (function() {
         initializeSearch();
         attachCalendarHandlers();
         editTriphandler();
-
     };
 
     return {

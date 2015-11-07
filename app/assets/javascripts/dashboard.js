@@ -270,7 +270,6 @@ var Dashboard = (function() {
     //         };
 
 
-
     var  attachCreateTripHandler= function(e) {
         var down = false;
         var height = $('.create-edit-trip').height() + 70;

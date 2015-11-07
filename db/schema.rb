@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 20151107053237) do
     t.integer  "trip_id"
   end
 
-  add_index "days", ["trip_id"], name: "index_days_on_trip_id", using: :btree
+  add_index "days", ["trip_id"], name: "index_days_on_trip_id"
 
   create_table "destinations", force: :cascade do |t|
     t.string   "name"
@@ -41,8 +41,8 @@ ActiveRecord::Schema.define(version: 20151107053237) do
     t.integer  "like_count"
   end
 
-  add_index "destinations", ["day_id"], name: "index_destinations_on_day_id", using: :btree
-  add_index "destinations", ["trip_id"], name: "index_destinations_on_trip_id", using: :btree
+  add_index "destinations", ["day_id"], name: "index_destinations_on_day_id"
+  add_index "destinations", ["trip_id"], name: "index_destinations_on_trip_id"
 
   create_table "reservations", force: :cascade do |t|
     t.integer  "user_id"
@@ -51,8 +51,8 @@ ActiveRecord::Schema.define(version: 20151107053237) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "reservations", ["trip_id"], name: "index_reservations_on_trip_id", using: :btree
-  add_index "reservations", ["user_id"], name: "index_reservations_on_user_id", using: :btree
+  add_index "reservations", ["trip_id"], name: "index_reservations_on_trip_id"
+  add_index "reservations", ["user_id"], name: "index_reservations_on_user_id"
 
   create_table "trips", force: :cascade do |t|
     t.string   "location"
@@ -64,15 +64,15 @@ ActiveRecord::Schema.define(version: 20151107053237) do
     t.integer  "user_id"
   end
 
-  add_index "trips", ["user_id"], name: "index_trips_on_user_id", using: :btree
+  add_index "trips", ["user_id"], name: "index_trips_on_user_id"
 
   create_table "trips_users", id: false, force: :cascade do |t|
     t.integer "user_id"
     t.integer "trip_id"
   end
 
-  add_index "trips_users", ["trip_id"], name: "index_trips_users_on_trip_id", using: :btree
-  add_index "trips_users", ["user_id"], name: "index_trips_users_on_user_id", using: :btree
+  add_index "trips_users", ["trip_id"], name: "index_trips_users_on_trip_id"
+  add_index "trips_users", ["user_id"], name: "index_trips_users_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
@@ -91,8 +91,8 @@ ActiveRecord::Schema.define(version: 20151107053237) do
     t.string   "last_sign_in_ip"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-  add_index "users", ["trip_id"], name: "index_users_on_trip_id", using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["trip_id"], name: "index_users_on_trip_id"
 
 end
