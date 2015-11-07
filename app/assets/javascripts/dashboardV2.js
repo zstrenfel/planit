@@ -304,7 +304,7 @@ Dashboard = (function() {
         like_count_cell.innerHTML=dest.like_count;
         console.log("sortTable");
         // sortTable();
-      })
+      });
 
       /*var sortTable= function() {
         for (var i = 0, row; row = table.rows[i]; i++) {
@@ -715,7 +715,7 @@ $("#nm").click(function(){
         for (var i = 0; i < results.length; i++) {
             obj = results[i];
             var rating = ""
-            if (obj.rating != undefined){
+            if (obj.rating !== undefined){
                 rating = obj.rating;
             }
             var id = obj.name.replace(/\s+/g, '');
