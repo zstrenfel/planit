@@ -87,6 +87,8 @@ Dashboard = (function() {
             initializeMap();
             insertAllDest(data.trip);
             updateCalendarTime(data.trip);
+            findAddress();
+
         };
 
         var onFailure = function() {
@@ -138,6 +140,7 @@ Dashboard = (function() {
     var attachLocationHandler = function(e) {
         $('li.location').on('click', function() {
             trip_id = $(this).data('id');
+            //location = $(this).data('location');
             updateDash();
         })
     };
@@ -390,7 +393,7 @@ Dashboard = (function() {
             var onSuccess = function(data) {
                 // console.log("TRIP INFO:");
                 // console.log(data);
-                // location = data.trip.location;
+                //location = data.trip.location;
                 trip_id = data.trip.id;
                 updateDash();
             };
@@ -725,7 +728,7 @@ Dashboard = (function() {
         var address = "Chicago";
 
         // script uses our 'geocoder' in order to find location by address name
-        geocoder.geocode( { 'address': address}, function(results, status) {
+        geocoder.geocode( { 'address': location}, function(results, status) {
             if (status == google.maps.GeocoderStatus.OK) { // and, if everything is ok
 
                 // store trip location coordinates into hidden variables
