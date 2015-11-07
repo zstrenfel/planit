@@ -1,159 +1,159 @@
 <!-- <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script> -->
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
 <%= javascript_tag do %>
-	$(window).load(function() {
-	  	Dashboard.start();
-	  	$('#dest-date').datepicker({ dateFormat: 'mm-dd-yy' });
-	  	$('#trip-start').datepicker({ dateFormat: 'dd-mm-yy' });
-	  	$('#trip-end').datepicker({ dateFormat: 'dd-mm-yy' });
-	  	$('input[data-function="update-trip-start"').datepicker({ dateFormat: 'dd-mm-yy' });
-	  	$('input[data-function="update-trip-end"').datepicker({ dateFormat: 'dd-mm-yy' });
-  	});
+  $(window).load(function() {
+      Dashboard.start();
+      $('#dest-date').datepicker({ dateFormat: 'mm-dd-yy' });
+      $('#trip-start').datepicker({ dateFormat: 'dd-mm-yy' });
+      $('#trip-end').datepicker({ dateFormat: 'dd-mm-yy' });
+      $('input[data-function="update-trip-start"').datepicker({ dateFormat: 'dd-mm-yy' });
+      $('input[data-function="update-trip-end"').datepicker({ dateFormat: 'dd-mm-yy' });
+    });
 <% end %>
 <!-- offscreen -->
 <div class="invite-friends">
-	<input type="hidden" data-location=>
-	<h2>Invite Friends</h2>
-	<i>Please separate each email by a comma; existing users will be added automatically</i>
-	<textarea rows="4" cols="30" data-function="submit-friends">
-	</textarea>
-	<div class="half-col">
-		<a href="" class="invite left">submit</a>
-	</div>
-	<div class="half-col">
-		<a href="" class="close right">close</a>
-	</div>
+  <input type="hidden" data-location=>
+  <h2>Invite Friends</h2>
+  <i>Please separate each email by a comma; existing users will be added automatically</i>
+  <textarea rows="4" cols="30" data-function="submit-friends">
+  </textarea>
+  <div class="half-col">
+    <a href="" class="invite left">submit</a>
+  </div>
+  <div class="half-col">
+    <a href="" class="close right">close</a>
+  </div>
 </div>
 <div class="create-edit-trip">
-	<h2>Create Trip</h2>
-	<div class="divider-line"></div>
-	<form action="" class="trip-form">
-		<input type="text" name="location" placeholder ="Location">
-		<input type="text" name="name" placeholder="Trip Name">
-		<input type="text" name="start-date" placeholder = "Start Date" id="trip-start">
-		<input type="text" name="end-date" placeholder = "End Date" id="trip-end">
-		<a href="" data-function="save-trip">submit</a>
-		<a href="" class="right" data-function="create-trip-close">Close</a>
-	</form>
+  <h2>Create Trip</h2>
+  <div class="divider-line"></div>
+  <form action="" class="trip-form">
+    <input type="text" name="location" placeholder ="Location">
+    <input type="text" name="name" placeholder="Trip Name">
+    <input type="text" name="start-date" placeholder = "Start Date" id="trip-start">
+    <input type="text" name="end-date" placeholder = "End Date" id="trip-end">
+    <a href="" data-function="save-trip">submit</a>
+    <a href="" class="right" data-function="create-trip-close">Close</a>
+  </form>
 
 </div>
 <!--  -->
 
 
 <div class="menu-base content center">
-	<input id="location" type="hidden" data-location="">
-	<ul>
-		<li><a href="" class="trips">Trips</a></li>
-	</ul>
+  <input id="location" type="hidden" data-location="">
+  <ul>
+    <li><a href="" class="trips">Trips</a></li>
+  </ul>
 </div>
 <div class="menu-open">
-	<%= render "pages/partials/menu" %>
+  <%= render "pages/partials/menu" %>
 </div>
 <div class="main-content">
-	<div class="trip-info">
-		<div class="half-col">
-			<h1 data-header="location" class="">No Trip Selected</h1>
-			<div class="half-col-collapse omega">
-				<input type="text" class="hidden" data-function="update-trip-location">
-			</div>
-			<div class="half-col-collapse">
-				<input type="text" class="hidden" data-function="update-trip-start">
-				<input type="text" class="hidden" data-function="update-trip-end">
-			</div>
-			<aside data-header="invited-dates"></aside>
-			<aside><a href="" data-function="invite-friends" class="hidden">Invite more friends</a></aside>
-		</div>
-		<a href="" class="button hidden" data-function="form-edit">EDIT</a>
-		<a href="" class="button hidden" data-function="trip-delete">DELETE</a>&nbsp;
-		<a href="" class="button hidden" data-function="form-submit">SAVE</a>&nbsp;
-		<a href="" class="button hidden" data-function="form-cancel">CANCEL</a>
-	</div>
-	<div id="Map" class="map" style="width: 1000px; height: 300px; margin: 20px;">
-	</div>
-		<div class="search">
-		<h1>Search</h1>
-		<div id="myDiv"></div>
-		<div class="actions">
-		    <div class="button">
-		        <label for="gmap_keyword">Keyword:</label>
-		        <input id="gmap_keyword" type="text" name="gmap_keyword" /></div>
-		    <div class="button">
-		        <label for="gmap_type">Type:</label>
-		        <select id="gmap_type">
-		            <option value="art_gallery">art_gallery</option>
-		            <option value="bar">bar</option>
-		            <option value="cafe">cafe</option>
-		            <option value="food">food</option>
-		            <option value="store">store</option>
-		        </select>
-		    </div>
-		    <input type="hidden" id="lat" name="lat" value="40.7143528" />
-		    <input type="hidden" id="lng" name="lng" value="-74.0059731" />
-		    <!-- <div type ="submit" class="search-button button">Search for objects</div> -->
-		    <input type="submit" class="search-button my-button" id="create-button"></input>
-	</div>
-		    <table id="destList">
-		    	<tr>
-		    		<td> Name </td>
-		    		<td> Address </td>
-		    		<td> Rating </td>
-		    		<td class="add">Add</td>
-		    	</tr>
-		    </table>
-		</div>
-	<div class="destination-list">
-		<h1>Destinations</h1>
-		<table id="destTable">
-		 <tr class="table-initial">
+  <div class="trip-info">
+    <div class="half-col">
+      <h1 data-header="location" class="">No Trip Selected</h1>
+      <div class="half-col-collapse omega">
+        <input type="text" class="hidden" data-function="update-trip-location">
+      </div>
+      <div class="half-col-collapse">
+        <input type="text" class="hidden" data-function="update-trip-start">
+        <input type="text" class="hidden" data-function="update-trip-end">
+      </div>
+      <aside data-header="invited-dates"></aside>
+      <aside><a href="" data-function="invite-friends" class="hidden">Invite more friends</a></aside>
+    </div>
+    <a href="" class="button hidden" data-function="form-edit">EDIT</a>
+    <a href="" class="button hidden" data-function="trip-delete">DELETE</a>&nbsp;
+    <a href="" class="button hidden" data-function="form-submit">SAVE</a>&nbsp;
+    <a href="" class="button hidden" data-function="form-cancel">CANCEL</a>
+  </div>
+  <div id="Map" class="map" style="width: 1000px; height: 300px; margin: 20px;">
+  </div>
+    <div class="search">
+    <h1>Search</h1>
+    <div id="myDiv"></div>
+    <div class="actions">
+        <div class="button">
+            <label for="gmap_keyword">Keyword:</label>
+            <input id="gmap_keyword" type="text" name="gmap_keyword" /></div>
+        <div class="button">
+            <label for="gmap_type">Type:</label>
+            <select id="gmap_type">
+                <option value="art_gallery">art_gallery</option>
+                <option value="bar">bar</option>
+                <option value="cafe">cafe</option>
+                <option value="food">food</option>
+                <option value="store">store</option>
+            </select>
+        </div>
+        <input type="hidden" id="lat" name="lat" value="40.7143528" />
+        <input type="hidden" id="lng" name="lng" value="-74.0059731" />
+        <!-- <div type ="submit" class="search-button button">Search for objects</div> -->
+        <input type="submit" class="search-button my-button" id="create-button"></input>
+  </div>
+        <table id="destList">
+          <tr>
+            <td> Name </td>
+            <td> Address </td>
+            <td> Rating </td>
+            <td class="add">Add</td>
+          </tr>
+        </table>
+    </div>
+  <div class="destination-list">
+    <h1>Destinations</h1>
+    <table id="destTable">
+     <tr class="table-initial">
 
-		    <td>Name:</td>
-		    <td>Address:</td>
-		    <td>Edit:</td>
-		    <td>Delete:</td>
-		    <!-- <td>Delete:</td> -->
-		 </tr>
-		</table>
+        <td>Name:</td>
+        <td>Address:</td>
+        <td>Edit:</td>
+        <td>Delete:</td>
+        <!-- <td>Delete:</td> -->
+     </tr>
+    </table>
 
-	</div>
+  </div>
 
-	<div class="submit">
+  <div class="submit">
 
-		<h1>Destination (Manual)</h1>
-		<form method="get" action="index.html" class="form">
+    <h1>Destination (Manual)</h1>
+    <form method="get" action="index.html" class="form">
                         <input type="text" placeholder="Name" class="name-input" name="name" />
                         <input type="text" placeholder="Address" class="address-input" name="address" />
                         <input type="submit" class="submit-input my-button" id="create-button"></input>
-		</div>
+    </div>
 
-	<div class="edit_form hide">
+  <div class="edit_form hide">
 
-		<h1>Edit Destination</h1>
+    <h1>Edit Destination</h1>
 
-		<form method="get" action="index.html" class="form">
+    <form method="get" action="index.html" class="form">
                         <input type="text" placeholder="Date" class="date-input" name="date" id="dest-date" />
                         <input type="text" placeholder="Time" class="time-input" name="time" />
                         <i>*Please specify AM or PM</i>
                         <input type="text" placeholder="Duration" class="duration-input" name="duration" />
                         <i>*Please inset an integer only (hours)</i>
                         <input type="submit" class="submit-input my-button" id="create-button"></input>
-	</div>
+  </div>
 
 
-	<!-- <div class="map">
-	<img src="https://api.fnkr.net/testimg/800x300/00CED1/FFF/?text=img+placeholder">
-	</div> -->
-	<!-- For Iter 2 -->
-	<div class="calendar">
-		<table class="cal-dates">
-			<tr></tr>
-		</table>
-		<div class="cal-container">
-		<table class="cal-dests">
-			<tr class="calendar-hours">
-			</tr>
-			<tr class="dest-row keep" data-row="0"></tr>
-		</table>
-		</div>
-	</div>
-	<!-- For Iter 2 -->
+  <!-- <div class="map">
+  <img src="https://api.fnkr.net/testimg/800x300/00CED1/FFF/?text=img+placeholder">
+  </div> -->
+  <!-- For Iter 2 -->
+  <div class="calendar">
+    <table class="cal-dates">
+      <tr></tr>
+    </table>
+    <div class="cal-container">
+    <table class="cal-dests">
+      <tr class="calendar-hours">
+      </tr>
+      <tr class="dest-row keep" data-row="0"></tr>
+    </table>
+    </div>
+  </div>
+  <!-- For Iter 2 -->
 </div>
