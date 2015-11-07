@@ -5,12 +5,13 @@ Dashboard = (function() {
     var trip_id;
     var create;
     var submit;
+    var location;
 
 
 
     /**
     * HTTP GET request
-    * @param  {string}   url       URL path, e.g. "/api/smiles"
+    * @param  {string}   url       URL path, e.g. "/api/destinations"
     * @param  {function} onSuccess   callback method to execute upon request success (200 status)
     * @param  {function} onFailure   callback method to execute upon request failure (non-200 status)
     * @return {None}
@@ -27,7 +28,7 @@ Dashboard = (function() {
 
      /**
      * HTTP POST request
-     * @param  {string}   url       URL path, e.g. "/api/smiles"
+     * @param  {string}   url       URL path, e.g. "/api/destinations"
      * @param  {Object}   data      JSON data to send in request body
      * @param  {function} onSuccess   callback method to execute upon request success (200 status)
      * @param  {function} onFailure   callback method to execute upon request failure (non-200 status)
@@ -189,11 +190,14 @@ Dashboard = (function() {
 
         $('#destTable').on('click', '.del', function(e){
             e.preventDefault ();
+            var tr = $(this).closest('tr');
 
             var onSuccess = function(data) {
                 if (!data.errors){
-                    console.log(data);
-                    console.log("DELETED!");
+                    tr.fadeOut(400, function(){
+                        tr.remove();
+                     });
+
                 }else{
                     for (i in data.errors){
                         console.log(data.errors[i]);
@@ -211,7 +215,6 @@ Dashboard = (function() {
             console.log(url);
             makeDeleteRequest(url, onSuccess, onFailure);
         });
-
 
 
         $('#destTable').on('click', '.edit', function(e){
@@ -235,7 +238,8 @@ Dashboard = (function() {
             var onSuccess = function(data) {
                 if (!data.errors){
                     console.log(data);
-                    insertDest(data["destination"]);
+                    //insertDest(data["destination"]);
+                    $('.edit_form').addClass('hide');
                 }else{
                     for (i in data.errors){
                         console.log(data.errors[i]);
@@ -339,6 +343,9 @@ Dashboard = (function() {
             var valid = validateTripForm(trip); //returns true or false
 
             var onSuccess = function(data) {
+                // console.log("TRIP INFO:");
+                // console.log(data);
+                // location = data.trip.location;
                 trip_id = data.trip.id;
                 updateDash();
             };
@@ -453,6 +460,10 @@ Dashboard = (function() {
 /** ========================= Add Search Handlers ==============================*/
 
     function initializeSearch(){
+        // var geocoder;
+        var geocoder = new google.maps.Geocoder();
+        findAddress(geocoder);
+
         submit1.on('click',  function(e){
             e.preventDefault();
             findPlaces();
@@ -460,13 +471,7 @@ Dashboard = (function() {
 
         $("#destList").on('click', ".add", function(e){
             e.preventDefault();
-
-            // var name = submit.find('.name-input').val();
-            // var address = submit.find('.address-input').val();
             var dest = {};
-            // dest.name = "Empire State Building";
-            // dest.address = "New York";
-
             dest.name = $('#'+this.id).data('destInfo')["name"];
             dest.address = $('#'+this.id).data('destInfo')["address"];
 
@@ -498,10 +503,8 @@ Dashboard = (function() {
 
         // prepare variables (filter)
         var type = document.getElementById('gmap_type').value;
-        // var radius = document.getElementById('gmap_radius').value;
         var radius = 5000;
         var keyword = document.getElementById('gmap_keyword').value;
-
         var lat = document.getElementById('lat').value;
         var lng = document.getElementById('lng').value;
         var cur_location = new google.maps.LatLng(lat, lng);
@@ -519,36 +522,56 @@ Dashboard = (function() {
         // send request
         // service = new google.maps.places.PlacesService(map);
         service = new google.maps.places.PlacesService($('#myDiv').get(0));
-        // service.search(request, createMarkers);
         service.search(request, createList);
-    }
+    };
 
+//Callback function after search for findlaces returns
     function createList(results, status){
-    if (status == google.maps.places.PlacesServiceStatus.OK) {
-        console.log(results);
-        $("#destList").find("tr:gt(0)").remove();
-        var table = document.getElementById("destList");
-        for (var i = 0; i < results.length; i++) {
-            obj = results[i];
-            var rating = ""
-            if (obj.rating != undefined){
-                rating = obj.rating;
+        if (status == google.maps.places.PlacesServiceStatus.OK) {
+            console.log(results);
+            $("#destList").find("tr:gt(0)").remove();
+            var table = document.getElementById("destList");
+            for (var i = 0; i < results.length; i++) {
+                obj = results[i];
+                var rating = ""
+                if (obj.rating != undefined){
+                    rating = obj.rating;
+                }
+                var id = obj.name.replace(/\s+/g, '');
+                id = id.replace(/[^a-zA-Z 0-9]+/g, '');
+                
+                obj = results[i];
+                var row = table.insertRow(1);
+                row.insertCell(0).innerHTML = obj.name;
+                row.insertCell(1).innerHTML = obj.vicinity;
+                row.insertCell(2).innerHTML = rating;
+                row.insertCell(3).innerHTML = '<div class="add" id="' + id + '">+</div>';
+                $('#'+id).data('destInfo', { 'name': obj.name, 'address': obj.vicinity });
             }
-            var id = obj.name.replace(/\s+/g, '');
-            obj = results[i];
-            var row = table.insertRow(1);
-            row.insertCell(0).innerHTML = obj.name;
-            row.insertCell(1).innerHTML = obj.vicinity;
-            row.insertCell(2).innerHTML = rating;
-            row.insertCell(3).innerHTML = '<div class="add" id="' + id + '">+</div>';
-            $('#'+id).data('destInfo', { 'name': obj.name, 'address': obj.vicinity });
-        }
-            
+                
 
-    } else if (status == google.maps.places.PlacesServiceStatus.ZERO_RESULTS) {
-        alert('Sorry, nothing is found');
+        } else if (status == google.maps.places.PlacesServiceStatus.ZERO_RESULTS) {
+            alert('Sorry, nothing is found');
+        }
+    };
+
+    // Centers search results at trip location
+    function findAddress(geocoder) {
+        var address = "Chicago";
+
+        // script uses our 'geocoder' in order to find location by address name
+        geocoder.geocode( { 'address': address}, function(results, status) {
+            if (status == google.maps.GeocoderStatus.OK) { // and, if everything is ok
+
+                // store trip location coordinates into hidden variables
+                document.getElementById('lat').value = results[0].geometry.location.lat();
+                document.getElementById('lng').value = results[0].geometry.location.lng();
+
+            } else {
+                alert('Could not find trip location: ' + status);
+            }
+        });
     }
-}
 
 /** =========================End Handlers ===================================== */
 
