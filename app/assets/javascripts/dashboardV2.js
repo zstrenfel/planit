@@ -518,36 +518,36 @@ $("#nm").click(function(){
         })
     }
 
-    var addCalendarRow = function(row=0) {
-        var times = ["12AM", "1AM", "2AM", "3AM", "4AM", "5AM", "6AM", "7AM", "8AM", "9AM", "10AM", "11AM",
-                 "12PM", "1PM", "2PM", "3PM", "4PM", "5PM", "6PM", "7PM", "8PM", "9PM", "10PM", "11PM"];
-        var $row = $('<tr></tr>').attr('data-row', row).addClass('dest-row');
+    // var addCalendarRow = function(row=0) {
+    //     var times = ["12AM", "1AM", "2AM", "3AM", "4AM", "5AM", "6AM", "7AM", "8AM", "9AM", "10AM", "11AM",
+    //              "12PM", "1PM", "2PM", "3PM", "4PM", "5PM", "6PM", "7PM", "8PM", "9PM", "10PM", "11PM"];
+    //     var $row = $('<tr></tr>').attr('data-row', row).addClass('dest-row');
 
-        times.forEach(function(timeblock) {
-             $row.append('<td>' + '<div class="half-cell">&nbsp;</div>' + '<div class="half-cell">&nbsp;</div>' +
-                                         '</td>');
-        })
-         $('.cal-dests').append($row);
-         return row;
-    }
-    // var addDest = function(dest, row=0) {
-    //     var hours = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
-    //              12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
-    //     var colors = ['aqua', 'blueviolet', 'greenyellow', 'hotpink', 'black' ];
-    //     var color_index = Math.floor(Math.random() * 5);
-    //     var date = new Date(dest.time);
-    //     var styles = {'left': date.getUTCHours() * 75 + 'px',
-    //                   'width': dest.duration * 75 + 'px',
-    //                    'top': 50 + (row * 60)+ 'px',
-    //                    'background-color': colors[color_index] };
-    //     var $dest_div = $('<div></div>').attr("data-dest-id", dest.id).attr("data-cal-row", row).addClass("dest").html(dest.name);
-    //     var start = hours.indexOf(date.getUTCHours());
-    //     var end = start + dest.duration + 1;
-    //     var time_block = hours.slice(start, end);
+    //     times.forEach(function(timeblock) {
+    //          $row.append('<td>' + '<div class="half-cell">&nbsp;</div>' + '<div class="half-cell">&nbsp;</div>' +
+    //                                      '</td>');
+    //     })
+    //      $('.cal-dests').append($row);
+    //      return row;
+    // }
+    var addDest = function(dest, row=0) {
+        var hours = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
+                 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
+        var colors = ['aqua', 'blueviolet', 'greenyellow', 'hotpink', 'black' ];
+        var color_index = Math.floor(Math.random() * 5);
+        var date = new Date(dest.time);
+        var styles = {'left': date.getUTCHours() * 75 + 'px',
+                      'width': dest.duration * 75 + 'px',
+                       'top': 50 + (row * 60)+ 'px',
+                       'background-color': colors[color_index] };
+        var $dest_div = $('<div></div>').attr("data-dest-id", dest.id).attr("data-cal-row", row).addClass("dest").html(dest.name);
+        var start = hours.indexOf(date.getUTCHours());
+        var end = start + dest.duration + 1;
+        var time_block = hours.slice(start, end);
 
-    //     $dest_div.css(styles).attr("data-time-frame", time_block);
-    //     $('.cal-container').prepend($dest_div);
-    // };
+        $dest_div.css(styles).attr("data-time-frame", time_block);
+        $('.cal-container').prepend($dest_div);
+    };
 
     var checkTimeConflicts = function(dest) {
         var date = new Date(dest.time); //create time object with destination time
