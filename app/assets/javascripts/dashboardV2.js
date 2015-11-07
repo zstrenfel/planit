@@ -398,6 +398,7 @@ Dashboard = (function() {
       like_count_cell.innerHTML = dest.like_count;
 
       $('#like-btn').click(function() {
+        console.log('like button clicked '+ JSON.stringify(dest));
         dest.like_count += 1;
         like_count_cell.innerHTML=dest.like_count;
         sortTable();

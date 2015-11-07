@@ -12,6 +12,7 @@
 #  trip_id    :integer
 #  day_id     :integer
 #  duration   :integer
+#  like_count :integer
 #
 
 class Destination < ActiveRecord::Base

@@ -82,7 +82,7 @@
 }
 //destination-list styles
 .destination-list {
-	@include span-columns(4);
+	@include span-columns(6);
 	background-color: $subtle;
 }
 
@@ -124,13 +124,16 @@
 	@include span-columns(12);
 	@include omega;
 	background-color: $subtle;
+	width: 100%;
+	height: 100%;
 }
 
 //search styles
 .search {
-	@include span-columns(7);
+	@include span-columns(12);
 	@include omega;
 	background-color: $subtle;
+	padding: 20px;
 }
 
 .edit_form{

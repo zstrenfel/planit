@@ -67,9 +67,40 @@
 		<a href="" class="button hidden" data-function="trip-delete">DELETE</a>&nbsp;
 		<a href="" class="button hidden" data-function="form-submit">SAVE</a>&nbsp;
 		<a href="" class="button hidden" data-function="form-cancel">CANCEL</a>
-
 	</div>
-
+	<div id="Map" class="map" style="width: 1000px; height: 300px; margin: 20px;">
+	</div>
+		<div class="search">
+		<h1>Search</h1>
+		<div id="myDiv"></div>
+		<div class="actions">
+		    <div class="button">
+		        <label for="gmap_keyword">Keyword:</label>
+		        <input id="gmap_keyword" type="text" name="gmap_keyword" /></div>
+		    <div class="button">
+		        <label for="gmap_type">Type:</label>
+		        <select id="gmap_type">
+		            <option value="art_gallery">art_gallery</option>
+		            <option value="bar">bar</option>
+		            <option value="cafe">cafe</option>
+		            <option value="food">food</option>
+		            <option value="store">store</option>
+		        </select>
+		    </div>
+		    <input type="hidden" id="lat" name="lat" value="40.7143528" />
+		    <input type="hidden" id="lng" name="lng" value="-74.0059731" />
+		    <!-- <div type ="submit" class="search-button button">Search for objects</div> -->
+		    <input type="submit" class="search-button my-button" id="create-button"></input>
+	</div>
+		    <table id="destList">
+		    	<tr>
+		    		<td> Name </td>
+		    		<td> Address </td>
+		    		<td> Rating </td>
+		    		<td class="add">Add</td>
+		    	</tr>
+		    </table>
+		</div>
 	<div class="destination-list">
 		<h1>Destinations</h1>
 		<table id="destTable">
@@ -103,46 +134,8 @@
                         <input type="text" placeholder="Time" class="time-input" name="time" />
                         <input type="text" placeholder="Duration" class="duration-input" name="duration" />
                         <input type="submit" class="submit-input my-button" id="create-button"></input>
-
-
-
 	</div>
 
-
-	<div class="search">
-		<h1>Search</h1>
-		<div id="myDiv"></div>
-		<div class="actions">
-		    <div class="button">
-		        <label for="gmap_keyword">Keyword:</label>
-		        <input id="gmap_keyword" type="text" name="gmap_keyword" /></div>
-		    <div class="button">
-		        <label for="gmap_type">Type:</label>
-		        <select id="gmap_type">
-		            <option value="art_gallery">art_gallery</option>
-		            <option value="bar">bar</option>
-		            <option value="cafe">cafe</option>
-		            <option value="food">food</option>
-		            <option value="store">store</option>
-		        </select>
-		    </div>
-		    <input type="hidden" id="lat" name="lat" value="40.7143528" />
-		    <input type="hidden" id="lng" name="lng" value="-74.0059731" />
-		    <!-- <div type ="submit" class="search-button button">Search for objects</div> -->
-		    <input type="submit" class="search-button my-button" id="create-button"></input>
-	</div>
-		    <table id="destList">
-		    	<tr>
-		    		<td> Name </td>
-		    		<td> Address </td>
-		    		<td> Rating </td>
-		    		<td class="add">Add</td>
-		    	</tr>
-		    </table>
-		</div>
-
-	<div id="Map" class="map" style="width: 800px; height: 300px;">
-	</div>
 
 	<!-- <div class="map">
 	<img src="https://api.fnkr.net/testimg/800x300/00CED1/FFF/?text=img+placeholder">
