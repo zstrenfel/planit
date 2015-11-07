@@ -282,7 +282,6 @@ Dashboard = (function() {
             console.log(url);
             makePutRequest(url, dest, onSuccess, onFailure);
         });
-
     };
 
         /**
@@ -302,19 +301,35 @@ Dashboard = (function() {
       var name_cell = row.insertCell(0);
       var address_cell = row.insertCell(1);
       var like_cell = row.insertCell(2);
-      like_cell.innerHTML = '<button id="like-btn" type="button">Like</button>';
+      like_cell.innerHTML = '<input type="button" id="like-btn" type="button" value = "Like" + dest.like_count</input>';
       //<%= link_to 'like', vote_path(@post), class: 'vote', remote: true, data: { type: :json } %>';
       var like_count_cell = row.insertCell(3);
-      like_count_cell.innerHTML= dest.like_count;
+      like_count_cell.innerHTML = dest.like_count;
 
       $('#like-btn').click(function() {
         dest.like_count += 1;
         like_count_cell.innerHTML=dest.like_count;
         sortTable();
       })
-    
       var edit_cell = row.insertCell(4);
       var delete_cell = row.insertCell(5);
+      
+      function sortTable(){
+        var tbl = document.getElementById("destTable").tBodies[0];
+        var store = [];
+        for(var i=1, len=tbl.rows.length; i<len; i++){
+          var row = tbl.rows[i];
+          store.push([table.rows[i].cells[3].innerHTML, row]);
+        }
+          store.sort(function(x,y){
+          return y[0] - x[0];
+        });
+        for(var i=0, len=store.length; i<len; i++){
+          tbl.appendChild(store[i][1]);
+        }
+        table = tbl;
+        store = null;
+        }
 
       // Add some text to the new cells:
       name_cell.innerHTML = dest.name;
@@ -687,7 +702,7 @@ Dashboard = (function() {
         for (var i = 0; i < results.length; i++) {
             obj = results[i];
             var rating = ""
-            if (obj.rating != undefined){
+            if (obj.rating !== undefined){
                 rating = obj.rating;
             }
             var id = obj.name.replace(/\s+/g, '');
