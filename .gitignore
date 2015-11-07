@@ -15,3 +15,9 @@
 /log/*
 !/log/.keep
 /tmp
+
+#Ignore databse.yml
+/config/database.yml
+
+#Ignore .c9 files
+/.c9/
