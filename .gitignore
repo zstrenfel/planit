@@ -17,7 +17,7 @@
 /tmp
 
 # Ignore Spec Files
-/spec
+
 
 #Ignore databse.yml
 /config/database.yml

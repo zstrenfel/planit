@@ -27,12 +27,14 @@
 # FOR HEROKU -- POSTGRES DB SETUP
 # UNCOMMENT WHEN WORKING LOCALLY.
 development:
+  encoding: sql_ascii
   adapter: postgresql
   database: planit_developement
   pool: 5
   timeout: 5000
 
 test:
+  encoding: sql_ascii
   adapter: postgresql
   database: planit_test
   pool: 5
