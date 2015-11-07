@@ -86,7 +86,6 @@ Dashboard = (function() {
             initializeMap();
             insertAllDest(data.trip);
             updateCalendarTime(data.trip);
-
         };
 
         var onFailure = function() {
@@ -181,6 +180,7 @@ Dashboard = (function() {
         $().attr('placeholder', trip.end_date);
 
     }
+
 /** =========================Destination Handler + Functions ============== */
     var attachSubmitDestHandler = function(e) {
         submit.on('click', '.submit-input', function(e){
@@ -191,10 +191,14 @@ Dashboard = (function() {
             dest.name = name;
             dest.address = address;
 
+
             var onSuccess = function(data) {
                 if (!data.errors){
                     console.log(data);
                     insertDest(data["destination"]);
+
+                    submit.find('.name-input').val('')
+                    submit.find('.address-input').val('')
                 }else{
                     for (i in data.errors){
                         console.log(data.errors[i]);
@@ -278,6 +282,7 @@ Dashboard = (function() {
             console.log(url);
             makePutRequest(url, dest, onSuccess, onFailure);
         });
+
     };
 
         /**
@@ -299,6 +304,7 @@ Dashboard = (function() {
       var edit_cell = row.insertCell(2);
       var delete_cell = row.insertCell(3);
 
+
       // Add some text to the new cells:
       name_cell.innerHTML = dest.name;
       address_cell.innerHTML = dest.address;
@@ -308,6 +314,8 @@ Dashboard = (function() {
       row.setAttribute('data-dest-id',dest.id);
       // delete_cell.innerHTML = "<div class='del'>x</div>";
       addMarker(dest.address,map);
+
+      id_cell.innerHTML = dest.id;
     };
 
     var insertAllDest = function(trip){
@@ -707,6 +715,7 @@ Dashboard = (function() {
         attachCreateTripHandler();
         initializeSearch();
         attachCalendarHandlers();
+
     };
 
     return {
