@@ -371,66 +371,66 @@ $("#nm").click(function(){
 
 /** =======================End of destinations handlers ======================= */
 
-// /** =======================Create Trip Handlers/Functions ===================== */
-//     var  attachCreateTripHandler= function(e) {
-//         var down = false;
-//         var trip ={};
+/** =======================Create Trip Handlers/Functions ===================== */
+    var  attachCreateTripHandler= function(e) {
+        var down = false;
+        var trip ={};
 
-//         $('.create-trip').on('click', function() {
-//             if (!down) {
-//                 toggleElement($('.create-edit-trip'), 70, "down");
-//                 down = true;
-//             }
-//         })
+        $('.create-trip').on('click', function() {
+            if (!down) {
+                toggleElement($('.create-edit-trip'), 70, "down");
+                down = true;
+            }
+        })
 
-//         //close without saving clear form
-//         $('a[data-function ="create-trip-close"]').on('click', function(e) {
-//             e.preventDefault();
-//             toggleElement($('.create-edit-trip'), 70, "up");
-//             $('.trip-form').trigger("reset");
-//             down = false;
-//         })
+        //close without saving clear form
+        $('a[data-function ="create-trip-close"]').on('click', function(e) {
+            e.preventDefault();
+            toggleElement($('.create-edit-trip'), 70, "up");
+            $('.trip-form').trigger("reset");
+            down = false;
+        })
 
-//         //save then save trip to db
-//         $('a[data-function ="save-trip"]').on('click', function(e) {
-//             e.preventDefault();
-//             toggleElement($('.create-edit-trip'), 70, "up");
-//             down = false;
-//             //getting trip fields
-//             trip.location = $('input[name="location').val();
-//             trip.name = $('input[name="name').val();
-//             trip.start_date = $('input[name="start-date').val();
-//             trip.end_date = $('input[name="end-date').val();
+        //save then save trip to db
+        $('a[data-function ="save-trip"]').on('click', function(e) {
+            e.preventDefault();
+            toggleElement($('.create-edit-trip'), 70, "up");
+            down = false;
+            //getting trip fields
+            trip.location = $('input[name="location').val();
+            trip.name = $('input[name="name').val();
+            trip.start_date = $('input[name="start-date').val();
+            trip.end_date = $('input[name="end-date').val();
 
 
-//             var valid = validateTripForm(trip); //returns true or false
+            var valid = validateTripForm(trip); //returns true or false
 
-//             var onSuccess = function(data) {
-//                 trip_id = data.trip.id;
-//                 updateDash();
-//             };
+            var onSuccess = function(data) {
+                trip_id = data.trip.id;
+                updateDash();
+            };
 
-//             var onFailure = function(data) {
-//                 console.log("failed to create a new trip object");
-//             }
+            var onFailure = function(data) {
+                console.log("failed to create a new trip object");
+            }
 
-//             if (valid) {
-//                 makePostRequest('/trips/', trip, onSuccess, onFailure);
-//                 $('.trip-form').trigger("reset");
-//             } else {
-//                 console.log("invalid trip")
-//                 console.log(trip);
-//             }
-//         })
-//     }
+            if (valid) {
+                makePostRequest('/trips/', trip, onSuccess, onFailure);
+                $('.trip-form').trigger("reset");
+            } else {
+                console.log("invalid trip")
+                console.log(trip);
+            }
+        })
+    }
 
-//     //need to validate
-//     var validateTripForm = function(trip) {
-//         return true;
-//     }
-// /** ========================= End Location Handlers ============================ */
+    //need to validate
+    var validateTripForm = function(trip) {
+        return true;
+    }
+/** ========================= End Location Handlers ============================ */
 
-// /** ========================= Add Friends Handlers ==============================*/
+/** ========================= Add Friends Handlers ==============================*/
 
 //     var attachFriendHandler = function(e) {
 //         var down = false;
