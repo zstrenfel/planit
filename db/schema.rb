@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20151105033647) do
     t.integer  "trip_id"
   end
 
-  add_index "days", ["trip_id"], name: "index_days_on_trip_id", using: :btree
+  add_index "days", ["trip_id"], name: "index_days_on_trip_id"
 
   create_table "destinations", force: :cascade do |t|
     t.string   "name"

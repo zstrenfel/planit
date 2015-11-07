@@ -5,7 +5,7 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <script src='./assets/0.10.0/application.js' type='text/javascript'></script>    
     <link href='./assets/0.10.0/application.css' media='screen, projection, print' rel='stylesheet' type='text/css'>
-    <link rel="shortcut icon" type="image/png" href="./assets/0.10.0/favicon_yellow.png" />
+    <link rel="shortcut icon" type="image/png" href="./assets/0.10.0/favicon_red.png" />
     <link rel="icon" type="image/png" href="./assets/0.10.0/favicon.png" />
   </head>
   
@@ -14,27 +14,27 @@
       <img src="./assets/0.10.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2015-11-06T19:54:59-08:00">2015-11-06T19:54:59-08:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2015-11-06T21:23:50-08:00">2015-11-06T21:23:50-08:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="yellow">81.11%</span></span>
+    (<span class="covered_percent"><span class="red">79.79%</span></span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         1.29
+         1.34
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
-    <b>46</b> files in total.
-    <b>360</b> relevant lines. 
-    <span class="green"><b>292</b> lines covered</span> and
-    <span class="red"><b>68</b> lines missed </span>
+    <b>47</b> files in total.
+    <b>381</b> relevant lines. 
+    <span class="green"><b>304</b> lines covered</span> and
+    <span class="red"><b>77</b> lines missed </span>
   </div>
   <table class="file_list">
     <thead>
@@ -57,7 +57,7 @@
         <td>16</td>
         <td>16</td>
         <td>0</td>
-        <td>2.3</td>
+        <td>3.1</td>
       </tr>
       
       <tr>
@@ -87,7 +87,7 @@
         <td>8</td>
         <td>6</td>
         <td>2</td>
-        <td>0.8</td>
+        <td>1.1</td>
       </tr>
       
       <tr>
@@ -97,7 +97,7 @@
         <td>7</td>
         <td>7</td>
         <td>0</td>
-        <td>3.1</td>
+        <td>5.7</td>
       </tr>
       
       <tr>
@@ -381,6 +381,16 @@
       </tr>
       
       <tr>
+        <td class="strong"><a href="#65c46354d434591970fad320320db6e8efa599fc" class="src_link" title="spec/features/add_destination_spec.rb">spec/features/add_destination_spec.rb</a></td>
+        <td class="red strong">57.14 %</td>
+        <td>27</td>
+        <td>21</td>
+        <td>12</td>
+        <td>9</td>
+        <td>0.6</td>
+      </tr>
+      
+      <tr>
         <td class="strong"><a href="#ed1f4760bbed675d2ccb312b7de92f2cec778c46" class="src_link" title="spec/features/visitor_signs_up_spec.rb">spec/features/visitor_signs_up_spec.rb</a></td>
         <td class="green strong">100.0 %</td>
         <td>14</td>
@@ -600,26 +610,26 @@
           <code class="ruby">  def cors_preflight_check</code>
         </li>
       
-        <li class="covered" data-hits="6" data-linenumber="11">
-          <span class="hits">6</span>
+        <li class="covered" data-hits="9" data-linenumber="11">
+          <span class="hits">9</span>
           
           <code class="ruby">    headers[&#39;Access-Control-Allow-Origin&#39;] = &#39;*&#39;</code>
         </li>
       
-        <li class="covered" data-hits="6" data-linenumber="12">
-          <span class="hits">6</span>
+        <li class="covered" data-hits="9" data-linenumber="12">
+          <span class="hits">9</span>
           
           <code class="ruby">    headers[&#39;Access-Control-Allow-Methods&#39;] = &#39;POST, PUT, DELETE, GET, OPTIONS&#39;</code>
         </li>
       
-        <li class="covered" data-hits="6" data-linenumber="13">
-          <span class="hits">6</span>
+        <li class="covered" data-hits="9" data-linenumber="13">
+          <span class="hits">9</span>
           
           <code class="ruby">    headers[&#39;Access-Control-Request-Method&#39;] = &#39;*&#39;</code>
         </li>
       
-        <li class="covered" data-hits="6" data-linenumber="14">
-          <span class="hits">6</span>
+        <li class="covered" data-hits="9" data-linenumber="14">
+          <span class="hits">9</span>
           
           <code class="ruby">    headers[&#39;Access-Control-Allow-Headers&#39;] = &#39;Origin, X-Requested-With, Content-Type, Accept, Authorization&#39;</code>
         </li>
@@ -654,8 +664,8 @@
           <code class="ruby">  def configure_permitted_parameters</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="20">
-          <span class="hits">1</span>
+        <li class="covered" data-hits="2" data-linenumber="20">
+          <span class="hits">2</span>
           
           <code class="ruby">    devise_parameter_sanitizer.for(:sign_up) &lt;&lt; :name</code>
         </li>
@@ -684,8 +694,8 @@
           <code class="ruby">    # return the path based on resource</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="25">
-          <span class="hits">1</span>
+        <li class="covered" data-hits="2" data-linenumber="25">
+          <span class="hits">2</span>
           
           <code class="ruby">    return &#39;/dashboard&#39;</code>
         </li>
@@ -1728,8 +1738,8 @@
           <code class="ruby">  def index</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="4">
-          <span class="hits">1</span>
+        <li class="covered" data-hits="2" data-linenumber="4">
+          <span class="hits">2</span>
           
           <code class="ruby">    if user_signed_in?</code>
         </li>
@@ -1764,8 +1774,8 @@
           <code class="ruby">  def dashboard</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="10">
-          <span class="hits">1</span>
+        <li class="covered" data-hits="2" data-linenumber="10">
+          <span class="hits">2</span>
           
           <code class="ruby">    if not user_signed_in?</code>
         </li>
@@ -1782,8 +1792,8 @@
           <code class="ruby">    else</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="13">
-          <span class="hits">1</span>
+        <li class="covered" data-hits="2" data-linenumber="13">
+          <span class="hits">2</span>
           
           <code class="ruby">      @trips = current_user.trips</code>
         </li>
@@ -1836,8 +1846,8 @@
           <code class="ruby">  def resource_name</code>
         </li>
       
-        <li class="covered" data-hits="8" data-linenumber="3">
-          <span class="hits">8</span>
+        <li class="covered" data-hits="16" data-linenumber="3">
+          <span class="hits">16</span>
           
           <code class="ruby">    :user</code>
         </li>
@@ -1860,8 +1870,8 @@
           <code class="ruby">  def resource</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="7">
-          <span class="hits">3</span>
+        <li class="covered" data-hits="6" data-linenumber="7">
+          <span class="hits">6</span>
           
           <code class="ruby">    @resource ||= User.new</code>
         </li>
@@ -1884,8 +1894,8 @@
           <code class="ruby">  def devise_mapping</code>
         </li>
       
-        <li class="covered" data-hits="7" data-linenumber="11">
-          <span class="hits">7</span>
+        <li class="covered" data-hits="14" data-linenumber="11">
+          <span class="hits">14</span>
           
           <code class="ruby">    @devise_mapping ||= Devise.mappings[:user]</code>
         </li>
@@ -7435,6 +7445,186 @@
         </li>
       
         <li class="never" data-hits="" data-linenumber="30">
+          
+          
+          <code class="ruby">end</code>
+        </li>
+      
+    </ol>
+  </pre>
+</div>
+      
+        <div class="source_table" id="65c46354d434591970fad320320db6e8efa599fc">
+  <div class="header">
+    <h3>spec/features/add_destination_spec.rb</h3>
+    <h4><span class="red">57.14 %</span> covered</h4>
+    <div>
+      <b>21</b> relevant lines. 
+      <span class="green"><b>12</b> lines covered</span> and
+      <span class="red"><b>9</b> lines missed.</span>
+    </div>
+  </div>
+  
+  <pre>
+    <ol>
+      
+        <li class="covered" data-hits="1" data-linenumber="1">
+          <span class="hits">1</span>
+          
+          <code class="ruby">require &#39;rails_helper&#39;</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="2">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="3">
+          <span class="hits">1</span>
+          
+          <code class="ruby">feature &quot;Search&quot; do</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="4">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  before(:each) do</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="5">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    visit &#39;/&#39;</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="6">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    fill_in &#39;reg-name&#39;, :with =&gt; &#39;Capy&#39;</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="7">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    fill_in &#39;reg-email&#39;, :with =&gt; &#39;capy@example.com&#39;</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="8">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    fill_in &#39;reg-pw&#39;, :with =&gt; &#39;password&#39;</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="9">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    fill_in &#39;reg-pw-conf&#39;, :with =&gt; &#39;password&#39;</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="10">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    click_button &#39;Sign up&#39;</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="11">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    page.should have_content &#39;Logout&#39;</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="12">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="13">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="14">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  it &quot;manually adds a destination&quot; do</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="15">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    fill_in &#39;name-input&#39;, with: &#39;Dest&#39;</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="16">
+          
+          
+          <code class="ruby">    fill_in &#39;address-input&#39;, with: &#39;123 Street Ave&#39;</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="17">
+          
+          
+          <code class="ruby">    click_button &#39;create-button&#39;</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="18">
+          
+          
+          <code class="ruby">    page.should have_css(&#39;td&#39;, :text =&gt; &#39;Dest&#39;)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="19">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="20">
+          
+          
+          <code class="ruby">    fill_in &#39;name-input&#39;, with: &#39;Dest2&#39;</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="21">
+          
+          
+          <code class="ruby">    fill_in &#39;address-input&#39;, with: &#39;456 Street Ave&#39;</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="22">
+          
+          
+          <code class="ruby">    click_button &#39;create-button&#39; </code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="23">
+          
+          
+          <code class="ruby">    page.should have_css(&#39;td&#39;, :text =&gt; &#39;Dest&#39;) # previous dest should still exist</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="24">
+          
+          
+          <code class="ruby">    page.should have_css(&#39;td&#39;, :text =&gt; &#39;Dest2&#39;)</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="25">
+          
+          
+          <code class="ruby">    page.should have_css(&#39;td&#39;, :text =&gt; &#39;456 Street Ave&#39;)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="26">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="27">
           
           
           <code class="ruby">end</code>
