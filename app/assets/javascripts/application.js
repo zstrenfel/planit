@@ -15,6 +15,9 @@
 //= require turbolinks
 //= require pages
 //= require dashboardV2
+<<<<<<< HEAD
 //= require jasmine_examples/Player
 //= require jasmine_examples/Song
+=======
+>>>>>>> 089ccc71a7604c03808dfc90fa7b02b88d290b0d
 

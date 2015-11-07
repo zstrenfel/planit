@@ -268,10 +268,19 @@ var Dashboard = (function() {
     //         var onFailure = function(data) {
     //             console.log("failure");
     //         };
+<<<<<<< HEAD
+=======
+
+>>>>>>> 089ccc71a7604c03808dfc90fa7b02b88d290b0d
     // 	url = "trips/" + trip_id + "/destinations";
     // 	console.log(url);
     //     makeGetRequest(url, onSuccess, onFailure);
     // };
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 089ccc71a7604c03808dfc90fa7b02b88d290b0d
 
 
     var  attachCreateTripHandler= function(e) {

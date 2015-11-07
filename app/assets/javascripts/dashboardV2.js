@@ -72,9 +72,13 @@ Dashboard = (function() {
             console.log("succesfully updated dash");
             updateHeader(data.trip);
             resetTable();
+<<<<<<< HEAD
             initializeMap();
             insertAllDest(data.trip);
 
+=======
+            insertAllDest(data.trip);
+>>>>>>> 089ccc71a7604c03808dfc90fa7b02b88d290b0d
         };
 
         var onFailure = function() {
@@ -172,6 +176,8 @@ Dashboard = (function() {
                 if (!data.errors){
                     console.log(data);
                     insertDest(data["destination"]);
+                    submit.find('.name-input').val('')
+                    submit.find('.address-input').val('')
                 }else{
                     for (i in data.errors){
                         console.log(data.errors[i]);
@@ -188,7 +194,6 @@ Dashboard = (function() {
             console.log(url);
             makePostRequest(url, dest, onSuccess, onFailure);
         });
-        
     };
 
         /**
@@ -204,7 +209,7 @@ Dashboard = (function() {
       var row = table.insertRow(1);
 
       // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
-    
+
       var name_cell = row.insertCell(0);
       var address_cell = row.insertCell(1);
       // var delete_cell = row.insertCell(2);
@@ -258,13 +263,12 @@ $("#nm").click(function(){
 });
       }*/
 
-
-
       // Add some text to the new cells:
       name_cell.innerHTML = dest.name;
       address_cell.innerHTML = dest.address;
       // delete_cell.innerHTML = "<div class='del'>x</div>";
       addMarker(dest.address,map);
+      id_cell.innerHTML = dest.id;
     };
 
     var insertAllDest = function(trip){
@@ -277,9 +281,7 @@ $("#nm").click(function(){
     var resetTable = function() {
         $('#destTable tr').not('.table-initial').remove();
     }
-    
-        
-    
+
 /** =======================End of destinations handlers ======================= */
 
 /** =======================Create Trip Handlers/Functions ===================== */
@@ -382,6 +384,7 @@ $("#nm").click(function(){
         })
         });
     }
+<<<<<<< HEAD
 /** =========================End Friend Handlers ===================================== */
 
 /** ========================= Add Map Handlers ==============================*/
