@@ -268,10 +268,7 @@ var Dashboard = (function() {
     //         var onFailure = function(data) {
     //             console.log("failure");
     //         };
-    // 	url = "trips/" + trip_id + "/destinations";
-    // 	console.log(url);
-    //     makeGetRequest(url, onSuccess, onFailure);
-    // };
+
 
 
     var  attachCreateTripHandler= function(e) {

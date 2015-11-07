@@ -7,7 +7,6 @@ class ApplicationController < ActionController::Base
   skip_before_filter  :verify_authenticity_token
   include ActionController::Serialization
 
-
   def cors_preflight_check
     headers['Access-Control-Allow-Origin'] = '*'
     headers['Access-Control-Allow-Methods'] = 'POST, PUT, DELETE, GET, OPTIONS'

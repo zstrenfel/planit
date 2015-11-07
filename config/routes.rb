@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   resources :days, only: [:index, :create, :update, :destroy, :show]
   resources :destinations, only: [:index]
 
+  post '/trips/:id/invite', to: 'trips#invite_friends'
+  get '/trips/:id/destinations', to: 'trips#destinations'
+  #pages routes
   get 'pages/index'
   root to: 'pages#index'
   get '/dashboard', to: 'pages#dashboard'
@@ -17,6 +20,7 @@ Rails.application.routes.draw do
   delete 'destinations', to: 'destinations#destroy_all'
   delete '/api/destinations', to: 'destinations#destroy'
   put 'api/destinations/edit', to: 'destinations#update'
+
 
 
 

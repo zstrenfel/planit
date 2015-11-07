@@ -89,8 +89,6 @@ class TripsController < ApplicationController
         render :json => { destinations: @destinations}
     end
 
-
-
     private
         def trip_params
             params.require(:trip).permit(:name, :location, :start_date, :end_date)

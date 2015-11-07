@@ -86,7 +86,6 @@ Dashboard = (function() {
             initializeMap();
             insertAllDest(data.trip);
             updateCalendarTime(data.trip);
-
         };
 
         var onFailure = function() {
@@ -188,6 +187,8 @@ Dashboard = (function() {
                 if (!data.errors){
                     console.log(data);
                     insertDest(data["destination"]);
+                    submit.find('.name-input').val('')
+                    submit.find('.address-input').val('')
                 }else{
                     for (i in data.errors){
                         console.log(data.errors[i]);
@@ -304,7 +305,7 @@ Dashboard = (function() {
         like_count_cell.innerHTML=dest.like_count;
         sortTable();
       })
-      
+
       function sortTable(){
         var tbl = document.getElementById("destTable").tBodies[0];
         var store = [];
@@ -321,7 +322,7 @@ Dashboard = (function() {
         table = tbl;
         store = null;
         }
-        
+
 
       // Add some text to the new cells:
       name_cell.innerHTML = dest.name;
@@ -332,6 +333,7 @@ Dashboard = (function() {
       row.setAttribute('data-dest-id',dest.id);
       // delete_cell.innerHTML = "<div class='del'>x</div>";
       addMarker(dest.address,map);
+
     };
 
     var insertAllDest = function(trip){
@@ -344,8 +346,6 @@ Dashboard = (function() {
     var resetTable = function() {
         $('#destTable tr').not('.table-initial').remove();
     }
-
-
 
 /** =======================End of destinations handlers ======================= */
 
@@ -736,10 +736,8 @@ Dashboard = (function() {
         attachFriendHandler();
         attachCreateTripHandler();
         initializeSearch();
-<<<<<<< HEAD
         attachCalendarHandlers();
-=======
->>>>>>> feature/vote-system
+
     };
 
     return {
