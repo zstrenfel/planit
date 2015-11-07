@@ -212,7 +212,7 @@ Dashboard = (function() {
       // var delete_cell = row.insertCell(2);
       
       var like_cell = row.insertCell(2);
-      like_cell.innerHTML = '<button id="like-btn" type="button">Like</button>';
+      like_cell.innerHTML = '<input type="button" id="like-btn" type="button" value = "Like" + dest.like_count</input>';
       //<%= link_to 'like', vote_path(@post), class: 'vote', remote: true, data: { type: :json } %>';
       var like_count_cell = row.insertCell(3);
       like_count_cell.innerHTML= dest.like_count;
@@ -220,46 +220,60 @@ Dashboard = (function() {
       $('#like-btn').click(function() {
         dest.like_count += 1;
         like_count_cell.innerHTML=dest.like_count;
+        console.log("hey");
+        console.log(table.rows[1].cells[3].innerHTML);
         sortTable();
       })
-    
-      /*var sortTable= function() {
-        for (var i = 0, row; row = table.rows[i]; i++) {
-          var j = i + 1;
-          if i[3] > j[3] {
-            return 
-          }*/
+      
+      function sortTable(){
+        var tbl = document.getElementById("destTable").tBodies[0];
+        var store = [];
+        for(var i=1, len=tbl.rows.length; i<len; i++){
+          var row = tbl.rows[i];
+          store.push([table.rows[i].cells[3].innerHTML, row]);
+        }
+          store.sort(function(x,y){
+          return y[0] - x[0];
+        });
+        for(var i=0, len=store.length; i<len; i++){
+          tbl.appendChild(store[i][1]);
+        }
+        table = tbl;
+        store = null;
+        }
+        
 
-    // get the text of n-th <td> of <tr> 
-    /*var A = $(a).children('td').eq(n).text().toUpperCase();
-    var B = $(b).children('td').eq(n).text().toUpperCase();
-    if(A < B) {
-     return -1*f;
-    }
-    if(A > B) {
-     return 1*f;
-    }
-    return 0;
-  });
-
-  $.each(rows, function(index, row) {
-    $('#mytable').children('tbody').append(row);
-  });
-}
-var f_sl = 1; // flag to toggle the sorting order
-var f_nm = 1; // flag to toggle the sorting order
-$("#sl").click(function(){
-    f_sl *= -1; // toggle the sorting order
-    var n = $(this).prevAll().length;
-    sortTable(f_sl,n);
-});
-$("#nm").click(function(){
-    f_nm *= -1; // toggle the sorting order
-    var n = $(this).prevAll().length;
-    sortTable(f_nm,n);
-});
+      
+      
+      /*var $tbody = $('destTable tbody');
+$tbody.find('tr').sort(function(a,b){ 
+    var tda = $(a).find('td:eq(3)').text(); // can replace 1 with the column you want to sort on
+    var tdb = $(b).find('td:eq(3)').text(); // this will sort on the second column
+            // if a < b return 1
+    return tda < tdb ? 1 
+           // else if a > b return -1
+           : tda > tdb ? -1 
+           // else they are equal - return 0    
+           : 0;           
+}).appendTo($tbody);*/
+      
+      
+      /*function sortTable(){
+        var tbl = document.getElementById("destTable").tBodies[0];
+        var a = table.rows[1].cells[3].innerHTML);
+        var table = document.createElement('newTable');
+        for(var i=2, len=tbl.rows.length; i<len; i++){
+         if (table.rows[i].cells[3].innerHTML > a) {
+           
+          
+        var div = document.getElementById('divTable');
+        div.appendChild(table);
+        }
+        store.sort(function(a, b){return b-a});
+        console.log(store);
       }*/
-
+    
+      
 
 
       // Add some text to the new cells:
@@ -520,7 +534,6 @@ $("#nm").click(function(){
         attachFriendHandler();
         attachCreateTripHandler();
         initializeSearch();
-        attachLikeHandler();
     };
 
     return {
