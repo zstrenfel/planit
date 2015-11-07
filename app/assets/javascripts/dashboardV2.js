@@ -81,7 +81,8 @@ Dashboard = (function() {
      var updateDash = function(data) {
         var url = '/trips/' + trip_id;
         var onSuccess = function(data) {
-            console.log("succesfully updated dash " + JSON.stringify(data.trip));
+            // console.log("succesfully updated dash " + JSON.stringify(data.trip));
+            $('#location').attr('data-location', data.trip.location);
             updateHeader(data.trip);
             resetTable();
             initializeMap();
@@ -720,7 +721,7 @@ Dashboard = (function() {
                 alert('Could not find trip location: ' + status);
             }
         });
-    }
+    };
 
 /** ========================= End Add Friends Handlers ===================================== */
 
