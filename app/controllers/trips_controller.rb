@@ -34,12 +34,14 @@ class TripsController < ApplicationController
         @trip = Trip.find(params[:id])
 
         if @trip.update(trip_params)
-            redirect_to @trip
+            # redirect_to @trip
             #json1 = {:status => 1, :trip => @trip}
-	        #render :json => json1
+            @trip.days.destroy_all
+            create_days
+	        render :json => @trip
         else
-            render 'edit'
-            #json1 = {:status => -1, :errors => @trip.errors}
+            # render 'edit'
+            json1 = {:status => -1, :errors => @trip.errors}
 	        #render :json => json1
         end
     end
@@ -48,7 +50,10 @@ class TripsController < ApplicationController
         @trip = Trip.find(params[:id])
         @trip.destroy
 
-        redirect_to trips_path
+        respond_to do |format|
+          format.html { redirect_to current_page_url, notice: 'page was successfully destroyed.' }
+          format.json { head :no_content }
+        end
     end
 
     def invite_friends

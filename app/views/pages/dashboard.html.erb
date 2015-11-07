@@ -3,9 +3,11 @@
 <%= javascript_tag do %>
 	$(window).load(function() {
 	  	Dashboard.start();
-	  	$('#dest-date').datepicker();
-	  	$('#trip-start').datepicker();
-	  	$('#trip-end').datepicker();
+	  	$('#dest-date').datepicker({ dateFormat: 'mm-dd-yy' });
+	  	$('#trip-start').datepicker({ dateFormat: 'dd-mm-yy' });
+	  	$('#trip-end').datepicker({ dateFormat: 'dd-mm-yy' });
+	  	$('input[data-function="update-trip-start"').datepicker({ dateFormat: 'dd-mm-yy' });
+	  	$('input[data-function="update-trip-end"').datepicker({ dateFormat: 'dd-mm-yy' });
   	});
 <% end %>
 <!-- offscreen -->
@@ -50,20 +52,22 @@
 <div class="main-content">
 	<div class="trip-info">
 		<div class="half-col">
-			<h1 data-header="location" class="hidden">No Trip Selected</h1>
-			<div class="half-col">
-				<input type="text" class="" data-function="update-trip-name">
-				<input type="text" class="" data-function="update-trip-location">
+			<h1 data-header="location" class="">No Trip Selected</h1>
+			<div class="half-col-collapse omega">
+				<input type="text" class="hidden" data-function="update-trip-location">
 			</div>
-			<div class="half-col">
-				<input type="text" class="" data-function="update-trip-start">
-				<input type="text" class="" data-function="update-trip-end">
+			<div class="half-col-collapse">
+				<input type="text" class="hidden" data-function="update-trip-start">
+				<input type="text" class="hidden" data-function="update-trip-end">
 			</div>
-
 			<aside data-header="invited-dates"></aside>
 			<aside><a href="" data-function="invite-friends" class="hidden">Invite more friends</a></aside>
 		</div>
 		<a href="" class="button hidden" data-function="form-edit">EDIT</a>
+		<a href="" class="button hidden" data-function="trip-delete">DELETE</a>&nbsp;
+		<a href="" class="button hidden" data-function="form-submit">SAVE</a>&nbsp;
+		<a href="" class="button hidden" data-function="form-cancel">CANCEL</a>
+
 	</div>
 
 	<div class="destination-list">

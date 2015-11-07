@@ -88,7 +88,9 @@ Dashboard = (function() {
             initializeMap();
             insertAllDest(data.trip);
             updateCalendarTime(data.trip);
-            findAddress();
+            var geocoder = new google.maps.Geocoder();
+            findAddress(geocoder);
+            editTripForm(data.trip);
 
         };
 
@@ -113,7 +115,7 @@ Dashboard = (function() {
         $('h1[data-header="location"]').html(trip.location);
         $('aside[data-header="invited-dates"').html("invited: " + user_count + " dates: " + trip.start_date + " - " + trip.end_date);
         $('a[data-function="invite-friends"').removeClass('hidden');
-        $('a[data-function="form-save"').removeClass('hidden');
+        $('a[data-function="form-edit"').removeClass('hidden');
         menu_close();
     }
 
@@ -180,11 +182,89 @@ Dashboard = (function() {
 // Trip functions
 
     var editTripForm = function(trip) {
-        $().attr('placeholder', trip.name);
-        $().attr('placeholder', trip.start_date);
-        $().attr('placeholder', trip.end_date);
+        $('input[data-function="update-trip-location"').attr('placeholder', trip.location);
+        $('input[data-function="update-trip-start"').attr('placeholder', "Start - " +  trip.start_date);
+        $('input[data-function="update-trip-end"').attr('placeholder', "End - " + trip.end_date);
+    }
+
+    var editTriphandler = function(e) {
+        $('a[data-function="form-edit"]').on('click', function(e) {
+            e.preventDefault();
+            console.log('clicked');
+            $('input[data-function="update-trip-location"]').removeClass('hidden');
+            $('input[data-function="update-trip-start"]').removeClass('hidden');
+            $('input[data-function="update-trip-end"]').removeClass('hidden');
+            $('a[data-function="form-submit"]').removeClass('hidden');
+            $('a[data-function="form-cancel"]').removeClass('hidden');
+            $('a[data-function="trip-delete"]').removeClass('hidden');
+
+            $('h1[data-header="location"]').addClass('hidden');
+            $('a[data-function="form-edit"]').addClass('hidden');
+            $('aside[data-header="invited-dates"]').addClass('hidden');
+            $('aside[data-header="invite-friends"]').addClass('hidden');
+        });
+
+        $('a[data-function="form-cancel"]').on('click', function(e) {
+            e.preventDefault();
+            closeTripForm();
+            clearTripForm();
+        })
+
+        $('a[data-function="form-submit"]').on('click', function(e) {
+            e.preventDefault();
+            console.log('here we go');
+            trip = {};
+            if ($('input[data-function="update-trip-location"]').val()) {
+                trip.location =  $('input[data-function="update-trip-location"]').val();
+            }
+            if ($('input[data-function="update-trip-start"]').val()) {
+                trip.start_date = $('input[data-function="update-trip-start"]').val();
+            }
+            if ($('input[data-function="update-trip-end"]').val()) {
+                trip.end_date = $('input[data-function="update-trip-end"]').val();
+            }
+
+            console.log('trip ' + JSON.stringify(trip));
+
+            var url = '/trips/' + trip_id;
+            makePutRequest(url, trip, updateDash, onFailureGlobal);
+            closeTripForm();
+            clearTripForm();
+        })
+
+        $('a[data-function="trip-delete"]').on('click', function(e) {
+            e.preventDefault();
+            var url= '/trips/' + trip_id;
+            var onSuccess = function() {
+                clearTripForm();
+                window.location.reload(true);
+            };
+            makeDeleteRequest(url, onSuccess, onFailureGlobal);
+        });
 
     }
+
+    var closeTripForm = function() {
+         $('input[data-function="update-trip-location"]').addClass('hidden');
+            $('input[data-function="update-trip-start"]').addClass('hidden');
+            $('input[data-function="update-trip-end"]').addClass('hidden');
+            $('a[data-function="form-submit"]').addClass('hidden');
+            $('a[data-function="form-cancel"]').addClass('hidden');
+            $('a[data-function="trip-delete"]').addClass('hidden');
+
+
+            $('h1[data-header="location"]').removeClass('hidden');
+            $('a[data-function="form-edit"]').removeClass('hidden');
+            $('aside[data-header="invited-dates"]').removeClass('hidden');
+            $('aside[data-header="invite-friends"]').removeClass('hidden');
+    }
+
+    var clearTripForm = function() {
+        $('input[data-function="update-trip-location"]').val('');
+        $('input[data-function="update-trip-start"]').val('');
+        $('input[data-function="update-trip-end"]').val('');
+    }
+
 /** =========================Destination Handler + Functions ============== */
     var attachSubmitDestHandler = function(e) {
         submit.on('click', '.submit-input', function(e){
@@ -475,9 +555,6 @@ Dashboard = (function() {
     var attachCalendarHandlers = function() {
         //needs to add an ajax call to update the day on change
         $('.cal-dates').on('click', 'td', function() {
-            //change color of selected
-            //load data for that day
-            //update calendar with that data
             $('.cal-container').find('.dest').remove();
             $('.cal-container').find('.dest-row:not(.keep)').remove();
 
@@ -487,7 +564,7 @@ Dashboard = (function() {
     };
 
     var updateCalendarTime = function(data) {
-        console.log('updatecaltime');
+        console.log('updatecaltime ' + JSON.stringify(data));
         var day = data.days;
         var times = ["12AM", "1AM", "2AM", "3AM", "4AM", "5AM", "6AM", "7AM", "8AM", "9AM", "10AM", "11AM",
                  "12PM", "1PM", "2PM", "3PM", "4PM", "5PM", "6PM", "7PM", "8PM", "9PM", "10PM", "11PM"];
@@ -500,7 +577,8 @@ Dashboard = (function() {
     }
 
     var addCalDates = function(days) {
-        console.log('addcaldates');
+        console.log(days);
+        console.log('addcaldates ' + days);
         var monthNames = [
                           "January", "February", "March",
                           "April", "May", "June", "July",
@@ -640,8 +718,8 @@ Dashboard = (function() {
 
     function initializeSearch(){
         // var geocoder;
-        var geocoder = new google.maps.Geocoder();
-        findAddress(geocoder);
+
+
 
         submit1.on('click',  function(e){
             e.preventDefault();
@@ -735,10 +813,11 @@ Dashboard = (function() {
 
     // Centers search results at trip location
     function findAddress(geocoder) {
-        var address = "Chicago";
+        // var address = "Chicago";
+        var address = $('#location').attr('data-location');
 
         // script uses our 'geocoder' in order to find location by address name
-        geocoder.geocode( { 'address': location}, function(results, status) {
+        geocoder.geocode( { 'address': address}, function(results, status) {
             if (status == google.maps.GeocoderStatus.OK) { // and, if everything is ok
 
                 // store trip location coordinates into hidden variables
@@ -775,6 +854,7 @@ Dashboard = (function() {
         attachCreateTripHandler();
         initializeSearch();
         attachCalendarHandlers();
+        editTriphandler();
 
     };
 

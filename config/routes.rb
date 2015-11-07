@@ -13,6 +13,8 @@ Rails.application.routes.draw do
 
   post '/trips/:id/invite', to: 'trips#invite_friends'
   get '/trips/:id/destinations', to: 'trips#destinations'
+  put '/trips/:id', to: 'trips#update'
+  delete  '/trips/:id', to: 'trips#destroy'
 
 
 

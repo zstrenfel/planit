@@ -13,7 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require jquery-ui
+//= require jquery-ui/datepicker
 //= require pages
 //= require dashboardV2
 
