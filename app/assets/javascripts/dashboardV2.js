@@ -181,11 +181,8 @@ Dashboard = (function() {
             var dest = {};
             dest.name = name;
             dest.address = address;
-<<<<<<< HEAD
-=======
             dest.trip_id = 1;
             dest.like_count = 0;
->>>>>>> 6ecdec75c67e61023139775e7ca363226ddb947a
 
             var onSuccess = function(data) {
                 if (!data.errors){
