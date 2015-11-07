@@ -243,39 +243,6 @@ Dashboard = (function() {
         }
         
 
-      
-      
-      /*var $tbody = $('destTable tbody');
-$tbody.find('tr').sort(function(a,b){ 
-    var tda = $(a).find('td:eq(3)').text(); // can replace 1 with the column you want to sort on
-    var tdb = $(b).find('td:eq(3)').text(); // this will sort on the second column
-            // if a < b return 1
-    return tda < tdb ? 1 
-           // else if a > b return -1
-           : tda > tdb ? -1 
-           // else they are equal - return 0    
-           : 0;           
-}).appendTo($tbody);*/
-      
-      
-      /*function sortTable(){
-        var tbl = document.getElementById("destTable").tBodies[0];
-        var a = table.rows[1].cells[3].innerHTML);
-        var table = document.createElement('newTable');
-        for(var i=2, len=tbl.rows.length; i<len; i++){
-         if (table.rows[i].cells[3].innerHTML > a) {
-           
-          
-        var div = document.getElementById('divTable');
-        div.appendChild(table);
-        }
-        store.sort(function(a, b){return b-a});
-        console.log(store);
-      }*/
-    
-      
-
-
       // Add some text to the new cells:
       name_cell.innerHTML = dest.name;
       address_cell.innerHTML = dest.address;
