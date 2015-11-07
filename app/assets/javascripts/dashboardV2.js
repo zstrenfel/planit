@@ -549,46 +549,46 @@ $("#nm").click(function(){
         $('.cal-container').prepend($dest_div);
     };
 
-    var checkTimeConflicts = function(dest) {
-        var date = new Date(dest.time); //create time object with destination time
-        var prev_dests = $('.cal-container').find('.dest'); //find all existing destinations in the calendar
+    // var checkTimeConflicts = function(dest) {
+    //     var date = new Date(dest.time); //create time object with destination time
+    //     var prev_dests = $('.cal-container').find('.dest'); //find all existing destinations in the calendar
 
-        //iterate through them looking for conflicts
-        for(var i = 0; i < prev_dests.length; i++) {
-            var times = $(prev_dests[i]).attr("data-time-frame");
-            var curr_row = parseInt($(prev_dests[i]).attr("data-cal-row"));
-            if (times.indexOf(date.getUTCHours()) > -1) {
-                console.log('problem');
-                // addCalendarRow(curr_row + 1);
-                return curr_row + 1;
-                // addDest(dest, curr_row + 1);
-            } else {
-                // addDest(dest, curr_row);
-                return -1;
-            }
-        }
-    };
-
-    // var addCalDestinations = function(data, row=0) {
-    //     var dests = data.day.destinations;
-    //     var hours = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
-    //              12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
-    //     if (dests) {
-    //         dests.forEach (function(dest) {
-    //             var conflict = checkTimeConflicts(dest);
-    //             if (conflict) {
-    //                 addCalendarRow(conflict);
-    //                 addDest(dest, conflict);
-    //             } else {
-    //                 addDest(dest, 0);
-    //             }
-    //         })
-    //         console.log('destinations have arrived ');
-    //     } else {
-    //         console.log(JSON.stringify(day));
-    //         console.log('no destinations to log');
+    //     //iterate through them looking for conflicts
+    //     for(var i = 0; i < prev_dests.length; i++) {
+    //         var times = $(prev_dests[i]).attr("data-time-frame");
+    //         var curr_row = parseInt($(prev_dests[i]).attr("data-cal-row"));
+    //         if (times.indexOf(date.getUTCHours()) > -1) {
+    //             console.log('problem');
+    //             // addCalendarRow(curr_row + 1);
+    //             return curr_row + 1;
+    //             // addDest(dest, curr_row + 1);
+    //         } else {
+    //             // addDest(dest, curr_row);
+    //             return -1;
+    //         }
     //     }
     // };
+
+    var addCalDestinations = function(data, row=0) {
+        var dests = data.day.destinations;
+        var hours = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
+                 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
+        if (dests) {
+            dests.forEach (function(dest) {
+                var conflict = checkTimeConflicts(dest);
+                if (conflict) {
+                    addCalendarRow(conflict);
+                    addDest(dest, conflict);
+                } else {
+                    addDest(dest, 0);
+                }
+            })
+            console.log('destinations have arrived ');
+        } else {
+            console.log(JSON.stringify(day));
+            console.log('no destinations to log');
+        }
+    };
 
 
 
