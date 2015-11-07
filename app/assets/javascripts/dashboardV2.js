@@ -265,7 +265,7 @@ Dashboard = (function() {
             };
             var that = this;
             var id = this.id;
-            url = "/api/destinations/edit?id=" + id;
+            url = "/api/destinations/edit?id=" + id + '&emptrip_id=' + trip_id;
             console.log(url);
             makePutRequest(url, dest, onSuccess, onFailure);
         });
@@ -423,12 +423,16 @@ Dashboard = (function() {
             //change color of selected
             //load data for that day
             //update calendar with that data
+            $('.cal-container').find('.dest').remove();
+            $('.cal-container').find('.dest-row:not(.keep)').remove();
+
             var id = $(this).data("date-id");
             makeGetRequest('/days/' + id, addCalDestinations, onFailureGlobal);
         })
     };
 
     var updateCalendarTime = function(data) {
+        console.log('updatecaltime');
         var day = data.days;
         var times = ["12AM", "1AM", "2AM", "3AM", "4AM", "5AM", "6AM", "7AM", "8AM", "9AM", "10AM", "11AM",
                  "12PM", "1PM", "2PM", "3PM", "4PM", "5PM", "6PM", "7PM", "8PM", "9PM", "10PM", "11PM"];
@@ -441,6 +445,7 @@ Dashboard = (function() {
     }
 
     var addCalDates = function(days) {
+        console.log('addcaldates');
         var monthNames = [
                           "January", "February", "March",
                           "April", "May", "June", "July",

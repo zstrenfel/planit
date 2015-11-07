@@ -43,8 +43,13 @@ class DestinationsController < ApplicationController
 
   def update
      @destination = Destination.find(params[:id])
-     p dest_params
+     # trip_id = params[:trip_id]
+     p @destination
       if @destination.update(dest_params)
+        #need to add into
+        @day = Day.where("date= ? AND trip_id = ?" , params[:date], @destination.trip_id).first;
+        p @day
+        @day.destinations << @destination
 	      json1 = {:status => 1, :destination => @destination}
 	      render :json => json1
       else
