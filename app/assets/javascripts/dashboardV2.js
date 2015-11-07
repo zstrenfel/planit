@@ -1,371 +1,371 @@
 Dashboard = (function() {
-    var trip_id;
-    // var apiUrl = 'https://planit-169.herokuapp.com';
-    var apiUrl = '';
-    var trip_id;
-    var create;
-    var submit;
+//     var trip_id;
+//     // var apiUrl = 'https://planit-169.herokuapp.com';
+//     var apiUrl = '';
+//     var trip_id;
+//     var create;
+//     var submit;
 
 
 
-    /**
-    * HTTP GET request
-    * @param  {string}   url       URL path, e.g. "/api/smiles"
-    * @param  {function} onSuccess   callback method to execute upon request success (200 status)
-    * @param  {function} onFailure   callback method to execute upon request failure (non-200 status)
-    * @return {None}
-    */
-   var makeGetRequest = function(url, onSuccess, onFailure) {
-       $.ajax({
-           type: 'GET',
-           url: apiUrl + url,
-           dataType: "json",
-           success: onSuccess,
-           error: onFailure
-       });
-   };
+//     /**
+//     * HTTP GET request
+//     * @param  {string}   url       URL path, e.g. "/api/smiles"
+//     * @param  {function} onSuccess   callback method to execute upon request success (200 status)
+//     * @param  {function} onFailure   callback method to execute upon request failure (non-200 status)
+//     * @return {None}
+//     */
+//    var makeGetRequest = function(url, onSuccess, onFailure) {
+//        $.ajax({
+//            type: 'GET',
+//            url: apiUrl + url,
+//            dataType: "json",
+//            success: onSuccess,
+//            error: onFailure
+//        });
+//    };
 
-     /**
-     * HTTP POST request
-     * @param  {string}   url       URL path, e.g. "/api/smiles"
-     * @param  {Object}   data      JSON data to send in request body
-     * @param  {function} onSuccess   callback method to execute upon request success (200 status)
-     * @param  {function} onFailure   callback method to execute upon request failure (non-200 status)
-     * @return {None}
-     */
-    var makePostRequest = function(url, data, onSuccess, onFailure) {
-        $.ajax({
-            type: 'POST',
-            url: apiUrl + url,
-            data: JSON.stringify(data),
-            contentType: "application/json",
-            dataType: "json",
-            success: onSuccess,
-            error: onFailure
-        });
-    };
+//      /**
+//      * HTTP POST request
+//      * @param  {string}   url       URL path, e.g. "/api/smiles"
+//      * @param  {Object}   data      JSON data to send in request body
+//      * @param  {function} onSuccess   callback method to execute upon request success (200 status)
+//      * @param  {function} onFailure   callback method to execute upon request failure (non-200 status)
+//      * @return {None}
+//      */
+//     var makePostRequest = function(url, data, onSuccess, onFailure) {
+//         $.ajax({
+//             type: 'POST',
+//             url: apiUrl + url,
+//             data: JSON.stringify(data),
+//             contentType: "application/json",
+//             dataType: "json",
+//             success: onSuccess,
+//             error: onFailure
+//         });
+//     };
 
-    var makePutRequest = function(url, data, onSuccess, onFailure) {
-        $.ajax({
-            type: 'PUT',
-            url: apiUrl + url,
-            data: JSON.stringify(data),
-            contentType: "application/json",
-            dataType: "json",
-            success: onSuccess,
-            error: onFailure
-        });
-    }
+//     var makePutRequest = function(url, data, onSuccess, onFailure) {
+//         $.ajax({
+//             type: 'PUT',
+//             url: apiUrl + url,
+//             data: JSON.stringify(data),
+//             contentType: "application/json",
+//             dataType: "json",
+//             success: onSuccess,
+//             error: onFailure
+//         });
+//     }
 
-    /**
-    * HTTP DELETE request
-    * @param  {function} onSuccess   callback method to execute upon request success (200 status)
-    * @param  {function} onFailure   callback method to execute upon request failure (non-200 status)
-    * @return {None}
-    */
-   var makeDeleteRequest = function(url, onSuccess, onFailure) {
-       $.ajax({
-           type: 'DELETE',
-           url: apiUrl + url,
-           dataType: "json",
-           success: onSuccess,
-           error: onFailure
-       });
-   };
+//     /**
+//     * HTTP DELETE request
+//     * @param  {function} onSuccess   callback method to execute upon request success (200 status)
+//     * @param  {function} onFailure   callback method to execute upon request failure (non-200 status)
+//     * @return {None}
+//     */
+//    var makeDeleteRequest = function(url, onSuccess, onFailure) {
+//        $.ajax({
+//            type: 'DELETE',
+//            url: apiUrl + url,
+//            dataType: "json",
+//            success: onSuccess,
+//            error: onFailure
+//        });
+//    };
 
-    /** One-stop shop to update the dashboard. This will make the request to get
-      * TRIP object, and pass it to the necessary call on click. Please put any
-      * functions that need to be called here.
-      */
-     var updateDash = function(data) {
-        var url = '/trips/' + trip_id;
-        var onSuccess = function(data) {
-            console.log("succesfully updated dash " + JSON.stringify(data.trip));
-            updateHeader(data.trip);
-            resetTable();
-            initializeMap();
-            insertAllDest(data.trip);
-            updateCalendarTime(data.trip);
+//     /** One-stop shop to update the dashboard. This will make the request to get
+//       * TRIP object, and pass it to the necessary call on click. Please put any
+//       * functions that need to be called here.
+//       */
+//      var updateDash = function(data) {
+//         var url = '/trips/' + trip_id;
+//         var onSuccess = function(data) {
+//             console.log("succesfully updated dash " + JSON.stringify(data.trip));
+//             updateHeader(data.trip);
+//             resetTable();
+//             initializeMap();
+//             insertAllDest(data.trip);
+//             updateCalendarTime(data.trip);
 
-        };
+//         };
 
-        var onFailure = function() {
-            console.log("something went wrong");
-        }
+//         var onFailure = function() {
+//             console.log("something went wrong");
+//         }
 
-        //if the ajax call has already been made
-        if (data) {
-            onSuccess(data);
-        } else {
-            makeGetRequest(url, onSuccess, onFailure)
-        }
-    };
+//         //if the ajax call has already been made
+//         if (data) {
+//             onSuccess(data);
+//         } else {
+//             makeGetRequest(url, onSuccess, onFailure)
+//         }
+//     };
 
-    var updateHeader = function(trip) {
-        console.log('updating');
-        // var trip = data.trip;
-        var users = trip.users;
-        var user_count = Object.keys(users).length;
-        console.log(trip);
-        $('h1[data-header="location"]').html(trip.location);
-        $('aside[data-header="invited-dates"').html("invited: " + user_count + " dates: " + trip.start_date + " - " + trip.end_date);
-        $('a[data-function="invite-friends"').removeClass('hidden');
-        $('a[data-function="form-save"').removeClass('hidden');
-        menu_close();
-    }
+//     var updateHeader = function(trip) {
+//         console.log('updating');
+//         // var trip = data.trip;
+//         var users = trip.users;
+//         var user_count = Object.keys(users).length;
+//         console.log(trip);
+//         $('h1[data-header="location"]').html(trip.location);
+//         $('aside[data-header="invited-dates"').html("invited: " + user_count + " dates: " + trip.start_date + " - " + trip.end_date);
+//         $('a[data-function="invite-friends"').removeClass('hidden');
+//         $('a[data-function="form-save"').removeClass('hidden');
+//         menu_close();
+//     }
 
-    var toggleElement = function($that, offset, toggle) {
-        var height = $that.height() + offset;
-        if (toggle === "down") {
-            $that.animate({"top": '+=' + height}, 'slow','swing');
-            $('.main-content').css('opacity', .5);
-        } else {
-            $that.animate({"top": '-=' + height}, 'slow','swing');
-            $('.main-content').css('opacity', 1);
-        }
-    }
+//     var toggleElement = function($that, offset, toggle) {
+//         var height = $that.height() + offset;
+//         if (toggle === "down") {
+//             $that.animate({"top": '+=' + height}, 'slow','swing');
+//             $('.main-content').css('opacity', .5);
+//         } else {
+//             $that.animate({"top": '-=' + height}, 'slow','swing');
+//             $('.main-content').css('opacity', 1);
+//         }
+//     }
 
-    var onFailureGlobal = function(data) {
-        console.log(data);
-    }
-
-
-/**
- * ========================Handlers go below here =====================
- * ====================================================================
- */
-
-    var attachLocationHandler = function(e) {
-        $('li.location').on('click', function() {
-            trip_id = $(this).data('id');
-            updateDash();
-        })
-    };
-
-/** =======================Menu Handlers + Functions ========================= */
-
-    //watches menu for open/close
-    var attachMenuHandler = function(e) {
-        var $menu = $('.menu-open');
-        var width = $('.menu-base').outerWidth() + $menu.outerWidth();
-        $('.trips').on('click', function(e) {
-            e.preventDefault();
-            if($menu.css('left') == width - 180 + 'px') {
-                menu_close();
-            } else {
-                menu_open();
-            }
-        })
-    };
-
-    var menu_close = function() {
-        var $menu = $('.menu-open');
-        var width = $('.menu-base').outerWidth() + $menu.outerWidth();
-        $menu.animate({"left": '-=' + width}, 'slow','swing');
-    }
-
-    var menu_open = function() {
-        var $menu = $('.menu-open');
-        var width = $('.menu-base').outerWidth() + $menu.outerWidth();
-        $menu.animate({"left": '+=' + width}, 'slow','swing');
-    }
-
-/** =========================End Menu Handler ============================= */
-
-/** =========================Destination Handler + Functions ============== */
-    var attachSubmitDestHandler = function(e) {
-        submit.on('click', '.submit-input', function(e){
-            e.preventDefault ();
-            var name = submit.find('.name-input').val();
-            var address = submit.find('.address-input').val();
-            var dest = {};
-            dest.name = name;
-            dest.address = address;
-            dest.trip_id = 1;
-            dest.like_count = 0;
-
-            var onSuccess = function(data) {
-                if (!data.errors){
-                    console.log(data);
-                    insertDest(data["destination"]);
-                }else{
-                    for (i in data.errors){
-                        console.log(data.errors[i]);
-                    }
-                }
-
-            };
-            var onFailure = function(data) {
-                console.log("failure");
-
-            };
-            var that = this;
-            url = "/api/destinations?trip_id=" + trip_id;
-            console.log(url);
-            makePostRequest(url, dest, onSuccess, onFailure);
-        });
+//     var onFailureGlobal = function(data) {
+//         console.log(data);
+//     }
 
 
-        $('#destTable').on('click', '.del', function(e){
-            e.preventDefault ();
+// /**
+//  * ========================Handlers go below here =====================
+//  * ====================================================================
+//  */
 
-            var onSuccess = function(data) {
-                if (!data.errors){
-                    console.log(data);
-                    console.log("DELETED!");
-                }else{
-                    for (i in data.errors){
-                        console.log(data.errors[i]);
-                    }
-                }
+//     var attachLocationHandler = function(e) {
+//         $('li.location').on('click', function() {
+//             trip_id = $(this).data('id');
+//             updateDash();
+//         })
+//     };
 
-            };
-            var onFailure = function(data) {
-                console.log("failure");
+// /** =======================Menu Handlers + Functions ========================= */
 
-            };
-            var that = this;
-            id = this.id;
-            url = "/api/destinations?id=" + id;
-            console.log(url);
-            makeDeleteRequest(url, onSuccess, onFailure);
-        });
+//     //watches menu for open/close
+//     var attachMenuHandler = function(e) {
+//         var $menu = $('.menu-open');
+//         var width = $('.menu-base').outerWidth() + $menu.outerWidth();
+//         $('.trips').on('click', function(e) {
+//             e.preventDefault();
+//             if($menu.css('left') == width - 180 + 'px') {
+//                 menu_close();
+//             } else {
+//                 menu_open();
+//             }
+//         })
+//     };
+
+//     var menu_close = function() {
+//         var $menu = $('.menu-open');
+//         var width = $('.menu-base').outerWidth() + $menu.outerWidth();
+//         $menu.animate({"left": '-=' + width}, 'slow','swing');
+//     }
+
+//     var menu_open = function() {
+//         var $menu = $('.menu-open');
+//         var width = $('.menu-base').outerWidth() + $menu.outerWidth();
+//         $menu.animate({"left": '+=' + width}, 'slow','swing');
+//     }
+
+// /** =========================End Menu Handler ============================= */
+
+// /** =========================Destination Handler + Functions ============== */
+//     var attachSubmitDestHandler = function(e) {
+//         submit.on('click', '.submit-input', function(e){
+//             e.preventDefault ();
+//             var name = submit.find('.name-input').val();
+//             var address = submit.find('.address-input').val();
+//             var dest = {};
+//             dest.name = name;
+//             dest.address = address;
+//             dest.trip_id = 1;
+//             dest.like_count = 0;
+
+//             var onSuccess = function(data) {
+//                 if (!data.errors){
+//                     console.log(data);
+//                     insertDest(data["destination"]);
+//                 }else{
+//                     for (i in data.errors){
+//                         console.log(data.errors[i]);
+//                     }
+//                 }
+
+//             };
+//             var onFailure = function(data) {
+//                 console.log("failure");
+
+//             };
+//             var that = this;
+//             url = "/api/destinations?trip_id=" + trip_id;
+//             console.log(url);
+//             makePostRequest(url, dest, onSuccess, onFailure);
+//         });
 
 
+//         $('#destTable').on('click', '.del', function(e){
+//             e.preventDefault ();
 
-        $('#destTable').on('click', '.edit', function(e){
-            e.preventDefault();
-            $('.edit_form').removeClass('hide');
-            $('.edit_form .submit-input').attr('id',this.id);
-        });
+//             var onSuccess = function(data) {
+//                 if (!data.errors){
+//                     console.log(data);
+//                     console.log("DELETED!");
+//                 }else{
+//                     for (i in data.errors){
+//                         console.log(data.errors[i]);
+//                     }
+//                 }
 
+//             };
+//             var onFailure = function(data) {
+//                 console.log("failure");
 
-        $('.edit_form').on('click', '.submit-input', function(e){
-            e.preventDefault ();
-            var date = $('.edit_form').find('.date-input').val();
-            var time = $('.edit_form').find('.time-input').val();
-            var duration = $('.edit_form').find('.duration-input').val();
-
-            var dest = {};
-            dest.date = date;
-            dest.time = time;
-            dest.duration = duration;
-
-            var onSuccess = function(data) {
-                if (!data.errors){
-                    console.log(data);
-                    insertDest(data["destination"]);
-                }else{
-                    for (i in data.errors){
-                        console.log(data.errors[i]);
-                    }
-                }
-
-            };
-            var onFailure = function(data) {
-                console.log("failure");
-            };
-            var that = this;
-            var id = this.id;
-            url = "/api/destinations/edit?id=" + id + '&emptrip_id=' + trip_id;
-            console.log(url);
-            makePutRequest(url, dest, onSuccess, onFailure);
-        });
-    };
-
-        /**
-     * Insert dest into Itinerary List Table
-     * @param  {Object}  dest        JSON
-     * @return {None}
-     */
-    var insertDest = function(dest) {
-      // Find a <table> element with id="myTable":
-      var table = document.getElementById("destTable");
-
-      // Create an empty <tr> element and add it to the 1st position of the table:
-      var row = table.insertRow(1);
-
-      // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
-
-      var name_cell = row.insertCell(0);
-      var address_cell = row.insertCell(1);
-      var edit_cell = row.insertCell(2);
-      var delete_cell = row.insertCell(3);
-      // var delete_cell = row.insertCell(2);
-
-      var like_cell = row.insertCell(2);
-      like_cell.innerHTML = '<button id="like-btn" type="button">Like</button>';
-      //<%= link_to 'like', vote_path(@post), class: 'vote', remote: true, data: { type: :json } %>';
-      var like_count_cell = row.insertCell(3);
-      like_count_cell.innerHTML = dest.like_count;
-
-      $('#like-btn').click(function() {
-        dest.like_count += 1;
-        like_count_cell.innerHTML=dest.like_count;
-        console.log("sortTable");
-        // sortTable();
-      });
-
-      /*var sortTable= function() {
-        for (var i = 0, row; row = table.rows[i]; i++) {
-          var j = i + 1;
-          if i[3] > j[3] {
-            return
-          }*/
-
-    // get the text of n-th <td> of <tr>
-    /*var A = $(a).children('td').eq(n).text().toUpperCase();
-    var B = $(b).children('td').eq(n).text().toUpperCase();
-    if(A < B) {
-     return -1*f;
-    }
-    if(A > B) {
-     return 1*f;
-    }
-    return 0;
-  });
-
-  $.each(rows, function(index, row) {
-    $('#mytable').children('tbody').append(row);
-  });
-}
-var f_sl = 1; // flag to toggle the sorting order
-var f_nm = 1; // flag to toggle the sorting order
-$("#sl").click(function(){
-    f_sl *= -1; // toggle the sorting order
-    var n = $(this).prevAll().length;
-    sortTable(f_sl,n);
-});
-$("#nm").click(function(){
-    f_nm *= -1; // toggle the sorting order
-    var n = $(this).prevAll().length;
-    sortTable(f_nm,n);
-});
-      }*/
+//             };
+//             var that = this;
+//             id = this.id;
+//             url = "/api/destinations?id=" + id;
+//             console.log(url);
+//             makeDeleteRequest(url, onSuccess, onFailure);
+//         });
 
 
 
-      // Add some text to the new cells:
-      name_cell.innerHTML = dest.name;
-      address_cell.innerHTML = dest.address;
-      edit_cell.innerHTML = "<div class='edit' id='"+ dest.id + "'>Edit</div>";
-      delete_cell.innerHTML = "<div class='del' id='"+ dest.id + "'>x</div>";
+//         $('#destTable').on('click', '.edit', function(e){
+//             e.preventDefault();
+//             $('.edit_form').removeClass('hide');
+//             $('.edit_form .submit-input').attr('id',this.id);
+//         });
 
-      row.setAttribute('data-dest-id',dest.id);
-      // delete_cell.innerHTML = "<div class='del'>x</div>";
-      addMarker(dest.address,map);
-    };
 
-    var insertAllDest = function(trip){
-        var d = trip.destinations;
-        for (i in d){
-            insertDest(d[i]);
-        }
-    };
+//         $('.edit_form').on('click', '.submit-input', function(e){
+//             e.preventDefault ();
+//             var date = $('.edit_form').find('.date-input').val();
+//             var time = $('.edit_form').find('.time-input').val();
+//             var duration = $('.edit_form').find('.duration-input').val();
 
-    var resetTable = function() {
-        $('#destTable tr').not('.table-initial').remove();
-    }
+//             var dest = {};
+//             dest.date = date;
+//             dest.time = time;
+//             dest.duration = duration;
+
+//             var onSuccess = function(data) {
+//                 if (!data.errors){
+//                     console.log(data);
+//                     insertDest(data["destination"]);
+//                 }else{
+//                     for (i in data.errors){
+//                         console.log(data.errors[i]);
+//                     }
+//                 }
+
+//             };
+//             var onFailure = function(data) {
+//                 console.log("failure");
+//             };
+//             var that = this;
+//             var id = this.id;
+//             url = "/api/destinations/edit?id=" + id + '&emptrip_id=' + trip_id;
+//             console.log(url);
+//             makePutRequest(url, dest, onSuccess, onFailure);
+//         });
+//     };
+
+//         /**
+//      * Insert dest into Itinerary List Table
+//      * @param  {Object}  dest        JSON
+//      * @return {None}
+//      */
+//     var insertDest = function(dest) {
+//       // Find a <table> element with id="myTable":
+//       var table = document.getElementById("destTable");
+
+//       // Create an empty <tr> element and add it to the 1st position of the table:
+//       var row = table.insertRow(1);
+
+//       // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
+
+//       var name_cell = row.insertCell(0);
+//       var address_cell = row.insertCell(1);
+//       var edit_cell = row.insertCell(2);
+//       var delete_cell = row.insertCell(3);
+//       // var delete_cell = row.insertCell(2);
+
+//       var like_cell = row.insertCell(2);
+//       like_cell.innerHTML = '<button id="like-btn" type="button">Like</button>';
+//       //<%= link_to 'like', vote_path(@post), class: 'vote', remote: true, data: { type: :json } %>';
+//       var like_count_cell = row.insertCell(3);
+//       like_count_cell.innerHTML = dest.like_count;
+
+//       $('#like-btn').click(function() {
+//         dest.like_count += 1;
+//         like_count_cell.innerHTML=dest.like_count;
+//         console.log("sortTable");
+//         // sortTable();
+//       });
+
+//       /*var sortTable= function() {
+//         for (var i = 0, row; row = table.rows[i]; i++) {
+//           var j = i + 1;
+//           if i[3] > j[3] {
+//             return
+//           }*/
+
+//     // get the text of n-th <td> of <tr>
+//     /*var A = $(a).children('td').eq(n).text().toUpperCase();
+//     var B = $(b).children('td').eq(n).text().toUpperCase();
+//     if(A < B) {
+//      return -1*f;
+//     }
+//     if(A > B) {
+//      return 1*f;
+//     }
+//     return 0;
+//   });
+
+//   $.each(rows, function(index, row) {
+//     $('#mytable').children('tbody').append(row);
+//   });
+// }
+// var f_sl = 1; // flag to toggle the sorting order
+// var f_nm = 1; // flag to toggle the sorting order
+// $("#sl").click(function(){
+//     f_sl *= -1; // toggle the sorting order
+//     var n = $(this).prevAll().length;
+//     sortTable(f_sl,n);
+// });
+// $("#nm").click(function(){
+//     f_nm *= -1; // toggle the sorting order
+//     var n = $(this).prevAll().length;
+//     sortTable(f_nm,n);
+// });
+//       }*/
+
+
+
+//       // Add some text to the new cells:
+//       name_cell.innerHTML = dest.name;
+//       address_cell.innerHTML = dest.address;
+//       edit_cell.innerHTML = "<div class='edit' id='"+ dest.id + "'>Edit</div>";
+//       delete_cell.innerHTML = "<div class='del' id='"+ dest.id + "'>x</div>";
+
+//       row.setAttribute('data-dest-id',dest.id);
+//       // delete_cell.innerHTML = "<div class='del'>x</div>";
+//       addMarker(dest.address,map);
+//     };
+
+//     var insertAllDest = function(trip){
+//         var d = trip.destinations;
+//         for (i in d){
+//             insertDest(d[i]);
+//         }
+//     };
+
+//     var resetTable = function() {
+//         $('#destTable tr').not('.table-initial').remove();
+//     }
 
 
 
