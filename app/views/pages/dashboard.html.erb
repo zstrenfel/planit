@@ -4,6 +4,8 @@
 	$(window).load(function() {
 	  	Dashboard.start();
 	  	$('#dest-date').datepicker();
+	  	$('#trip-start').datepicker();
+	  	$('#trip-end').datepicker();
   	});
 <% end %>
 <!-- offscreen -->
@@ -26,8 +28,8 @@
 	<form action="" class="trip-form">
 		<input type="text" name="location" placeholder ="Location">
 		<input type="text" name="name" placeholder="Trip Name">
-		<input type="text" name="start-date" placeholder = "Start Date">
-		<input type="text" name="end-date" placeholder = "End Date">
+		<input type="text" name="start-date" placeholder = "Start Date" id="trip-start">
+		<input type="text" name="end-date" placeholder = "End Date" id="trip-end">
 		<a href="" data-function="save-trip">submit</a>
 		<a href="" class="right" data-function="create-trip-close">Close</a>
 	</form>
@@ -47,11 +49,20 @@
 <div class="main-content">
 	<div class="trip-info">
 		<div class="half-col">
-			<h1 data-header="location">No Trip Selected</h1>
+			<h1 data-header="location" class="hidden">No Trip Selected</h1>
+			<div class="half-col">
+				<input type="text" class="" data-function="update-trip-name">
+				<input type="text" class="" data-function="update-trip-location">
+			</div>
+			<div class="half-col">
+				<input type="text" class="" data-function="update-trip-start">
+				<input type="text" class="" data-function="update-trip-end">
+			</div>
+
 			<aside data-header="invited-dates"></aside>
 			<aside><a href="" data-function="invite-friends" class="hidden">Invite more friends</a></aside>
 		</div>
-		<a href="" class="button hidden" data-function="form-save">SAVE</a>
+		<a href="" class="button hidden" data-function="form-edit">EDIT</a>
 	</div>
 
 	<div class="destination-list">

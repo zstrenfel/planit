@@ -172,6 +172,15 @@ Dashboard = (function() {
 
 /** =========================End Menu Handler ============================= */
 
+
+// Trip functions
+
+    var editTripForm = function(trip) {
+        $().attr('placeholder', trip.name);
+        $().attr('placeholder', trip.start_date);
+        $().attr('placeholder', trip.end_date);
+
+    }
 /** =========================Destination Handler + Functions ============== */
     var attachSubmitDestHandler = function(e) {
         submit.on('click', '.submit-input', function(e){
