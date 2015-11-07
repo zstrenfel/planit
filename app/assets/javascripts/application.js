@@ -16,4 +16,5 @@
 //= require jquery-ui/datepicker
 //= require pages
 //= require dashboardV2
+//= require toastr
 

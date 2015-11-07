@@ -1,24 +1,33 @@
 @import 'base/utilities/variables';
 //main-content styles
 
+
+
+.container {
+	@include linear-gradient(#FFFFFF, #EFEFEF);
+	height: 100%;
+	// background-color: lighten($light-gray, 30%);
+}
+
+h1 {
+	font-weight: 300;
+}
+
 //sidebar styles
 .menu-base {
-	@include span-columns(1);
-
-	background-color: $subtle;
+	// @include span-columns(1);
+	float: left;
+	width: 60px;
+	margin-right: 2%;
+	background-color: $dark-gray;
 	height: 100vh;
 	font-size: .8em;
 	font-weight: 600;
+	position: relative;
 	z-index: 2;
 
 	a {
 		color: $medium-gray;
-
-		&:active,
-		&:focus,
-		&:hover {
-			color: shade($medium-gray, 25%);
-		}
 	}
 
 	.img {
@@ -28,10 +37,28 @@
 
 }
 
+.trip-select:hover {
+	cursor: pointer;
+	a {
+		color: shade($medium-gray, 25%);
+	}
+
+	.aircraft-svg {
+		fill: shade($medium-gray, 25%);
+	}
+}
+.aircraft-svg {
+	margin-top: 10px;
+	fill:$medium-gray;
+	height: 40px;
+	width: auto;
+}
+
 .menu-open {
 	width: 180px;
 	float: left;
-	background-color: darken($subtle, 10%);
+	background-color: rgba(255, 255, 255, 0.95);
+
 	height: 100vh;
 	left: -180px;
 	position:absolute;
@@ -43,6 +70,7 @@
 	li {
 		margin: 8px 0;
 		cursor: pointer;
+		opacity: 1;
 	}
 
 	li.create-trip {
@@ -68,6 +96,9 @@
 
 	h1 {
 		float: left;
+		font-weight: 300;
+		font-size: 3.5em;
+		color: $dark-gray;
 	}
 
 	aside {
@@ -81,66 +112,67 @@
 	}
 }
 //destination-list styles
+
 .destination-list {
 	@include span-columns(6);
-	background-color: $subtle;
 }
 
-.form{
-	width:500px;
-	float: left;
-	margin-bottom: 20px;
+.dest-form {
+	@include span-columns(6);
+	@include omega;
 }
 
 //invite friends
-.invite-friends {
+.modal {
 	border-radius: $base-border-radius;
-	background-color: $light-gray;
+	background-color: rgba(255, 255, 255, 0.95);
+	border: 1px solid $light-gray;
+	left: 50%;
+    position: fixed;
+    z-index: 100;
+    padding: 10px;
+}
+.invite-friends {
 	height: 230px;
 	width: 600px;
-	left: 50%;
 	top: -230px;
     margin-left: -300px;
-    position: absolute;
-    z-index: 100;
     padding: 10px;
 }
 
 .create-edit-trip {
-	border-radius: $base-border-radius;
-	background-color: $light-gray;
 	height: 280px;
 	width: 400px;
-	left: 50%;
 	top: -280px;
 	margin-left: -200px;
-	position: absolute;
-	z-index: 100;
-	padding: 10px;
+}
+
+.edit_dest {
+	height: 245px;
+	width: 400px;
+	top: -245px;
+	margin-left: -200px;
 }
 
 //map styles
 .map {
 	@include span-columns(12);
 	@include omega;
-	background-color: $subtle;
-	width: 100%;
-	height: 100%;
+
+	height: 400px;
+	margin-bottom: 20px;
 }
 
 //search styles
 .search {
-	@include span-columns(12);
+	@include span-columns(6);
 	@include omega;
-	background-color: $subtle;
-	padding: 20px;
 }
 
 .edit_form{
 	@include span-columns(2);
 	@include omega;
 	background-color: $subtle;
-
 }
 
 .hide{
@@ -154,19 +186,16 @@
 //calendar styles
 .calendar {
 	@include span-columns(12);
-	background-color: $light-gray;
 	padding: 5px;
 	overflow-x: scroll;
 	overflow-y: auto;
+	margin-bottom: 20px;
 
 	select{
 		width: 100px;
 	}
 }
 
-.calendar table.cal-dates {
-
-}
 
 .cal-container {
 	margin: 0;
@@ -186,6 +215,24 @@
 		padding-left: 5px;
 		color: white;
 	}
+
+	.dest:hover {
+		cursor: pointer;
+	}
+}
+
+table.cal-dates {
+	td {
+		width: 75px;
+		text-align: center;
+	}
+
+	.day-label {
+		font-size: 2.5em;
+		font-weight: 700;
+		color: darken($light-gray, .5);
+	}
+
 }
 
 .calendar table.cal-dests {
@@ -225,4 +272,7 @@
 		background-color: $light-gray;
 	}
 }
+
+//rando
+
 

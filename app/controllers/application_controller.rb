@@ -25,5 +25,9 @@ class ApplicationController < ActionController::Base
     return '/dashboard'
   end
 
+  def toast(type, text)
+    flash[:toastr] = { type => text }
+  end
+
 
 end
