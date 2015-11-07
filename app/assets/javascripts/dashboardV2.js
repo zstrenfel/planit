@@ -501,35 +501,35 @@ $("#nm").click(function(){
         addCalDates(data.days);
     }
 
-    var addCalDates = function(days) {
-        console.log('addcaldates');
-        var monthNames = [
-                          "January", "February", "March",
-                          "April", "May", "June", "July",
-                          "August", "September", "October",
-                          "November", "December"
-                        ];
-        days.forEach(function(day) {
-            var date_split = day.date.split('-');
-            var month = monthNames[date_split[1] - 1];
-            var date = date_split[2];
-            console.log(day);
-            $('table.cal-dates').append('<td data-date-id="' + day.id + '">' + date + " " + month + '</td>');
-        })
-    }
-
-    // var addCalendarRow = function(row=0) {
-    //     var times = ["12AM", "1AM", "2AM", "3AM", "4AM", "5AM", "6AM", "7AM", "8AM", "9AM", "10AM", "11AM",
-    //              "12PM", "1PM", "2PM", "3PM", "4PM", "5PM", "6PM", "7PM", "8PM", "9PM", "10PM", "11PM"];
-    //     var $row = $('<tr></tr>').attr('data-row', row).addClass('dest-row');
-
-    //     times.forEach(function(timeblock) {
-    //          $row.append('<td>' + '<div class="half-cell">&nbsp;</div>' + '<div class="half-cell">&nbsp;</div>' +
-    //                                      '</td>');
+    // var addCalDates = function(days) {
+    //     console.log('addcaldates');
+    //     var monthNames = [
+    //                       "January", "February", "March",
+    //                       "April", "May", "June", "July",
+    //                       "August", "September", "October",
+    //                       "November", "December"
+    //                     ];
+    //     days.forEach(function(day) {
+    //         var date_split = day.date.split('-');
+    //         var month = monthNames[date_split[1] - 1];
+    //         var date = date_split[2];
+    //         console.log(day);
+    //         $('table.cal-dates').append('<td data-date-id="' + day.id + '">' + date + " " + month + '</td>');
     //     })
-    //      $('.cal-dests').append($row);
-    //      return row;
     // }
+
+    var addCalendarRow = function(row=0) {
+        var times = ["12AM", "1AM", "2AM", "3AM", "4AM", "5AM", "6AM", "7AM", "8AM", "9AM", "10AM", "11AM",
+                 "12PM", "1PM", "2PM", "3PM", "4PM", "5PM", "6PM", "7PM", "8PM", "9PM", "10PM", "11PM"];
+        var $row = $('<tr></tr>').attr('data-row', row).addClass('dest-row');
+
+        times.forEach(function(timeblock) {
+             $row.append('<td>' + '<div class="half-cell">&nbsp;</div>' + '<div class="half-cell">&nbsp;</div>' +
+                                         '</td>');
+        })
+         $('.cal-dests').append($row);
+         return row;
+    }
     var addDest = function(dest, row=0) {
         var hours = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
                  12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
