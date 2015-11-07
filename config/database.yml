@@ -26,7 +26,6 @@ production:
 
 # FOR HEROKU -- POSTGRES DB SETUP
 # UNCOMMENT WHEN WORKING LOCALLY.
-<<<<<<< HEAD
 # development:
 #   adapter: postgresql
 #   database: planit_developement
