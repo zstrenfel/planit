@@ -297,12 +297,13 @@ Dashboard = (function() {
       like_cell.innerHTML = '<button id="like-btn" type="button">Like</button>';
       //<%= link_to 'like', vote_path(@post), class: 'vote', remote: true, data: { type: :json } %>';
       var like_count_cell = row.insertCell(3);
-      like_count_cell.innerHTML= dest.like_count;
+      like_count_cell.innerHTML = dest.like_count;
 
       $('#like-btn').click(function() {
         dest.like_count += 1;
         like_count_cell.innerHTML=dest.like_count;
-        sortTable();
+        console.log("sortTable");
+        // sortTable();
       })
 
       /*var sortTable= function() {
