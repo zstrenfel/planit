@@ -369,7 +369,7 @@ $("#nm").click(function(){
 
 
 
-// /** =======================End of destinations handlers ======================= */
+/** =======================End of destinations handlers ======================= */
 
 // /** =======================Create Trip Handlers/Functions ===================== */
 //     var  attachCreateTripHandler= function(e) {
@@ -592,153 +592,153 @@ $("#nm").click(function(){
 
 
 
-// /** =========================End Handlers ===================================== */
+/** =========================End Handlers ===================================== */
 
-//     var map;
-//     var infowindow = [];
-//     var bounds = [];
+    var map;
+    var infowindow = [];
+    var bounds = [];
 
-//     function initializeMap(){
-//         var myOptions = {
-//             zoom: 1,
-//             center: new google.maps.LatLng(0, 0),
-//             mapTypeId: google.maps.MapTypeId.ROADMAP
-//         };
-//         map = new google.maps.Map(document.getElementById("Map"), myOptions);
-//         bounds = new google.maps.LatLngBounds();
+    function initializeMap(){
+        var myOptions = {
+            zoom: 1,
+            center: new google.maps.LatLng(0, 0),
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        map = new google.maps.Map(document.getElementById("Map"), myOptions);
+        bounds = new google.maps.LatLngBounds();
 
-//     }
+    }
 
-//     function addMarker(address, map){
-//         // calls Google API to convert address to latitudinal/longitudinal value
-//         $.getJSON('http://maps.googleapis.com/maps/api/geocode/json?address='+address+'&sensor=false', null, function (data) {
-//             var p = data.results[0].geometry.location
-//             var latlng = new google.maps.LatLng(p.lat, p.lng);
-//             marker = new google.maps.Marker({
-//                 position: latlng,
-//                 map: map
-//             });
-//             bounds.extend(marker.position);
-//             map.fitBounds(bounds);
+    function addMarker(address, map){
+        // calls Google API to convert address to latitudinal/longitudinal value
+        $.getJSON('http://maps.googleapis.com/maps/api/geocode/json?address='+address+'&sensor=false', null, function (data) {
+            var p = data.results[0].geometry.location
+            var latlng = new google.maps.LatLng(p.lat, p.lng);
+            marker = new google.maps.Marker({
+                position: latlng,
+                map: map
+            });
+            bounds.extend(marker.position);
+            map.fitBounds(bounds);
 
-//             var infowindow = new google.maps.InfoWindow();
-//             google.maps.event.addListener(marker, 'click', (function(marker) {
-//             return function() {
-//                 var content = address;
-//                 infowindow.setContent(content);
-//                 infowindow.open(map, marker);
-//             }
-//             })(marker));
+            var infowindow = new google.maps.InfoWindow();
+            google.maps.event.addListener(marker, 'click', (function(marker) {
+            return function() {
+                var content = address;
+                infowindow.setContent(content);
+                infowindow.open(map, marker);
+            }
+            })(marker));
 
-//         });
-//     }
+        });
+    }
 
-// /** =========================End Map Handlers ===================================== */
+/** =========================End Map Handlers ===================================== */
 
-// /** ========================= Add Search Handlers ==============================*/
+/** ========================= Add Search Handlers ==============================*/
 
-//     function initializeSearch(){
-//         submit1.on('click',  function(e){
-//             e.preventDefault();
-//             findPlaces();
-//         });
+    function initializeSearch(){
+        submit1.on('click',  function(e){
+            e.preventDefault();
+            findPlaces();
+        });
 
-//         $("#destList").on('click', ".add", function(e){
-//             e.preventDefault();
+        $("#destList").on('click', ".add", function(e){
+            e.preventDefault();
 
-//             // var name = submit.find('.name-input').val();
-//             // var address = submit.find('.address-input').val();
-//             var dest = {};
-//             // dest.name = "Empire State Building";
-//             // dest.address = "New York";
+            // var name = submit.find('.name-input').val();
+            // var address = submit.find('.address-input').val();
+            var dest = {};
+            // dest.name = "Empire State Building";
+            // dest.address = "New York";
 
-//             dest.name = $('#'+this.id).data('destInfo')["name"];
-//             dest.address = $('#'+this.id).data('destInfo')["address"];
+            dest.name = $('#'+this.id).data('destInfo')["name"];
+            dest.address = $('#'+this.id).data('destInfo')["address"];
 
-//             var onSuccess = function(data) {
-//                 if (!data.errors){
-//                     console.log(data);
-//                     insertDest(data["destination"]);
-//                 }else{
-//                     for (i in data.errors){
-//                         console.log(data.errors[i]);
-//                     }
-//                 }
+            var onSuccess = function(data) {
+                if (!data.errors){
+                    console.log(data);
+                    insertDest(data["destination"]);
+                }else{
+                    for (i in data.errors){
+                        console.log(data.errors[i]);
+                    }
+                }
 
-//             };
-//             var onFailure = function(data) {
-//                 console.log("failure");
+            };
+            var onFailure = function(data) {
+                console.log("failure");
 
-//             };
-//             var that = this;
-//             url = "/api/destinations?trip_id=" + trip_id;
-//             console.log(url);
-//             makePostRequest(url, dest, onSuccess, onFailure);
+            };
+            var that = this;
+            url = "/api/destinations?trip_id=" + trip_id;
+            console.log(url);
+            makePostRequest(url, dest, onSuccess, onFailure);
 
-//         });
-//     }
+        });
+    }
 
-//     function findPlaces() {
+    function findPlaces() {
 
-//         // prepare variables (filter)
-//         var type = document.getElementById('gmap_type').value;
-//         // var radius = document.getElementById('gmap_radius').value;
-//         var radius = 5000;
-//         var keyword = document.getElementById('gmap_keyword').value;
+        // prepare variables (filter)
+        var type = document.getElementById('gmap_type').value;
+        // var radius = document.getElementById('gmap_radius').value;
+        var radius = 5000;
+        var keyword = document.getElementById('gmap_keyword').value;
 
-//         var lat = document.getElementById('lat').value;
-//         var lng = document.getElementById('lng').value;
-//         var cur_location = new google.maps.LatLng(lat, lng);
+        var lat = document.getElementById('lat').value;
+        var lng = document.getElementById('lng').value;
+        var cur_location = new google.maps.LatLng(lat, lng);
 
-//         // prepare request to Places
-//         var request = {
-//             location: cur_location,
-//             radius: radius,
-//             types: [type]
-//         };
-//         if (keyword) {
-//             request.keyword = [keyword];
-//         }
+        // prepare request to Places
+        var request = {
+            location: cur_location,
+            radius: radius,
+            types: [type]
+        };
+        if (keyword) {
+            request.keyword = [keyword];
+        }
 
-//         // send request
-//         // service = new google.maps.places.PlacesService(map);
-//         service = new google.maps.places.PlacesService($('#myDiv').get(0));
-//         // service.search(request, createMarkers);
-//         service.search(request, createList);
-//     }
+        // send request
+        // service = new google.maps.places.PlacesService(map);
+        service = new google.maps.places.PlacesService($('#myDiv').get(0));
+        // service.search(request, createMarkers);
+        service.search(request, createList);
+    }
 
-//     function createList(results, status){
-//     if (status == google.maps.places.PlacesServiceStatus.OK) {
-//         console.log(results);
-//         $("#destList").find("tr:gt(0)").remove();
-//         var table = document.getElementById("destList");
-//         for (var i = 0; i < results.length; i++) {
-//             obj = results[i];
-//             var rating = ""
-//             if (obj.rating !== undefined){
-//                 rating = obj.rating;
-//             }
-//             var id = obj.name.replace(/\s+/g, '');
-//             obj = results[i];
-//             var row = table.insertRow(1);
-//             row.insertCell(0).innerHTML = obj.name;
-//             row.insertCell(1).innerHTML = obj.vicinity;
-//             row.insertCell(2).innerHTML = rating;
-//             row.insertCell(3).innerHTML = '<div class="add" id="' + id + '">+</div>';
-//             $('#'+id).data('destInfo', { 'name': obj.name, 'address': obj.vicinity });
-//         }
-
-
-//     } else if (status == google.maps.places.PlacesServiceStatus.ZERO_RESULTS) {
-//         alert('Sorry, nothing is found');
-//     }
-// }
-// /** ========================= End Add Friends Handlers ===================================== */
-
-// /** ========================= Calendar Handlers ===================================== */
+    function createList(results, status){
+    if (status == google.maps.places.PlacesServiceStatus.OK) {
+        console.log(results);
+        $("#destList").find("tr:gt(0)").remove();
+        var table = document.getElementById("destList");
+        for (var i = 0; i < results.length; i++) {
+            obj = results[i];
+            var rating = ""
+            if (obj.rating !== undefined){
+                rating = obj.rating;
+            }
+            var id = obj.name.replace(/\s+/g, '');
+            obj = results[i];
+            var row = table.insertRow(1);
+            row.insertCell(0).innerHTML = obj.name;
+            row.insertCell(1).innerHTML = obj.vicinity;
+            row.insertCell(2).innerHTML = rating;
+            row.insertCell(3).innerHTML = '<div class="add" id="' + id + '">+</div>';
+            $('#'+id).data('destInfo', { 'name': obj.name, 'address': obj.vicinity });
+        }
 
 
-// /** =========================End Handlers ===================================== */
+    } else if (status == google.maps.places.PlacesServiceStatus.ZERO_RESULTS) {
+        alert('Sorry, nothing is found');
+    }
+}
+/** ========================= End Add Friends Handlers ===================================== */
+
+/** ========================= Calendar Handlers ===================================== */
+
+
+/** =========================End Handlers ===================================== */
 
 
 /** ==MAP== **/
