@@ -755,7 +755,6 @@ $("#nm").click(function(){
         attachCreateTripHandler();
         initializeSearch();
         attachCalendarHandlers();
-        attachLikeHandler();
     };
 
     return {
