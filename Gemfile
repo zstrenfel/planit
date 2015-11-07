@@ -57,7 +57,6 @@ group :production do
 end
 
 group :development, :test do
-  gem 'rspec-rails', '~> 3.0'
   gem 'sqlite3'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
@@ -66,6 +65,7 @@ group :development, :test do
   #prints console out better
   gem "awesome_print", require:"ap"
   gem 'rspec-rails'
+  gem 'capybara'
   gem 'shoulda-matchers'
   gem 'factory_girl_rails'
   gem 'database_cleaner'

@@ -16,8 +16,8 @@
 require 'rails_helper'
 
 describe Trip do
-  pending
-  login_user
+  # pending
+  # login_user
 
 
 end
