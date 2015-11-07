@@ -12,12 +12,8 @@
 #  user_id    :integer
 #
 
-
 require 'rails_helper'
 
-describe Trip do
-  # pending
-  # login_user
-
-
+RSpec.describe Trip, type: :model do
+  pending "add some examples to (or delete) #{__FILE__}"
 end
