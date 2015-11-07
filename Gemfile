@@ -61,18 +61,11 @@ group :development, :test do
   gem "better_errors"
   #prints console out better
   gem "awesome_print", require:"ap"
-<<<<<<< HEAD
-  gem 'shoulda-matchers'
-  gem 'factory_girl_rails'
-  gem 'database_cleaner'
-  gem 'jasmine'
-=======
   gem 'rspec-rails'
   gem 'shoulda-matchers'
   gem 'factory_girl_rails'
   gem 'database_cleaner'
->>>>>>> 089ccc71a7604c03808dfc90fa7b02b88d290b0d
-
+  gem 'jasmine'
 end
 
 group :development do
