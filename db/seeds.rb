@@ -36,12 +36,17 @@ User.create({
 
 z = User.create({
   name: 'Zach',
-  email: 'zstrenfel@gmail.com',
+  email: 'zwstrenfel@gmail.com',
   password: 'password',
   password_confirmation: 'password'
 })
 
-
+dest = Destination.create({
+  name: "Somewhere",
+  address: "1234 here lane",
+  time: "2pm",
+  date: "May 1, 2015",
+  })
 
 z.trips << trip1
 

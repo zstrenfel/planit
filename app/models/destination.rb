@@ -11,8 +11,10 @@
 #  updated_at :datetime         not null
 #  trip_id    :integer
 #  day_id     :integer
+#  duration   :integer
 #
 
 class Destination < ActiveRecord::Base
   belongs_to :trip
+  belongs_to :day
 end

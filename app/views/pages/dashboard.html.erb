@@ -3,10 +3,14 @@
 <%= javascript_tag do %>
 	$(window).load(function() {
 	  	Dashboard.start();
+	  	$('#dest-date').datepicker();
+	  	$('#trip-start').datepicker();
+	  	$('#trip-end').datepicker();
   	});
 <% end %>
 <!-- offscreen -->
 <div class="invite-friends">
+	<input type="hidden" data-location=>
 	<h2>Invite Friends</h2>
 	<i>Please separate each email by a comma; existing users will be added automatically</i>
 	<textarea rows="4" cols="30" data-function="submit-friends">
@@ -24,8 +28,8 @@
 	<form action="" class="trip-form">
 		<input type="text" name="location" placeholder ="Location">
 		<input type="text" name="name" placeholder="Trip Name">
-		<input type="text" name="start-date" placeholder = "Start Date">
-		<input type="text" name="end-date" placeholder = "End Date">
+		<input type="text" name="start-date" placeholder = "Start Date" id="trip-start">
+		<input type="text" name="end-date" placeholder = "End Date" id="trip-end">
 		<a href="" data-function="save-trip">submit</a>
 		<a href="" class="right" data-function="create-trip-close">Close</a>
 	</form>
@@ -45,11 +49,20 @@
 <div class="main-content">
 	<div class="trip-info">
 		<div class="half-col">
-			<h1 data-header="location">No Trip Selected</h1>
+			<h1 data-header="location" class="hidden">No Trip Selected</h1>
+			<div class="half-col">
+				<input type="text" class="" data-function="update-trip-name">
+				<input type="text" class="" data-function="update-trip-location">
+			</div>
+			<div class="half-col">
+				<input type="text" class="" data-function="update-trip-start">
+				<input type="text" class="" data-function="update-trip-end">
+			</div>
+
 			<aside data-header="invited-dates"></aside>
 			<aside><a href="" data-function="invite-friends" class="hidden">Invite more friends</a></aside>
 		</div>
-		<a href="" class="button hidden" data-function="form-save">SAVE</a>
+		<a href="" class="button hidden" data-function="form-edit">EDIT</a>
 	</div>
 
 	<div class="destination-list">
@@ -59,13 +72,12 @@
 		    <td>Id:</td>
 		    <td>Name:</td>
 		    <td>Address:</td>
+		    <td>Edit:</td>
+		    <td>Delete:</td>
 		    <!-- <td>Delete:</td> -->
 		 </tr>
-
-
 		</table>
 
-		<div class="big create">+</div>
 	</div>
 
 	<div class="submit">
@@ -75,12 +87,25 @@
                         <input type="text" placeholder="Name" class="name-input" name="name" />
                         <input type="text" placeholder="Address" class="address-input" name="address" />
                         <input type="submit" class="submit-input my-button" id="create-button"></input>
+		</div>
+
+	<div class="edit_form hide">
+
+		<h1>Edit Destination</h1>
+
+		<form method="get" action="index.html" class="form">
+                        <input type="text" placeholder="Date" class="date-input" name="date" id="dest-date" />
+                        <input type="text" placeholder="Time" class="time-input" name="time" />
+                        <input type="text" placeholder="Duration" class="duration-input" name="duration" />
+                        <input type="submit" class="submit-input my-button" id="create-button"></input>
 
 
 
 	</div>
 
+
 	<div class="search">
+		<h1>Search</h1>
 		<div id="myDiv"></div>
 		<div class="actions">
 		    <div class="button">
@@ -104,8 +129,6 @@
 		    <input type="hidden" id="lng" name="lng" value="-74.0059731" />
 		    <!-- <div type ="submit" class="search-button button">Search for objects</div> -->
 		    <input type="submit" class="search-button my-button" id="create-button"></input>
-
-
 	</div>
 		    <table id="destList">
 		    	<tr>
@@ -124,7 +147,17 @@
 	<img src="https://api.fnkr.net/testimg/800x300/00CED1/FFF/?text=img+placeholder">
 	</div> -->
 	<!-- For Iter 2 -->
-	<div class="calendar" style="display: hidden">
+	<div class="calendar">
+		<table class="cal-dates">
+			<tr></tr>
+		</table>
+		<div class="cal-container">
+		<table class="cal-dests">
+			<tr class="calendar-hours">
+			</tr>
+			<tr class="dest-row keep" data-row="0"></tr>
+		</table>
+		</div>
 	</div>
 	<!-- For Iter 2 -->
 </div>

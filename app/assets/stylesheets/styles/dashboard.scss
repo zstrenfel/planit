@@ -121,7 +121,7 @@
 
 //map styles
 .map {
-	@include span-columns(8);
+	@include span-columns(12);
 	@include omega;
 	background-color: $subtle;
 }
@@ -133,9 +133,93 @@
 	background-color: $subtle;
 }
 
-#destList{
-	float: left;
+.edit_form{
+	@include span-columns(2);
+	@include omega;
+	background-color: $subtle;
+
 }
 
+.hide{
+	visibility: hidden;
+}
+
+/*#destList{
+	float: left;
+}*/
 
 //calendar styles
+.calendar {
+	@include span-columns(12);
+	background-color: $light-gray;
+	padding: 5px;
+	overflow-x: scroll;
+	overflow-y: auto;
+
+	select{
+		width: 100px;
+	}
+}
+
+.calendar table.cal-dates {
+
+}
+
+.cal-container {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
+	position:relative;
+
+	.dest {
+		position: absolute;
+		height: 60px;
+		top: 50px;
+		background-color: red;
+		z-index: 100;
+		width: 75px;
+		opacity: .6;
+		padding-left: 5px;
+		color: white;
+	}
+}
+
+.calendar table.cal-dests {
+	width: 100%;
+	height: auto;
+	background-color: white;
+	overflow-x: scroll;
+
+
+	tr {
+		height: 50px;
+	}
+
+	td, th{
+		border: 1px solid $medium-gray;
+		width: 75px;
+	}
+
+	th {
+		text-align: center;
+		color: $medium-gray;
+		font-weight: 600;
+	}
+
+	td {
+		padding: 0;
+		height: 60px;
+	}
+
+	.half-cell {
+		@include span-columns(6, collapse);
+		border-right: solid 1px $light-gray;
+		height: 50px;
+	}
+
+	.reserved {
+		background-color: $light-gray;
+	}
+}
+

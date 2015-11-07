@@ -5,22 +5,22 @@
     <%= devise_error_messages! %>
 
     <div class="field">
-        <%= f.text_field :name, autofocus: true, :placeholder => :name %>
+        <%= f.text_field :name, autofocus: true, :placeholder => :name, id: "reg-name" %>
     </div>
 
     <div class="field">
-      <%= f.email_field :email, :placeholder => :email %>
+      <%= f.email_field :email, :placeholder => :email, id: "reg-email" %>
     </div>
 
     <div class="field">
       <% if @minimum_password_length %>
       <em>(<%= @minimum_password_length %> characters minimum)<br></em>
       <% end %>
-      <%= f.password_field :password, autocomplete: "off", :placeholder => :password %>
+      <%= f.password_field :password, autocomplete: "off", :placeholder => :password, id: "reg-pw" %>
     </div>
 
     <div class="field">
-      <%= f.password_field :password_confirmation, autocomplete: "off", :placeholder => "Confirm Password"  %>
+      <%= f.password_field :password_confirmation, autocomplete: "off", :placeholder => "Confirm Password", id: "reg-pw-conf"  %>
     </div>
 
     <div class="actions">

@@ -11,6 +11,7 @@
 #  updated_at :datetime         not null
 #  trip_id    :integer
 #  day_id     :integer
+#  duration   :integer
 #
 
 require 'test_helper'

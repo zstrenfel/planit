@@ -4,11 +4,12 @@
 #
 #  id         :integer          not null, primary key
 #  date       :date
-#  start      :time
-#  end        :time
+#  start_time :time
+#  end_time   :time
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  homebase   :string
+#  home_base  :string
+#  trip_id    :integer
 #
 
 require 'test_helper'
