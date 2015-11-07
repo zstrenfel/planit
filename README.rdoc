@@ -2,10 +2,10 @@
 
 Planit is a friend-sourced itinerary planning web-app for groups of people who are taking a trip together, and the main function serves to make it easier for groups to create trips using the destination as the focal point. 
 
-Features include:
+==== Features
 
 - add people to the trip
-- search for and add destinations to the itinerary stack using the Yelp API 
+- search for and add destinations to the itinerary stack using the Google Places API 
 - the ability to organize destinations into a daily itinerary (in the form of a calendar) in which people can opt into and out of events that suit their interests 
 - a map on the trip planning dashboard to display its locations
 
@@ -13,6 +13,11 @@ We hope to make easier the process of travelling with friends, so that everyone 
 
 It's easy to get started:
 
-1) Visit planit-169.herokuapp.com
-2) Sign up and log in
-3) Create a trip, invite your friends, and start searching for destinations!
+- 1) Visit planit-169.herokuapp.com
+- 2) Sign up and log in
+- 3) Create a trip, invite your friends, and start searching for destinations!
+
+==== Testing
+
+- open a terminal
+- enter 'rspec'
