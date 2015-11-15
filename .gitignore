@@ -22,5 +22,5 @@
 # Ignore .c9 files
 /.c9/
 
-# Ignore coverage tests (constantly updated = clutter)
-/coverage
+# Ignore coverage tests
+/coverage/index.html

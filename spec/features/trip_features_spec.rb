@@ -21,18 +21,56 @@ describe "New Trip" do
     click_link 'submit-trip'
   end
   
-  it "checks that trip info appears at the top" do
+  it "displays trip info at the top" do
+
+        # <div class="trip-info">
+        #     <h1 data-header="location" class="">No Trip Selected</h1>
+        #         <input type="text" class="hidden" data-function="update-trip-location">
+        #         <input type="text" class="hidden" data-function="update-trip-start">
+        #         <input type="text" class="hidden" data-function="update-trip-end">
+        #     <aside data-header="invited-dates"></aside>
+        #     <aside><a href="" data-function="invite-friends" class="hidden">Invite more friends</a></aside>
+
   end
 
-  it "displays a functioning Google map"
+  describe "Edit trip" do
+    before(:each) do
+      # assume a trip selected
+      click_link 'EDIT'
+    end
+
+    it "fills in update-trip form, then saves updated trip info" do
+      fill_in 'edit-trip-location', with: 'New Location'
+      fill_in 'edit-trip-start', with: '30-10-2015'
+      fill_in 'edit-trip-end', with: 'Dest'
+      # page.should
+      # ... etc (learn should have_css thing)
+
+    end
+
+    it "cancels updates and deletes the trip" do
+      fill_in 'edit-trip-location', with: 'New Location'
+      click_link 'CANCEL'
+      # verify no changes
+      
+      # try again, delete
+      click_link 'EDIT'
+      click_link 'DELETE'
+      
+      # verify 'no trip selected'
+
+    end
+  end
 
   it "invites friends" do
+    # does emailer work yet?
   end
 
   it "manually adds a destination" do
     fill_in 'name', with: 'Dest'
     fill_in 'address', with: '123 Street Ave'
     click_button 'create-dest-button'
+    save_and_open_page
     page.should have_css('td', :text => 'Dest')
 
     fill_in 'name', with: 'Dest2'
@@ -44,10 +82,14 @@ describe "New Trip" do
   end
 
   describe "Destination search" do
+    before(:each) do
+    end
+
     it "displays search results" do
     end
 
-    it "adds a destination"
+    it "adds a destination" do
+    end
 
   end
 
