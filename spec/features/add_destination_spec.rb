@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature "Search" do
+feature "Add" do
   before(:each) do
     visit '/'
     fill_in 'reg-name', :with => 'Capy'
@@ -12,14 +12,14 @@ feature "Search" do
   end
 
   it "manually adds a destination" do
-    fill_in 'name-input', with: 'Dest'
-    fill_in 'address-input', with: '123 Street Ave'
-    click_button 'create-button'
+    fill_in 'name', with: 'Dest'
+    fill_in 'address', with: '123 Street Ave'
+    click_button 'create-dest-button'
     page.should have_css('td', :text => 'Dest')
 
-    fill_in 'name-input', with: 'Dest2'
-    fill_in 'address-input', with: '456 Street Ave'
-    click_button 'create-button' 
+    fill_in 'name', with: 'Dest2'
+    fill_in 'address', with: '456 Street Ave'
+    click_button 'create-dest-button' 
     page.should have_css('td', :text => 'Dest') # previous dest should still exist
     page.should have_css('td', :text => 'Dest2')
     page.should have_css('td', :text => '456 Street Ave')

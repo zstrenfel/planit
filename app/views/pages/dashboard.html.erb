@@ -29,7 +29,7 @@
 	<div class="divider-line"></div>
 	<form action="" class="trip-form">
 		<input type="text" name="location" placeholder ="Location">
-		<input type="text" name="name" placeholder="Trip Name">
+		<input type="text" name="trip-name" placeholder="Trip Name">
 		<input type="text" name="start-date" placeholder = "Start Date" id="trip-start">
 		<input type="text" name="end-date" placeholder = "End Date" id="trip-end">
 		<a href="" data-function="save-trip">submit</a>
@@ -91,7 +91,7 @@
 		    <input type="hidden" id="lat" name="lat" value="40.7143528" />
 		    <input type="hidden" id="lng" name="lng" value="-74.0059731" />
 		    <!-- <div type ="submit" class="search-button button">Search for objects</div> -->
-		    <input type="submit" class="search-button my-button" id="create-button"></input>
+		    <input type="submit" class="search-button my-button" id="create-map-button"></input>
 	</div>
 		    <table id="destList">
 		    	<tr>
@@ -120,10 +120,10 @@
 	<div class="submit">
 
 		<h1>Destination (Manual)</h1>
-		<form method="get" action="index.html" class="form">
+		<form method="get" action="dashboard" class="form">
                         <input type="text" placeholder="Name" class="name-input" name="name" />
                         <input type="text" placeholder="Address" class="address-input" name="address" />
-                        <input type="submit" class="submit-input my-button" id="create-button"></input>
+                        <input type="submit" class="submit-input my-button" id="create-dest-button"></input>
 		</div>
 
 	<div class="edit_form hide">
@@ -136,7 +136,7 @@
                         <i>*Please specify AM or PM</i>
                         <input type="text" placeholder="Duration" class="duration-input" name="duration" />
                         <i>*Please inset an integer only (hours)</i>
-                        <input type="submit" class="submit-input my-button" id="create-button"></input>
+                        <input type="submit" class="submit-input my-button" id="edit-dest-button"></input>
 	</div>
 
 

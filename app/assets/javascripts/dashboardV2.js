@@ -470,7 +470,7 @@ Dashboard = (function() {
             down = false;
             //getting trip fields
             trip.location = $('input[name="location').val();
-            trip.name = $('input[name="name').val();
+            trip.name = $('input[name="trip-name').val();
             trip.start_date = $('input[name="start-date').val();
             trip.end_date = $('input[name="end-date').val();
 
