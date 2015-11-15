@@ -1,8 +1,8 @@
 <ul>
-	<% @trips.each do |trip| %>
-		<%= content_tag :li, class: "location", :data => {:id => trip.id} do -%>
-			<%= trip.location %>
-		<% end %>
-	<% end %>
-	<li class="create-trip">Create New</li>
+    <% @trips.each do |trip| %>
+        <%= content_tag :li, class: "location", :data => {:id => trip.id} do -%>
+            <%= trip.location %>
+        <% end %>
+    <% end %>
+    <li class="create-trip">Create New</li>
 </ul>

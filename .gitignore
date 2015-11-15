@@ -16,9 +16,11 @@
 !/log/.keep
 /tmp
 
-#Ignore databse.yml
+# Ignore database.yml
 /config/database.yml
 
-#Ignore .c9 files
+# Ignore .c9 files
 /.c9/
 
+# Ignore coverage tests (constantly updated = clutter)
+/coverage
