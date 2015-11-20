@@ -56,7 +56,7 @@ Dashboard = (function() {
             success: onSuccess,
             error: onFailure
         });
-    }
+    };
 
     /**
     * HTTP DELETE request
@@ -96,28 +96,31 @@ Dashboard = (function() {
 
         var onFailure = function() {
             console.log("something went wrong");
-        }
+        };
 
         //if the ajax call has already been made
         if (data) {
             onSuccess(data);
         } else {
-            makeGetRequest(url, onSuccess, onFailure)
+            makeGetRequest(url, onSuccess, onFailure);
         }
     };
 
     var updateHeader = function(trip) {
         console.log('updating');
-        // var trip = data.trip;
         var users = trip.users;
         var user_count = Object.keys(users).length;
-        console.log(trip);
+        var start = new Date(trip.start_date);
+        var end = new Date(trip.end_date);
+
+
+
         $('h1[data-header="location"]').html(trip.location);
-        $('aside[data-header="invited-dates"').html("invited: " + user_count + " dates: " + trip.start_date + " - " + trip.end_date);
+        $('aside[data-header="invited-dates"').html("<b>invited: </b>" + user_count + " <b>dates: </b>" + start.toDateString() + " - " + end.toDateString());
         $('a[data-function="invite-friends"').removeClass('hidden');
         $('a[data-function="form-edit"').removeClass('hidden');
         menu_close();
-    }
+    };
 
     var toggleElement = function($that, offset, toggle) {
         var height = $that.height() + offset;
@@ -128,11 +131,11 @@ Dashboard = (function() {
             $that.animate({"top": '-=' + height}, 'slow','swing');
             $('.main-content').css('opacity', 1);
         }
-    }
+    };
 
     var onFailureGlobal = function(data) {
         console.log(data);
-    }
+    };
 
 
 /**
@@ -144,8 +147,9 @@ Dashboard = (function() {
         $('li.location').on('click', function() {
             trip_id = $(this).data('id');
             //location = $(this).data('location');
+            toastr.info('selected a trip');
             updateDash();
-        })
+        });
     };
 
 /** =======================Menu Handlers + Functions ========================= */
@@ -154,27 +158,29 @@ Dashboard = (function() {
     var attachMenuHandler = function(e) {
         var $menu = $('.menu-open');
         var width = $('.menu-base').outerWidth() + $menu.outerWidth();
-        $('.trips').on('click', function(e) {
+        $('.trip-select').on('click', function(e) {
             e.preventDefault();
             if($menu.css('left') == width - 180 + 'px') {
+                console.log("closing");
                 menu_close();
             } else {
+                console.log("opening");
                 menu_open();
             }
-        })
+        });
     };
 
     var menu_close = function() {
         var $menu = $('.menu-open');
         var width = $('.menu-base').outerWidth() + $menu.outerWidth();
         $menu.animate({"left": '-=' + width}, 'slow','swing');
-    }
+    };
 
     var menu_open = function() {
         var $menu = $('.menu-open');
         var width = $('.menu-base').outerWidth() + $menu.outerWidth();
         $menu.animate({"left": '+=' + width}, 'slow','swing');
-    }
+    };
 
 /** =========================End Menu Handler ============================= */
 
@@ -185,7 +191,7 @@ Dashboard = (function() {
         $('input[data-function="update-trip-location"').attr('placeholder', trip.location);
         $('input[data-function="update-trip-start"').attr('placeholder', "Start - " +  trip.start_date);
         $('input[data-function="update-trip-end"').attr('placeholder', "End - " + trip.end_date);
-    }
+    };
 
     var editTriphandler = function(e) {
         $('a[data-function="form-edit"]').on('click', function(e) {
@@ -208,7 +214,7 @@ Dashboard = (function() {
             e.preventDefault();
             closeTripForm();
             clearTripForm();
-        })
+        });
 
         $('a[data-function="form-submit"]').on('click', function(e) {
             e.preventDefault();
@@ -230,7 +236,7 @@ Dashboard = (function() {
             makePutRequest(url, trip, updateDash, onFailureGlobal);
             closeTripForm();
             clearTripForm();
-        })
+        });
 
         $('a[data-function="trip-delete"]').on('click', function(e) {
             e.preventDefault();
@@ -242,7 +248,7 @@ Dashboard = (function() {
             makeDeleteRequest(url, onSuccess, onFailureGlobal);
         });
 
-    }
+    };
 
     var closeTripForm = function() {
          $('input[data-function="update-trip-location"]').addClass('hidden');
@@ -257,13 +263,13 @@ Dashboard = (function() {
             $('a[data-function="form-edit"]').removeClass('hidden');
             $('aside[data-header="invited-dates"]').removeClass('hidden');
             $('aside[data-header="invite-friends"]').removeClass('hidden');
-    }
+    };
 
     var clearTripForm = function() {
         $('input[data-function="update-trip-location"]').val('');
         $('input[data-function="update-trip-start"]').val('');
         $('input[data-function="update-trip-end"]').val('');
-    }
+    };
 
 /** =========================Destination Handler + Functions ============== */
     var attachSubmitDestHandler = function(e) {
@@ -280,11 +286,11 @@ Dashboard = (function() {
             var onSuccess = function(data) {
                 if (!data.errors){
                     console.log(data);
-                    insertDest(data["destination"]);
-                    submit.find('.name-input').val('')
-                    submit.find('.address-input').val('')
+                    insertDest(data.destination);
+                    submit.find('.name-input').val('');
+                    submit.find('.address-input').val('');
                 }else{
-                    for (i in data.errors){
+                    for (var i in data.errors){
                         console.log(data.errors[i]);
                     }
                 }
@@ -312,7 +318,7 @@ Dashboard = (function() {
                      });
 
                 }else{
-                    for (i in data.errors){
+                    for (var i in data.errors){
                         console.log(data.errors[i]);
                     }
                 }
@@ -332,27 +338,40 @@ Dashboard = (function() {
 
         $('#destTable').on('click', '.edit', function(e){
             e.preventDefault();
-            $('.edit_form').removeClass('hide');
-            $('.edit_form .submit-input').attr('id',this.id);
+            $('.submit-input').attr('id',this.id);
+            toggleElement($('.edit_dest'), 70, "down");
+        });
+
+         $('.cal-container').on('click', '.dest', function(e){
+            e.preventDefault();
+            $('.edit_dest .submit-input').attr('id',this.id);
+            toggleElement($('.edit_dest'), 70, "down");
+        });
+
+        $('a[data-function="create-dest-close"').on('click', function(e) {
+            e.preventDefault();
+            toggleElement($('.edit_dest'), 70, "up");
         });
 
 
-        $('.edit_form').on('click', '.submit-input', function(e){
+        $('.submit-input').on('click', function(e){
             e.preventDefault ();
-            var date = $('.edit_form').find('.date-input').val();
-            var time = $('.edit_form').find('.time-input').val();
-            var duration = $('.edit_form').find('.duration-input').val();
+            var date = $('.edit_dest').find('.date-input').val();
+            var time = $('.edit_dest').find('.time-input').val();
+            var duration = $('.edit_dest').find('.duration-input').val();
 
             var dest = {};
+            console.log(date);
             dest.date = date;
             dest.time = time;
             dest.duration = duration;
+            toggleElement($('.edit_dest'), 70, "up");
 
             var onSuccess = function(data) {
                 if (!data.errors){
                     console.log(data);
                     //insertDest(data["destination"]);
-                    $('.edit_form').addClass('hide');
+                    $('.edit_dest').addClass('hide');
                 }else{
                     for (i in data.errors){
                         console.log(data.errors[i]);
@@ -365,7 +384,7 @@ Dashboard = (function() {
             };
             var that = this;
             var id = this.id;
-            url = "/api/destinations/edit?id=" + id + '&emptrip_id=' + trip_id;
+            url = "/api/destinations/edit?id=" + id + '&trip_id=' + trip_id;
             console.log(url);
             makePutRequest(url, dest, onSuccess, onFailure);
         });
@@ -401,7 +420,7 @@ Dashboard = (function() {
         dest.like_count += 1;
         like_count_cell.innerHTML=dest.like_count;
         sortTable();
-      })
+      });
 
       function sortTable(){
         var tbl = document.getElementById("destTable").tBodies[0];
@@ -413,8 +432,8 @@ Dashboard = (function() {
           store.sort(function(x,y){
           return y[0] - x[0];
         });
-        for(var i=0, len=store.length; i<len; i++){
-          tbl.appendChild(store[i][1]);
+        for(var j=0, len=store.length; i<len; i++){
+          tbl.appendChild(store[j][1]);
         }
         table = tbl;
         store = null;
@@ -577,8 +596,6 @@ Dashboard = (function() {
     }
 
     var addCalDates = function(days) {
-        console.log(days);
-        console.log('addcaldates ' + days);
         var monthNames = [
                           "January", "February", "March",
                           "April", "May", "June", "July",
@@ -589,8 +606,9 @@ Dashboard = (function() {
             var date_split = day.date.split('-');
             var month = monthNames[date_split[1] - 1];
             var date = date_split[2];
-            console.log(day);
-            $('table.cal-dates').append('<td data-date-id="' + day.id + '">' + date + " " + month + '</td>');
+            $('table.cal-dates tr').append('<td class="date-label" data-date-id="' + day.id + '">' +
+                    '<div class="day-label">' + date +  '</div>' +
+                    '<div class="month-label">' + month + '</div></td>');
         })
     }
 
@@ -611,8 +629,8 @@ Dashboard = (function() {
         var row = r || 0;
         var hours = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
                  12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
-        var colors = ['aqua', 'blueviolet', 'greenyellow', 'hotpink', 'black' ];
-        var color_index = Math.floor(Math.random() * 5);
+        var colors = ['black'];
+        var color_index = Math.floor(Math.random() * 1);
         var date = new Date(dest.time);
         var styles = {'left': date.getUTCHours() * 75 + 'px',
                       'width': dest.duration * 75 + 'px',
@@ -628,24 +646,38 @@ Dashboard = (function() {
     };
 
     var checkTimeConflicts = function(dest) {
+        var hours = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
+                 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
         var date = new Date(dest.time); //create time object with destination time
+        var start = hours.indexOf(date.getUTCHours());
+        var end = start + dest.duration + 1;
+        var time_block = hours.slice(start, end);
+
         var prev_dests = $('.cal-container').find('.dest'); //find all existing destinations in the calendar
 
         //iterate through them looking for conflicts
         for(var i = 0; i < prev_dests.length; i++) {
-            var times = $(prev_dests[i]).attr("data-time-frame");
+            var times = convertToInt($(prev_dests[i]).attr("data-time-frame"));
             var curr_row = parseInt($(prev_dests[i]).attr("data-cal-row"));
-            if (times.indexOf(date.getUTCHours()) > -1) {
-                console.log('problem');
-                // addCalendarRow(curr_row + 1);
-                return curr_row + 1;
-                // addDest(dest, curr_row + 1);
-            } else {
-                // addDest(dest, curr_row);
-                return -1;
-            }
+            time_block.forEach(function(t){
+                 if (times.indexOf(t) > -1) {
+                    console.log('problem');
+                    // addCalendarRow(curr_row + 1);
+                    return curr_row + 1;
+                }
+            });
+            // addDest(dest, curr_row);
+            return 0;
         }
     };
+
+    var convertToInt = function(string) {
+        var orig = string.split(',');
+        orig.forEach(function(stringInt, index) {
+            orig[index] = parseInt(stringInt);
+        })
+        return orig;
+    }
 
     var addCalDestinations = function(data, r) {
         var row = r || 0;
@@ -671,6 +703,8 @@ Dashboard = (function() {
 
 
 
+
+
 /** =========================End Handlers ===================================== */
 
     var map;
@@ -679,6 +713,7 @@ Dashboard = (function() {
 
     function initializeMap(){
         var myOptions = {
+            scrollwheel: false,
             zoom: 1,
             center: new google.maps.LatLng(0, 0),
             mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -843,7 +878,7 @@ Dashboard = (function() {
 
     var start = function() {
         create = $(".create");
-        submit = $(".submit");
+        submit = $(".dest-form");
         submit1 = $(".search-button");
         like = $(".like-btn");
 

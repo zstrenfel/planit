@@ -41,6 +41,10 @@ gem 'validates_timeliness', '~> 3.0'
 
 gem 'jquery-ui-rails'
 
+gem 'toastr-rails'
+
+gem 'inline_svg'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
