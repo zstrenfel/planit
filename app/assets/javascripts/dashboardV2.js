@@ -444,7 +444,7 @@ Dashboard = (function() {
       // Add some text to the new cells:
       name_cell.innerHTML = dest.name;
       address_cell.innerHTML = dest.address;
-      edit_cell.innerHTML = "<div class='edit' id='"+ dest.id + "'>Edit</div>";
+      edit_cell.innerHTML = "<div class='hover edit' id='"+ dest.id + "'>Edit</div>";
       delete_cell.innerHTML = "<div class='del' id='"+ dest.id + "'>x</div>";
 
       row.setAttribute('data-dest-id',dest.id);
