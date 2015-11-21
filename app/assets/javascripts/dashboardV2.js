@@ -124,6 +124,7 @@ Dashboard = (function() {
 
     var toggleElement = function($that, offset, toggle) {
         var height = $that.height() + offset;
+        console.log($that.height());
         if (toggle === "down") {
             $that.animate({"top": '+=' + height}, 'slow','swing');
             $('.main-content').css('opacity', 0.5);
@@ -339,18 +340,18 @@ Dashboard = (function() {
         $('#destTable').on('click', '.edit', function(e){
             e.preventDefault();
             $('.submit-input').attr('id',this.id);
-            toggleElement($('.edit_dest'), 70, "down");
+            toggleElement($('.dest_container'), 70, "down");
         });
 
          $('.cal-container').on('click', '.dest', function(e){
             e.preventDefault();
             $('.edit_dest .submit-input').attr('id',this.id);
-            toggleElement($('.edit_dest'), 70, "down");
+            toggleElement($('.dest_container'), 70, "down");
         });
 
         $('a[data-function="create-dest-close"').on('click', function(e) {
             e.preventDefault();
-            toggleElement($('.edit_dest'), 70, "up");
+            toggleElement($('.dest_container'), 70, "up");
         });
 
 
@@ -365,13 +366,13 @@ Dashboard = (function() {
             dest.date = date;
             dest.time = time;
             dest.duration = duration;
-            toggleElement($('.edit_dest'), 70, "up");
+            toggleElement($('.dest_container'), 70, "up");
 
             var onSuccess = function(data) {
                 if (!data.errors){
                     console.log(data);
                     //insertDest(data["destination"]);
-                    $('.edit_dest').addClass('hide');
+                    toggleElement($('.dest_container'), 70, "up");
                 }else{
                     for (i in data.errors){
                         console.log(data.errors[i]);
@@ -472,7 +473,7 @@ Dashboard = (function() {
 
         $('.create-trip').on('click', function() {
             if (!down) {
-                toggleElement($('.create-edit-trip'), 70, "down");
+                toggleElement($('.create-edit-trip_container'), 70, "down");
                 down = true;
             }
         })
@@ -480,7 +481,7 @@ Dashboard = (function() {
         //close without saving clear form
         $('a[data-function ="create-trip-close"]').on('click', function(e) {
             e.preventDefault();
-            toggleElement($('.create-edit-trip'), 70, "up");
+            toggleElement($('.create-edit-trip_container'), 70, "up");
             $('.trip-form').trigger("reset");
             down = false;
         })
@@ -488,7 +489,7 @@ Dashboard = (function() {
         //save then save trip to db
         $('a[data-function ="save-trip"]').on('click', function(e) {
             e.preventDefault();
-            toggleElement($('.create-edit-trip'), 70, "up");
+            toggleElement($('.create-edit-trip_container'), 70, "up");
             down = false;
             //getting trip fields
             trip.location = $('input[name="location').val();
@@ -537,7 +538,7 @@ Dashboard = (function() {
         $('a[data-function="invite-friends"]').on('click', function(e) {
             e.preventDefault();
             if (!down) {
-                toggleElement($('.invite-friends'), 70, "down");
+                toggleElement($('.invite-friends_container'), 70, "down");
                 down = true;
             }
 
@@ -546,7 +547,7 @@ Dashboard = (function() {
             e.preventDefault();
             var text = $textarea.val();
             var emails;
-            toggleElement($('.invite-friends'), 70, "up");
+            toggleElement($('.invite-friends_container'), 70, "up");
             $textarea.val('');
             down = false;
 
@@ -562,7 +563,7 @@ Dashboard = (function() {
         })
         $('.close').on('click', function(e){
             e.preventDefault();
-            toggleElement($('.invite-friends'), 70, "up");
+            toggleElement($('.invite-friends_container'), 70, "up");
             $textarea.val('');
             down = false;
         })
