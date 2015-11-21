@@ -5,7 +5,7 @@
 #  id         :integer          not null, primary key
 #  name       :string
 #  address    :string
-#  time       :time
+#  start_time :time
 #  date       :date
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -13,6 +13,7 @@
 #  day_id     :integer
 #  duration   :integer
 #  like_count :integer
+#  end_time   :time
 #
 
 class Destination < ActiveRecord::Base

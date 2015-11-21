@@ -107,16 +107,16 @@ Dashboard = (function() {
     };
 
     var updateHeader = function(trip) {
-        console.log('updating');
+        console.log(JSON.stringify(trip));
         var users = trip.users;
         var user_count = Object.keys(users).length;
-        var start = new Date(trip.start_date);
-        var end = new Date(trip.end_date);
+        var start = trip.start_date;
+        var end = trip.end_date;
 
 
 
         $('h1[data-header="location"]').html(trip.location);
-        $('aside[data-header="invited-dates"').html("<b>invited: </b>" + user_count + " <b>dates: </b>" + start.toDateString() + " - " + end.toDateString());
+        $('aside[data-header="invited-dates"').html("<b>invited: </b>" + user_count + " <b>dates: </b>" + start + " - " + end);
         $('a[data-function="invite-friends"').removeClass('hidden');
         $('a[data-function="form-edit"').removeClass('hidden');
         menu_close();
@@ -311,62 +311,56 @@ Dashboard = (function() {
         $('#destTable').on('click', '.del', function(e){
             e.preventDefault ();
             var tr = $(this).closest('tr');
-
-            var onSuccess = function(data) {
-                if (!data.errors){
-                    tr.fadeOut(400, function(){
-                        tr.remove();
-                     });
-
-                }else{
-                    for (var i in data.errors){
-                        console.log(data.errors[i]);
-                    }
-                }
-
-            };
-            var onFailure = function(data) {
-                console.log("failure");
-
-            };
-            var that = this;
-            id = this.id;
-            url = "/api/destinations?id=" + id;
-            console.log(url);
-            makeDeleteRequest(url, onSuccess, onFailure);
+            console.log("this ");
+            deleteDestination(tr);
         });
 
 
         $('#destTable').on('click', '.edit', function(e){
             e.preventDefault();
-            $('.submit-input').attr('id',this.id);
+            $('#update-dest').attr('data-dest-id',this.id);
             toggleElement($('.dest_container'), 70, "down");
         });
 
          $('.cal-container').on('click', '.dest', function(e){
             e.preventDefault();
-            $('.edit_dest .submit-input').attr('id',this.id);
+            var that = this;
+            $('#update-dest').attr('data-dest-id',$(this).data('dest-id'));
             toggleElement($('.dest_container'), 70, "down");
+            //need to remove the selected item here
         });
 
         $('a[data-function="create-dest-close"').on('click', function(e) {
             e.preventDefault();
+            clearDestForm();
             toggleElement($('.dest_container'), 70, "up");
         });
 
+        //functionality for delete destination
+        $('.delete-dest').on('click', function(e) {
+            e.preventDefault();
+            var elem = $("tr[data-dest-id='" + $('#update-dest').attr('data-dest-id') + "'");
+            console.log(elem);
+            deleteDestination(elem);
+            clearDestForm();
+            toggleElement($('.dest_container'), 70, "up");
+        })
 
         $('.submit-input').on('click', function(e){
-            e.preventDefault ();
-            var date = $('.edit_dest').find('.date-input').val();
-            var time = $('.edit_dest').find('.time-input').val();
-            var duration = $('.edit_dest').find('.duration-input').val();
+            e.preventDefault();
+            var formatCorrect = true;
+            var errors = [];
 
             var dest = {};
-            console.log(date);
-            dest.date = date;
-            dest.time = time;
-            dest.duration = duration;
-            toggleElement($('.dest_container'), 70, "up");
+            $('.edit_dest').find('input').each(function(i, elem) {
+                console.log(elem);
+                if ($(elem).val()) {
+                    dest[$(elem).attr('name')] = $(elem).val();
+                } else {
+                    error = errors.push( $(elem).attr('placeholder'));
+                    formatCorrect = false;
+                }
+            });
 
             var onSuccess = function(data) {
                 if (!data.errors){
@@ -383,12 +377,51 @@ Dashboard = (function() {
             var onFailure = function(data) {
                 console.log("failure");
             };
-            var that = this;
-            var id = this.id;
-            url = "/api/destinations/edit?id=" + id + '&trip_id=' + trip_id;
-            console.log(url);
-            makePutRequest(url, dest, onSuccess, onFailure);
+
+            if (!formatCorrect) {
+                console.log(JSON.stringify(dest));
+                toastr.error(errors + " cannot be blank.");
+            } else {
+                toggleElement($('.dest_container'), 70, "up");
+                var that = this;
+                var id = this.id;
+                url = "/api/destinations/edit?id=" + id + '&trip_id=' + trip_id;
+                console.log(url);
+                makePutRequest(url, dest, onSuccess, onFailure);
+            }
         });
+    };
+
+    var deleteDestination = function($elem) {
+
+        var onSuccess = function(data) {
+            if (!data.errors){
+                $elem.fadeOut(400, function(){
+                    $elem.remove();
+                 });
+
+            } else {
+                for (var i in data.errors){
+                    console.log(data.errors[i]);
+                }
+            }
+
+        };
+        var onFailure = function(data) {
+            console.log("failure");
+
+        };
+        // var that = this;
+        var id = $elem.data("dest-id");
+        url = "/api/destinations?id=" + id;
+        console.log(url);
+        makeDeleteRequest(url, onSuccess, onFailure);
+    };
+
+    var clearDestForm = function() {
+        $('.edit_dest').find('input').each(function(i, elem) {
+          $(elem).val('');
+        })
     };
 
         /**
@@ -487,16 +520,17 @@ Dashboard = (function() {
         })
 
         //save then save trip to db
-        $('a[data-function ="save-trip"]').on('click', function(e) {
+        $('button[data-function ="save-trip"]').on('click', function(e) {
             e.preventDefault();
             toggleElement($('.create-edit-trip_container'), 70, "up");
             down = false;
             //getting trip fields
+            trip = {};
             trip.location = $('input[name="location').val();
             trip.name = $('input[name="name').val();
             trip.start_date = $('input[name="start-date').val();
             trip.end_date = $('input[name="end-date').val();
-
+            console.log(JSON.stringify(trip));
 
             var valid = validateTripForm(trip); //returns true or false
 
@@ -584,8 +618,7 @@ Dashboard = (function() {
     };
 
     var updateCalendarTime = function(data) {
-        console.log('updatecaltime ' + JSON.stringify(data));
-        var day = data.days;
+        // var day = data.days;
         var times = ["12AM", "1AM", "2AM", "3AM", "4AM", "5AM", "6AM", "7AM", "8AM", "9AM", "10AM", "11AM",
                  "12PM", "1PM", "2PM", "3PM", "4PM", "5PM", "6PM", "7PM", "8PM", "9PM", "10PM", "11PM"];
         times.forEach(function(time_block) {
@@ -596,13 +629,15 @@ Dashboard = (function() {
         addCalDates(data.days);
     }
 
-    var addCalDates = function(days) {
+    var addCalDates = function(data) {
+        $('table.cal-dates tr').html('');
         var monthNames = [
                           "January", "February", "March",
                           "April", "May", "June", "July",
                           "August", "September", "October",
                           "November", "December"
                         ];
+        var days = data.reverse();
         days.forEach(function(day) {
             var date_split = day.date.split('-');
             var month = monthNames[date_split[1] - 1];
@@ -611,7 +646,8 @@ Dashboard = (function() {
                     '<div class="day-label">' + date +  '</div>' +
                     '<div class="month-label">' + month + '</div></td>');
         })
-    }
+    };
+
 
     var addCalendarRow = function(r) {
         var row = r || 0;
@@ -628,10 +664,11 @@ Dashboard = (function() {
     }
     var addDest = function(dest, r) {
         var row = r || 0;
-        var hours = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
-                 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
+        var hours = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
+
         var colors = ['black'];
         var color_index = Math.floor(Math.random() * 1);
+
         var date = new Date(dest.time);
         var styles = {'left': date.getUTCHours() * 75 + 'px',
                       'width': dest.duration * 75 + 'px',

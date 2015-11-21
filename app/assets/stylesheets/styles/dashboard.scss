@@ -272,12 +272,20 @@ table.cal-dates {
 	td {
 		width: 75px;
 		text-align: center;
+		border: none;
 	}
 
 	.day-label {
 		font-size: 2.5em;
 		font-weight: 700;
-		color: darken($light-gray, .5);
+		color: darken($light-gray, 25%);
+		transition: color .3s ease-in;
+
+
+		&:hover {
+			color: darken($light-gray, 50%);
+			cursor: pointer;
+		}
 	}
 
 }
