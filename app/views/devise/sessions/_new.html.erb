@@ -1,6 +1,5 @@
 <div class="action-container login-container hidden">
   <h3>Log in</h3>
-  <div class="divider-line"></div>
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <div class="field">
       <%= f.email_field :email, autofocus: true, :placeholder => :email, id: "login-email" %>

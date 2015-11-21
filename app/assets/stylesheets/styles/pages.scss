@@ -6,49 +6,92 @@
 
 
 div.initial {
-	// height: 300px;
-	height: auto;
-	overflow: auto;
+  @include background-image(url("main-bg.jpg"));
+  background-size: 100% auto;
+  background-position: auto -200px ;
+  // height: 300px;
+  height: 100vh;
+  min-height: 500px;
+  overflow: auto;
+  padding: 0;
+  border: 25px solid white;
+
+  header {
+    // background-color: rgba(255, 255, 255, 0.5);
+    border: none;
+  }
 }
 
-div.secondary {
-	height: 300px;
-	text-align: center;
-	background-color: #F7F7F7;
+div.cards {
+  margin-top: 40px;
+
+  label {
+
+  }
 }
+.front-svg {
+  height: 60px;
+  width: auto;
+  margin: 10px;
+  fill: $dark-gray;
+}
+
 
 div.tertiary {
-	height: 400px;
-	padding-top: 40px;
+  min-height: 400px;
+  height: 50vh;
+  padding-top: 40px;
+  padding: 25px;
+  background-color: white;
+  color: darken($medium-gray, 25%);
 
+  h3 {
+    font-weight: 400;
+    font-size: 1.7em;
+    margin-bottom: 8px;
+  }
 
+  .sub {
+    border-top: 7px solid darken($light-gray, 10%);
+    width: 100%;
+    height: 100px;
+    padding-top: 5px;
+    font-size: .9em;
+    color: lighten($medium-gray, 10%);
+  }
 }
 // Form Styles
 .action-container {
-	height: auto;
-	overflow: auto;
-	width:240px;
-	background-color: #F7F7F7;
-	border-radius: 5px;
-	text-align: center;
-	display: inline-block;
-	padding: 10px;
 
-	aside {
-		text-align: right;
-		font-size: 12px;
-	}
+  height: auto;
+  overflow: auto;
+  width:240px;
+  // background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 5px;
+  text-align: center;
+  display: inline-block;
+  padding: 10px;
+
+  aside {
+    text-align: right;
+    font-size: 12px;
+  }
 }
 
 div.third-col {
-	padding: 10px;
+  padding: 10px;
 }
 
 .main-text {
-	font-size: 1.3em;
-	padding: 40px 0 0 40px;
+
+  font-size: 1.3em;
+  padding: 40px 0 0 40px;
+
+  p {
+    color: white;
+  }
 }
 
 img {
-	margin: 10px;
+  margin: 10px;
 }
