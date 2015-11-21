@@ -41,6 +41,8 @@ gem 'validates_timeliness', '~> 3.0'
 
 gem 'jquery-ui-rails'
 
+gem 'jquery-timepicker-rails'
+
 gem 'toastr-rails'
 
 gem 'inline_svg'

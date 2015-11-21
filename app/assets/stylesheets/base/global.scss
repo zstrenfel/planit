@@ -22,7 +22,6 @@ div.third-col {
 
 div.block {
 	@include span-columns(12);
-	padding: 10px;
 }
 
 div.content {
@@ -97,6 +96,46 @@ ul.nav-menu {
 		text-decoration: none;
 	}
 }
+
+.full-width {
+	width: 100%;
+}
+
+
+.modal-title {
+	margin-bottom: 10px;
+}
+
+.close {
+	font-size: .7em;
+	margin: 2px 4px;
+}
+
+.form-wrapper {
+	overflow: auto;
+	height: auto;
+	border: 1px solid lighten($light-gray, 5%);
+	border-radius: 4px;
+	padding: 8px;
+	margin-bottom: 10px;
+}
+
+div.delete {
+	border-top: 1px solid lighten($light-gray, 5%);
+	margin-top: 10px;
+
+	a {
+		color: lighten($alert, 10%);
+		font-size: .7em;
+		transition: color 0.5s ease;
+
+		&:hover {
+			color: darken($alert, 15%);
+		}
+	}
+}
+
+
 
 //tables
 .table { display: table }
