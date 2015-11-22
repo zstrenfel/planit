@@ -89,6 +89,8 @@ GEM
       railties (>= 3.0.0)
     ffaker (2.1.0)
     ffi (1.9.10)
+    figaro (1.1.1)
+      thor (~> 0.14)
     formatador (0.2.5)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
@@ -271,6 +273,7 @@ DEPENDENCIES
   devise
   factory_girl_rails
   ffaker
+  figaro
   guard-rspec
   inline_svg
   jbuilder (~> 2.0)
