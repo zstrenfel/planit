@@ -87,7 +87,7 @@ Dashboard = (function() {
             resetTable();
             initializeMap();
             insertAllDest(data.trip);
-            updateCalendarTime(data.trip);
+            createCalendar(data.trip);
             var geocoder = new google.maps.Geocoder();
             findAddress(geocoder);
             editTripForm(data.trip);
@@ -105,6 +105,12 @@ Dashboard = (function() {
             makeGetRequest(url, onSuccess, onFailure);
         }
     };
+
+    var createCalendar = function(data) {
+      updateCalendarTime(data);
+      addCalDates(data);
+      // addCalendarRow();
+    }
 
     var updateHeader = function(trip) {
         console.log(JSON.stringify(trip));
@@ -318,7 +324,12 @@ Dashboard = (function() {
 
         $('#destTable').on('click', '.edit', function(e){
             e.preventDefault();
+            var $curr = $('tr[data-dest-id="' + this.id + '"');
+            console.log($curr);
+            var name = $curr.find('td[data-table-function="name"]').val()
+            console.log(name);
             $('#update-dest').attr('data-dest-id',this.id);
+            // $('#dest-name').val($('td[data-table-function="name"]').html());
             toggleElement($('.dest_container'), 70, "down");
         });
 
@@ -346,7 +357,7 @@ Dashboard = (function() {
             toggleElement($('.dest_container'), 70, "up");
         })
 
-        $('.submit-input').on('click', function(e){
+        $('#update-dest').on('click', function(e){
             e.preventDefault();
             var formatCorrect = true;
             var errors = [];
@@ -476,7 +487,9 @@ Dashboard = (function() {
 
       // Add some text to the new cells:
       name_cell.innerHTML = dest.name;
+      $(name_cell).attr("data-table-funtion", "name");
       address_cell.innerHTML = dest.address;
+      $(address_cell).attr("data-table-function", "location");
       edit_cell.innerHTML = "<div class='hover edit' id='"+ dest.id + "'>Edit</div>";
       delete_cell.innerHTML = "<div class='del' id='"+ dest.id + "'>x</div>";
 
@@ -577,8 +590,7 @@ Dashboard = (function() {
             }
 
         //watch submit/invite button for click
-        $('a.invite').on('click', function(e) {
-            e.preventDefault();
+        $('button[data-function="invite-friends"]').on('click', function() {
             var text = $textarea.val();
             var emails;
             toggleElement($('.invite-friends_container'), 70, "up");
@@ -611,7 +623,6 @@ Dashboard = (function() {
         $('.cal-dates').on('click', 'td', function() {
             $('.cal-container').find('.dest').remove();
             $('.cal-container').find('.dest-row:not(.keep)').remove();
-
             var id = $(this).data("date-id");
             makeGetRequest('/days/' + id, addCalDestinations, onFailureGlobal);
         })
@@ -626,10 +637,10 @@ Dashboard = (function() {
             $('tr[data-row="0"]').append('<td>' + '<div class="half-cell">&nbsp;</div>' + '<div class="half-cell">&nbsp;</div>' +
                                          '</td>');
         });
-        addCalDates(data.days);
     }
 
     var addCalDates = function(data) {
+        var days = data.days.reverse();
         $('table.cal-dates tr').html('');
         var monthNames = [
                           "January", "February", "March",
@@ -637,7 +648,6 @@ Dashboard = (function() {
                           "August", "September", "October",
                           "November", "December"
                         ];
-        var days = data.reverse();
         days.forEach(function(day) {
             var date_split = day.date.split('-');
             var month = monthNames[date_split[1] - 1];
@@ -648,65 +658,69 @@ Dashboard = (function() {
         })
     };
 
+    var addCalDestinations = function(data) {
+        var dests = data.day.destinations;
+        var hours = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
+                 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
+        if (dests.length > 0) {
+            dests.forEach (function(dest) {
+                var conflict = checkTimeConflicts(dest);
+                if (conflict) {
+                    toastr.warning("This event conflicts with an event already in the calendar");
+                } else {
+                    addDest(dest);
+                }
+            })
+            console.log('destinations have arrived ');
+        } else {
+            console.log('no destinations to log');
+        }
+    };
 
-    var addCalendarRow = function(r) {
-        var row = r || 0;
-        var times = ["12AM", "1AM", "2AM", "3AM", "4AM", "5AM", "6AM", "7AM", "8AM", "9AM", "10AM", "11AM",
-                 "12PM", "1PM", "2PM", "3PM", "4PM", "5PM", "6PM", "7PM", "8PM", "9PM", "10PM", "11PM"];
-        var $row = $('<tr></tr>').attr('data-row', row).addClass('dest-row');
-
-        times.forEach(function(timeblock) {
-             $row.append('<td>' + '<div class="half-cell">&nbsp;</div>' + '<div class="half-cell">&nbsp;</div>' +
-                                         '</td>');
-        })
-         $('.cal-dests').append($row);
-         return row;
-    }
-    var addDest = function(dest, r) {
-        var row = r || 0;
+    var addDest = function(dest) {
         var hours = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
+        var start_time = dest.start_time;
+        var end_time = dest.end_time;
+        console.log(start_time + " - " + end_time);
+        // var duration =
 
-        var colors = ['black'];
-        var color_index = Math.floor(Math.random() * 1);
 
-        var date = new Date(dest.time);
-        var styles = {'left': date.getUTCHours() * 75 + 'px',
-                      'width': dest.duration * 75 + 'px',
-                       'top': 50 + (row * 60)+ 'px',
-                       'background-color': colors[color_index] };
-        var $dest_div = $('<div></div>').attr("data-dest-id", dest.id).attr("data-cal-row", row).addClass("dest").html(dest.name);
-        var start = hours.indexOf(date.getUTCHours());
-        var end = start + dest.duration + 1;
-        var time_block = hours.slice(start, end);
+        // var styles = {'left': start_time.getUTCHours() * 75 + 'px',
+        //               'width': dest.duration * 75 + 'px',
+        //                'top': 50 + 'px',
+        //                'background-color': 'black' };
+        // var $dest_div = $('<div></div>').attr("data-dest-id", dest.id).attr("data-cal-row", row).addClass("dest").html(dest.name);
+        // var start = hours.indexOf(date.getUTCHours());
+        // var end = start + dest.duration + 1;
+        // var time_block = hours.slice(start, end);
 
-        $dest_div.css(styles).attr("data-time-frame", time_block);
-        $('.cal-container').prepend($dest_div);
+        // $dest_div.css(styles).attr("data-time-frame", time_block);
+        // $('.cal-container').prepend($dest_div);
     };
 
     var checkTimeConflicts = function(dest) {
-        var hours = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
-                 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
-        var date = new Date(dest.time); //create time object with destination time
-        var start = hours.indexOf(date.getUTCHours());
-        var end = start + dest.duration + 1;
-        var time_block = hours.slice(start, end);
+        // var hours = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
+        // var date = new Date(dest.time); //create time object with destination time
+        // var start = hours.indexOf(date.getUTCHours());
+        // var end = start + dest.duration + 1;
+        // var time_block = hours.slice(start, end);
 
-        var prev_dests = $('.cal-container').find('.dest'); //find all existing destinations in the calendar
+        // var prev_dests = $('.cal-container').find('.dest'); //find all existing destinations in the calendar
 
-        //iterate through them looking for conflicts
-        for(var i = 0; i < prev_dests.length; i++) {
-            var times = convertToInt($(prev_dests[i]).attr("data-time-frame"));
-            var curr_row = parseInt($(prev_dests[i]).attr("data-cal-row"));
-            time_block.forEach(function(t){
-                 if (times.indexOf(t) > -1) {
-                    console.log('problem');
-                    // addCalendarRow(curr_row + 1);
-                    return curr_row + 1;
-                }
-            });
-            // addDest(dest, curr_row);
-            return 0;
-        }
+        // //iterate through them looking for conflicts
+        // for(var i = 0; i < prev_dests.length; i++) {
+        //     var times = convertToInt($(prev_dests[i]).attr("data-time-frame"));
+        //     time_block.forEach(function(t){
+        //          if (times.indexOf(t) > -1) {
+        //             console.log('problem');
+        //             // addCalendarRow(curr_row + 1);
+        //             return true;
+        //         }
+        //     });
+        //     // addDest(dest, curr_row);
+        //     return false;
+        // }
+        return false;
     };
 
     var convertToInt = function(string) {
@@ -716,30 +730,6 @@ Dashboard = (function() {
         })
         return orig;
     }
-
-    var addCalDestinations = function(data, r) {
-        var row = r || 0;
-        var dests = data.day.destinations;
-        var hours = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
-                 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
-        if (dests) {
-            dests.forEach (function(dest) {
-                var conflict = checkTimeConflicts(dest);
-                if (conflict) {
-                    addCalendarRow(conflict);
-                    addDest(dest, conflict);
-                } else {
-                    addDest(dest, 0);
-                }
-            })
-            console.log('destinations have arrived ');
-        } else {
-            console.log(JSON.stringify(day));
-            console.log('no destinations to log');
-        }
-    };
-
-
 
 
 
