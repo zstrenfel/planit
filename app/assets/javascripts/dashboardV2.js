@@ -324,10 +324,17 @@ Dashboard = (function() {
 
         $('#destTable').on('click', '.edit', function(e){
             e.preventDefault();
-            var $curr = $('tr[data-dest-id="' + this.id + '"');
-            console.log($curr);
-            var name = $curr.find('td[data-table-function="name"]').val()
-            console.log(name);
+            var $curr = $('tr[data-dest-id="' + this.id + '"]');
+            var destInfo = {};
+            destInfo.name = $curr.find('td[data-table-function="name"]').html();
+            destInfo.loc = $curr.find('td[data-table-function="location"]').html();
+            destInfo.date = $curr.find('input[name="date"]').val();
+            destInfo.start_time = $curr.find('input[name="start_time"]').val();
+            destInfo.end_time = $curr.find('input[name="end_time"]').val();
+
+            console.log("dest info " + JSON.stringify(destInfo));
+            autofillDestForm(destInfo);
+
             $('#update-dest').attr('data-dest-id',this.id);
             // $('#dest-name').val($('td[data-table-function="name"]').html());
             toggleElement($('.dest_container'), 70, "down");
@@ -376,7 +383,7 @@ Dashboard = (function() {
             var onSuccess = function(data) {
                 if (!data.errors){
                     console.log(data);
-                    //insertDest(data["destination"]);
+                    insertDest(data["destination"]);
                     toggleElement($('.dest_container'), 70, "up");
                 }else{
                     for (i in data.errors){
@@ -386,7 +393,7 @@ Dashboard = (function() {
 
             };
             var onFailure = function(data) {
-                console.log("failure");
+                toastr.error(data);
             };
 
             if (!formatCorrect) {
@@ -395,7 +402,7 @@ Dashboard = (function() {
             } else {
                 toggleElement($('.dest_container'), 70, "up");
                 var that = this;
-                var id = this.id;
+                var id = $('#update-dest').data("dest-id");
                 url = "/api/destinations/edit?id=" + id + '&trip_id=' + trip_id;
                 console.log(url);
                 makePutRequest(url, dest, onSuccess, onFailure);
@@ -435,17 +442,41 @@ Dashboard = (function() {
         })
     };
 
+    var autofillDestForm = function(data) {
+       $('#dest-name').val(data.name);
+       $('#dest-location').val(data.loc);
+
+       if (data.date) {
+        $('#dest-date').val(data.date);
+       };
+       if (data.start_time) {
+        var start_time = new Date(data.start_time);
+
+        $('.edit_dest input[name="start_time"]').val(start_time.getUTCHours() + ":" + start_time.getUTCMinutes());
+       }
+       if (data.end_time) {
+        var end_time = new Date(data.end_time);
+        $('.edit_dest input[name="end_time"]').val(end_time.getUTCHours() + ":" + end_time.getUTCMinutes());
+       }
+     }
+
         /**
      * Insert dest into Itinerary List Table
      * @param  {Object}  dest        JSON
      * @return {None}
      */
     var insertDest = function(dest) {
+
       // Find a <table> element with id="myTable":
       var table = document.getElementById("destTable");
 
+      //delete destination from table if it exists and replace it with the correct one.
+      if ($(table).find('tr[data-dest-id="' + dest.id + '"]').length !== 0) {
+        $(table).find('tr[data-dest-id="' + dest.id + '"]').remove();
+      }
+
       // Create an empty <tr> element and add it to the 1st position of the table:
-      var row = table.insertRow(1);
+      var row = table.insertRow(1)
 
       // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
 
@@ -487,13 +518,16 @@ Dashboard = (function() {
 
       // Add some text to the new cells:
       name_cell.innerHTML = dest.name;
-      $(name_cell).attr("data-table-funtion", "name");
+      $(name_cell).attr("data-table-function", "name");
       address_cell.innerHTML = dest.address;
       $(address_cell).attr("data-table-function", "location");
       edit_cell.innerHTML = "<div class='hover edit' id='"+ dest.id + "'>Edit</div>";
       delete_cell.innerHTML = "<div class='del' id='"+ dest.id + "'>x</div>";
 
       row.setAttribute('data-dest-id',dest.id);
+      $(row).append('<input type="hidden" name="date" value="' + dest.date + '">');
+      $(row).append('<input type="hidden" name="start_time" value="' + dest.start_time + '">');
+      $(row).append('<input type="hidden" name="end_time" value="' + dest.start_time +  '">');
       // delete_cell.innerHTML = "<div class='del'>x</div>";
       addMarker(dest.address,map);
 
