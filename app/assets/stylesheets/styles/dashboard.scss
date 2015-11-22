@@ -130,29 +130,76 @@ h1 {
 	left: 50%;
     position: fixed;
     z-index: 100;
-    padding: 10px;
 }
-.invite-friends {
-	height: 230px;
+.invite-friends_container {
+	height: 254;
 	width: 600px;
-	top: -230px;
+	top: -259px;
     margin-left: -300px;
-    padding: 10px;
 }
 
-.create-edit-trip {
-	height: 280px;
+.invite-friends {
+	height: 100%;
+	width: 100%;
+	position: relative;
+	overflow: auto;
+	padding: 0 10px 10px;
+
+	textarea {
+		margin-bottom: 3px;
+	}
+
+	i {
+		font-size: .8em;
+		color: darken($light-gray, 25%);
+		margin-bottom: 10px;
+		display: block;
+	}
+}
+
+.create-edit-trip_container {
+	height: 275;
 	width: 400px;
 	top: -280px;
 	margin-left: -200px;
 }
 
-.edit_dest {
-	height: 245px;
-	width: 400px;
-	top: -245px;
-	margin-left: -200px;
+.create-edit-trip {
+	height: 100%;
+	width: 100%;
+	position: relative;
+	overflow: auto;
+	padding: 0 10px 10px;;
 }
+
+.dest_container {
+	height: 362;
+	width: 400px;
+	top: -367px;
+	margin-left: -200px;
+	padding: 0;
+}
+
+.edit_dest {
+	height: 100%;
+	width: 100%;
+	position: relative;
+	overflow: auto;
+	padding: 0 10px 10px;;
+}
+
+.time-container {
+	width: auto;
+	height: auto;
+	overflow: auto;
+}
+
+.time-input {
+	width: 45% !important;
+	float: left;
+	margin-bottom: 0 !important;
+}
+
 
 //map styles
 .map {
@@ -225,12 +272,20 @@ table.cal-dates {
 	td {
 		width: 75px;
 		text-align: center;
+		border: none;
 	}
 
 	.day-label {
 		font-size: 2.5em;
 		font-weight: 700;
-		color: darken($light-gray, .5);
+		color: darken($light-gray, 25%);
+		transition: color .3s ease-in;
+
+
+		&:hover {
+			color: darken($light-gray, 50%);
+			cursor: pointer;
+		}
 	}
 
 }

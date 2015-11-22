@@ -76,7 +76,7 @@ def destroy
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def dest_params
-      params.require(:destination).permit(:name, :date, :time, :address, :date,:duration, :trip_id, :like_count)
+      params.require(:destination).permit(:name, :date, :start_time, :end_time, :address, :date, :trip_id, :like_count)
     end
 
 

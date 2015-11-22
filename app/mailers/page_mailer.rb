@@ -3,6 +3,7 @@ class PageMailer < ApplicationMailer
 
   def invite_email(curr_user, email)
     p "in PageMailer"
+    p email
     @user = curr_user
     # @user = curr_user
     mail(to: email, subject: @user.name + ' is inviting you to join Planit!')

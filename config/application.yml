@@ -12,3 +12,5 @@
 
 sendgrid_username: 'app42939177@heroku.com'
 sendgrid_password: '1monbkuf1309'
+gmail_username: 'planit169@gmail.com'
+gmail_password: '!Password1'

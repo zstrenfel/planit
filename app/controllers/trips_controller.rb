@@ -65,13 +65,14 @@ class TripsController < ApplicationController
         @emails = params[:emails]
 
         @emails.each do |email|
+            p email
             invitee = User.find_by(email: email)
             if (invitee) && (not @trip.users.include?(invitee))
                 @trip.users << invitee
             elsif not invitee
                 p "no such invitee exists"
                 p current_user.name
-                PageMailer.invite_email(current_user, invitee).deliver_now
+                PageMailer.invite_email(current_user, email).deliver_now
             end
         end
         render json: @trip
