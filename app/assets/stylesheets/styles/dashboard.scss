@@ -156,11 +156,36 @@ h1 {
 
 //map styles
 .map {
+
+
+	height: 400px;
+	margin-bottom: 20px;
+}
+
+.width12 {
 	@include span-columns(12);
+	@include omega;
+}
+
+.width6 {
+	@include span-columns(6);
+	@include omega;
+}
+
+.dir_width {
+	
+}
+
+.directions {
+	@include span-columns(6);
 	@include omega;
 
 	height: 400px;
 	margin-bottom: 20px;
+	margin-left: 20px;
+
+	float: left;
+	overflow: scroll;	
 }
 
 //search styles

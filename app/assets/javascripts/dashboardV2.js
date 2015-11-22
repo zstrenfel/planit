@@ -719,7 +719,31 @@ Dashboard = (function() {
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         map = new google.maps.Map(document.getElementById("Map"), myOptions);
+        map1 = new google.maps.Map(document.getElementById("Map1"), myOptions);
         bounds = new google.maps.LatLngBounds();
+
+
+
+
+  // var directionsService = new google.maps.DirectionsService();
+  //    var directionsDisplay = new google.maps.DirectionsRenderer();
+  //   directionsDisplay.setMap(map);
+  //    directionsDisplay.setPanel(document.getElementById('Directions'));
+
+  //    var request = {
+  //      origin: 'Chicago', 
+  //      destination: 'New York',
+  //      travelMode: google.maps.DirectionsTravelMode.DRIVING
+  //    };
+
+  //    directionsService.route(request, function(response, status) {
+  //      if (status == google.maps.DirectionsStatus.OK) {
+  //       console.log(response.routes[0].legs[0].duration.text);
+  //        directionsDisplay.setDirections(response);
+  //      }
+  //    });
+      
+
 
     }
 
@@ -760,6 +784,55 @@ Dashboard = (function() {
             e.preventDefault();
             findPlaces();
         });
+
+
+        var directionsService = new google.maps.DirectionsService();
+        var directionsDisplay = new google.maps.DirectionsRenderer();
+        var trans = 50000;
+        var trans_mo = "easeInOutQuad"
+
+        $("#dir_pop").on('click',  function(e){
+            e.preventDefault();
+            $("#Directions").addClass('directions',trans, trans_mo);
+            $("#Map").removeClass('width12',trans, trans_mo);
+            $("#Map").addClass('width6',trans, trans_mo);
+
+            //$("#Map").switchClass('width12','width6',1000,"easeInOutQuad")
+            var currCenter = map.getCenter();
+            google.maps.event.trigger(map, "resize");
+            map.setCenter(currCenter);
+       
+
+            directionsDisplay.setMap(map1);
+            directionsDisplay.setPanel(document.getElementById('Directions'));
+
+             var request = {
+               origin: 'Chicago', 
+               destination: 'New York',
+               travelMode: google.maps.DirectionsTravelMode.DRIVING
+             };
+
+             directionsService.route(request, function(response, status) {
+               if (status == google.maps.DirectionsStatus.OK) {
+                console.log(response.routes[0].legs[0].duration.text);
+                 directionsDisplay.setDirections(response);
+               }
+             });
+
+        });
+
+        $("#dir_unpop").on('click',  function(e){
+            e.preventDefault();
+            $("#Directions").removeClass('directions',trans);
+            $("#Map").removeClass('width6',trans, trans_mo);
+            $("#Map").addClass('width12',trans, trans_mo);
+            var currCenter = map.getCenter();
+            google.maps.event.trigger(map, "resize");
+            map.setCenter(currCenter);
+            directionsDisplay.setMap(null);
+            directionsDisplay.setPanel(null);
+        });        
+
 
         $("#destList").on('click', ".add", function(e){
             e.preventDefault();

@@ -62,8 +62,12 @@
 		</table>
 		</div>
 	</div>
+	<div id="dir_pop">Pop</div>
+	<div id="dir_unpop">UnPop</div>
+	<div id="Map" class="map width12">
+	</div>
 
-	<div id="Map" class="map">
+	<div id="Directions">
 	</div>
 
 	<div class="destination-list">
@@ -92,22 +96,28 @@
 
 
 	<div class="search">
-		<h1>Search</h1>
+		<h1>Search/Suggestions</h1>
 		<div id="myDiv"></div>
 		<div class="actions">
 		    <div class="button">
-		        <label for="gmap_keyword">Keyword:</label>
-		        <input id="gmap_keyword" type="text" name="gmap_keyword" /></div>
-		    <div class="button">
 		        <label for="gmap_type">Type:</label>
 		        <select id="gmap_type">
-		            <option value="art_gallery">art_gallery</option>
-		            <option value="bar">bar</option>
-		            <option value="cafe">cafe</option>
-		            <option value="food">food</option>
-		            <option value="store">store</option>
+		        	<option value="amusement_park">Fun Things</option>
+		        	<option value ="museum">Museum</option>
+		            <option value="art_gallery">Art Gallery</option>
+		            <option value="bar">Bar</option>
+		            <option value="cafe">Cafe</option>
+		            <option value="food">Food</option>
+		            <option value="store">Store</option>
+		            <option value="night_club">Night Club</option>
+		            <option value="movie_theater">Movie</option>
+		            
+
 		        </select>
 		    </div>
+		   	<div class="button">
+		        <label for="gmap_keyword">(Optional) Keyword:</label>
+		        <input id="gmap_keyword" type="text" name="gmap_keyword" /></div>
 		    <input type="hidden" id="lat" name="lat" value="40.7143528" />
 		    <input type="hidden" id="lng" name="lng" value="-74.0059731" />
 		    <!-- <div type ="submit" class="search-button button">Search for objects</div> -->
@@ -123,7 +133,7 @@
 		    </table>
 		</div>
 
-
+		<div id="Map1"></div>
 
 	<!-- <div class="map">
 	<img src="https://api.fnkr.net/testimg/800x300/00CED1/FFF/?text=img+placeholder">
