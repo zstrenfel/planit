@@ -382,6 +382,9 @@ Dashboard = (function() {
                     dest.start_time = $(elem).timepicker('getTime');
                   } else if ($(elem).attr('name') === "end_time") {
                       dest.end_time = $(elem).timepicker('getTime');
+                  } else if ($(elem).attr('name') === "date") {
+                    var date = $('#dest-date').val().split('-');
+                    dest.date = date[2] +"-"+ date[1] +"-"+ date[0];
                   } else {
                     dest[$(elem).attr('name')] = $(elem).val();
                   }
@@ -413,6 +416,7 @@ Dashboard = (function() {
                 console.log(JSON.stringify(dest));
                 toastr.error(errors + " cannot be blank.");
             } else {
+                console.log("dest " + JSON.stringify(dest));
                 // toggleElement($('.dest_container'), 70, "up");
                 var that = this;
                 var id = $('#update-dest').data("dest-id");

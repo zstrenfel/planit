@@ -48,7 +48,7 @@ class DestinationsController < ApplicationController
       if @destination.update(dest_params)
         #need to add into
         @day = Day.where("date= ? AND trip_id = ?" , params[:date], @destination.trip_id).first;
-        p @day
+        p params[:date]
         @day.destinations << @destination
 	      json1 = {:status => 1, :destination => @destination}
 	      render :json => json1
