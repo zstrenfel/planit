@@ -337,7 +337,6 @@ Dashboard = (function() {
             destInfo.start_time = $curr.find('input[name="start_time"]').val();
             destInfo.end_time = $curr.find('input[name="end_time"]').val();
 
-            console.log("dest info " + JSON.stringify(destInfo));
             autofillDestForm(destInfo);
 
             $('#update-dest').attr('data-dest-id',this.id);
@@ -347,8 +346,20 @@ Dashboard = (function() {
 
          $('.cal-container').on('click', '.dest', function(e){
             e.preventDefault();
-            var that = this;
-            $('#update-dest').attr('data-dest-id',$(this).data('dest-id'));
+            var $that = $(this);
+            var destInfo = {};
+            $('#update-dest').attr('data-dest-id',$that.data('dest-id'));
+
+            destInfo.name = $that.find('input[name="name"]').val();
+            destInfo.loc = $that.find('input[name="location"]').val();
+            destInfo.date = $that.find('input[name="date"]').val();
+
+            var time_block = $that.attr("data-time-frame").split(',');
+
+            destInfo.start_time = time_block[0];
+            destInfo.end_time = time_block[1];
+
+            autofillDestForm(destInfo);
             toggleElement($('.dest_container'), 70, "down");
             //need to remove the selected item here
         });
@@ -493,18 +504,17 @@ Dashboard = (function() {
        $('#dest-name').val(data.name);
        $('#dest-location').val(data.loc);
 
-       if (data.date !== null) {
-        var d = data.date.split("-");
-        // date.setTime( date.getTime() + date.getTimezoneOffset()*60*1000 )
-
-        $('#dest-date').val( d[2] + "-" + d[1] + "-" + d[0]);
+       if (data.date !== 'null') {
+            var d = data.date.split("-");
+            $('#dest-date').val( d[2] + "-" + d[1] + "-" + d[0]);
        };
-       if (data.start_time !== null) {
+
+       if (data.start_time !== 'null') {
         console.log(data.start_time);
         var start_time = new Date(data.start_time).toLocaleTimeString().replace(':00 ', '');
         $('.edit_dest input[name="start_time"]').val(start_time);
        }
-       if (data.end_time !== null) {
+       if (data.end_time !== 'null') {
         console.log(data.end_time);
         var end_time = new Date(data.end_time).toLocaleTimeString().replace(':00 ', '');
         $('.edit_dest input[name="end_time"]').val(end_time);
@@ -779,9 +789,10 @@ Dashboard = (function() {
         var $dest_div = $('<div></div>').attr("data-dest-id", dest.id).addClass("dest").html(dest.name);
         var start = date_start.getHours() + '.' + date_start.getUTCMinutes();
         var end = date_end.getHours() + '.' + date_end.getUTCMinutes();
-        var time_block = [start, end];
+        var time_block = [date_end, date_end];
 
         $dest_div.css(styles).attr('data-time-frame', time_block);
+        $dest_div.append('<input type="hidden" name="name" value="' + dest.name +'" >');
         $dest_div.append('<input type="hidden" name="location" value="' + dest.address +'" >');
         $dest_div.append('<input type="hidden" name="date" value="' + dest.date +'" >');
         $dest_div.append('<input type="hidden" name="start_time" value="' + start +'" >');
