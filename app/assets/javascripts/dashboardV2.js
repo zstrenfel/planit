@@ -388,7 +388,6 @@ Dashboard = (function() {
                   } else {
                     dest[$(elem).attr('name')] = $(elem).val();
                   }
-
                 } else {
                     error = errors.push( $(elem).attr('placeholder'));
                     formatCorrect = false;
@@ -412,19 +411,50 @@ Dashboard = (function() {
                 toastr.error(data);
             };
 
+
             if (!formatCorrect) {
                 console.log(JSON.stringify(dest));
                 toastr.error(errors + " cannot be blank.");
             } else {
                 console.log("dest " + JSON.stringify(dest));
-                // toggleElement($('.dest_container'), 70, "up");
-                var that = this;
-                var id = $('#update-dest').data("dest-id");
-                url = "/api/destinations/edit?id=" + id + '&trip_id=' + trip_id;
-                console.log(url);
-                makePutRequest(url, dest, onSuccess, onFailure);
+                var conflict = checkTimeConflicts(dest);
+
+                if (conflict) {
+                  toastr.error("This conflicts with a destination you have already added to the calendar");
+                } else {
+                  var that = this;
+                  var id = $('#update-dest').data("dest-id");
+                  url = "/api/destinations/edit?id=" + id + '&trip_id=' + trip_id;
+                  console.log(url);
+                  makePutRequest(url, dest, onSuccess, onFailure);
+                }
             }
         });
+    };
+
+    var checkTimeConflicts = function(dest) {
+        var start_time = new Date(dest.start_time);
+        var end_time = new Date(dest.end_time);
+        var start = parseInt(start_time.getHours() + '.' + start_time.getUTCMinutes());
+        var end = parseInt(end_time.getHours() + '.' + end_time.getUTCMinutes());
+
+        // var url = '/days/' +
+        // var prev_dests = makeGetRequest()
+        $('.cal-container').find('.dest'); //find all existing destinations in the calendar
+
+        // //iterate through them looking for conflicts
+        for(var i = 0; i < prev_dests.length; i++) {
+            var times = $(prev_dests[i]).attr("data-time-frame").split(',');
+            var prev_start = parseInt(times[0])
+            var prev_end = parseInt(times[1]);
+            if (start > prev_start && start < prev_end) {
+              return true;
+            } else if (end < prev_end || end > prev_start) {
+              return true;
+            } else {
+              return false;
+            };
+        }
     };
 
     var deleteDestination = function($elem) {
@@ -696,7 +726,7 @@ Dashboard = (function() {
     }
 
     var addCalDates = function(data) {
-        var days = data.days.reverse();
+        var days = data.days;
         $('table.cal-dates tr').html('');
         var monthNames = [
                           "January", "February", "March",
@@ -720,12 +750,7 @@ Dashboard = (function() {
                  12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
         if (dests.length > 0) {
             dests.forEach (function(dest) {
-                var conflict = checkTimeConflicts(dest);
-                if (conflict) {
-                    toastr.warning("This event conflicts with an event already in the calendar");
-                } else {
-                    addDest(dest);
-                }
+                addDest(dest);
             })
             console.log('destinations have arrived ');
         } else {
@@ -734,59 +759,25 @@ Dashboard = (function() {
     };
 
     var addDest = function(dest) {
-        var hours = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
-        var start_time = dest.start_time;
-        var end_time = dest.end_time;
-        console.log(start_time + " - " + end_time);
-        // var duration =
+        var start_time = new Date(dest.start_time);
+        var end_time =  new Date(dest.end_time);
+        var duration = (end_time.getTime() - start_time.getTime()) / 3600000;
+        // console.log(start_time.toLocaleTimeString() + " - " + end_time.toLocaleTimeString() + "is " + duration + " hours");
 
 
-        // var styles = {'left': start_time.getUTCHours() * 75 + 'px',
-        //               'width': dest.duration * 75 + 'px',
-        //                'top': 50 + 'px',
-        //                'background-color': 'black' };
-        // var $dest_div = $('<div></div>').attr("data-dest-id", dest.id).attr("data-cal-row", row).addClass("dest").html(dest.name);
-        // var start = hours.indexOf(date.getUTCHours());
-        // var end = start + dest.duration + 1;
-        // var time_block = hours.slice(start, end);
+        var styles = {'left': start_time.getHours() * 75 + 'px',
+                      'width': duration * 75 + 'px',
+                       'top': 50 + 'px',
+                       'background-color': 'black' };
+        var $dest_div = $('<div></div>').attr("data-dest-id", dest.id).addClass("dest").html(dest.name);
+        var start = start_time.getHours() + '.' + start_time.getUTCMinutes();
+        var end = end_time.getHours() + '.' + end_time.getUTCMinutes();
+        var time_block = [start, end];
 
-        // $dest_div.css(styles).attr("data-time-frame", time_block);
-        // $('.cal-container').prepend($dest_div);
+        $dest_div.css(styles).attr('data-time-frame', time_block);
+        $('.cal-container').prepend($dest_div);
+
     };
-
-    var checkTimeConflicts = function(dest) {
-        // var hours = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
-        // var date = new Date(dest.time); //create time object with destination time
-        // var start = hours.indexOf(date.getUTCHours());
-        // var end = start + dest.duration + 1;
-        // var time_block = hours.slice(start, end);
-
-        // var prev_dests = $('.cal-container').find('.dest'); //find all existing destinations in the calendar
-
-        // //iterate through them looking for conflicts
-        // for(var i = 0; i < prev_dests.length; i++) {
-        //     var times = convertToInt($(prev_dests[i]).attr("data-time-frame"));
-        //     time_block.forEach(function(t){
-        //          if (times.indexOf(t) > -1) {
-        //             console.log('problem');
-        //             // addCalendarRow(curr_row + 1);
-        //             return true;
-        //         }
-        //     });
-        //     // addDest(dest, curr_row);
-        //     return false;
-        // }
-        return false;
-    };
-
-    var convertToInt = function(string) {
-        var orig = string.split(',');
-        orig.forEach(function(stringInt, index) {
-            orig[index] = parseInt(stringInt);
-        })
-        return orig;
-    }
-
 
 
 /** =========================End Handlers ===================================== */

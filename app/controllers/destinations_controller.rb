@@ -48,7 +48,7 @@ class DestinationsController < ApplicationController
       if @destination.update(dest_params)
         #need to add into
         @day = Day.where("date= ? AND trip_id = ?" , params[:date], @destination.trip_id).first;
-        p params[:date]
+
         @day.destinations << @destination
 	      json1 = {:status => 1, :destination => @destination}
 	      render :json => json1
@@ -78,6 +78,8 @@ def destroy
     def dest_params
       params.require(:destination).permit(:name, :date, :start_time, :end_time, :address, :date, :trip_id, :like_count)
     end
+
+
 
 
 end
