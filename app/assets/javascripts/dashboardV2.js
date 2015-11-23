@@ -144,6 +144,11 @@ Dashboard = (function() {
         console.log(data);
     };
 
+    var clearForm = function($that) {
+      $that.find('input').each(function(i, v) {
+        $(v).val('');
+      })
+    }
 
 /**
  * ========================Handlers go below here =====================
@@ -377,8 +382,6 @@ Dashboard = (function() {
                     dest.start_time = $(elem).timepicker('getTime');
                   } else if ($(elem).attr('name') === "end_time") {
                       dest.end_time = $(elem).timepicker('getTime');
-                  } else if ($(elem).attr('name') === "date"){
-                    dest.date = $('#dest-date').datepicker('getDate');
                   } else {
                     dest[$(elem).attr('name')] = $(elem).val();
                   }
@@ -600,6 +603,7 @@ Dashboard = (function() {
                 // console.log(data);
                 //location = data.trip.location;
                 trip_id = data.trip.id;
+                clearForm($('.create-edit-trip'));
                 updateDash();
             };
 
