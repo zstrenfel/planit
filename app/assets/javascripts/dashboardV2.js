@@ -508,7 +508,7 @@ Dashboard = (function() {
       // var delete_cell = row.insertCell(2);
 
       var like_cell = row.insertCell(2);
-      like_cell.innerHTML = '<input type="button" id="like-btn" type="button" value = "Like" + dest.like_count</input>';
+      like_cell.innerHTML = '<input type="button" id="like-btn" type="button" value = "Like"</input>';
       //<%= link_to 'like', vote_path(@post), class: 'vote', remote: true, data: { type: :json } %>';
       var like_count_cell = row.insertCell(3);
       like_count_cell.innerHTML = dest.like_count;
