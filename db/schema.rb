@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20151121201637) do
   add_index "days", ["trip_id"], name: "index_days_on_trip_id", using: :btree
 
   create_table "destinations", force: :cascade do |t|
+    
     t.string   "name"
     t.string   "address"
     t.time     "start_time"
