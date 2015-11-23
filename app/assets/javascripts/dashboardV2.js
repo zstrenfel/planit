@@ -327,65 +327,66 @@ Dashboard = (function() {
 
         $('#destTable').on('click', '.dir', function(e){
             e.preventDefault();
-            var $curr = $('tr[data-dest-id="' + this.id + '"]');
-            var destInfo = {};
-            destInfo.name = $curr.find('td[data-table-function="name"]').html();
-            destInfo.loc = $curr.find('td[data-table-function="location"]').html();
-            destInfo.date = $curr.find('input[name="date"]').val();
-            destInfo.start_time = $curr.find('input[name="start_time"]').val();
-            destInfo.end_time = $curr.find('input[name="end_time"]').val();
-            destInfo.address = $curr.find('input[name="address"]').val();
+            if (daysDests!=""){
+                var $curr = $('tr[data-dest-id="' + this.id + '"]');
+                var destInfo = {};
+                destInfo.name = $curr.find('td[data-table-function="name"]').html();
+                destInfo.loc = $curr.find('td[data-table-function="location"]').html();
+                destInfo.date = $curr.find('input[name="date"]').val();
+                destInfo.start_time = $curr.find('input[name="start_time"]').val();
+                destInfo.end_time = $curr.find('input[name="end_time"]').val();
+                destInfo.address = $curr.find('input[name="address"]').val();
 
-            console.log("dest info " + JSON.stringify(destInfo));
+                console.log("dest info " + JSON.stringify(destInfo));
 
-            var address1 = destInfo.loc;
-            var address2 = "";
-            var dest2 = {};
+                var address1 = destInfo.loc;
+                var address2 = "";
+                var dest2 = {};
 
-            var start_time1 = new Date(destInfo.start_time)
-            var start1 = parseInt(start_time1.getHours() + '.' + start_time1.getUTCMinutes());
-            var start_time2 = "";
-            var start2 = "";
+                var start_time1 = new Date(destInfo.start_time)
+                var start1 = parseInt(start_time1.getHours() + '.' + start_time1.getUTCMinutes());
+                var start_time2 = "";
+                var start2 = "";
 
-            for (i = 0; i < daysDests.length; i++) { 
-                start_time2 = new Date(daysDests[i].start_time);
-                start2 = parseInt(start_time2.getHours() + '.' + start_time2.getUTCMinutes());
-                if (start2 > start1){
-                    address2 = daysDests[i].address;
-                   dest2.address = daysDests[i].address;
-                   dest2.name = daysDests[i].name;
+                for (i = 0; i < daysDests.length; i++) { 
+                    start_time2 = new Date(daysDests[i].start_time);
+                    start2 = parseInt(start_time2.getHours() + '.' + start_time2.getUTCMinutes());
+                    if (start2 > start1){
+                        address2 = daysDests[i].address;
+                       dest2.address = daysDests[i].address;
+                       dest2.name = daysDests[i].name;
+                    }
                 }
-            }
 
+                $("#Directions").addClass('directions',trans, trans_mo);
+                $("#Map").removeClass('width12',trans, trans_mo);
+                $("#Map").addClass('width6',trans, trans_mo);
+                $("#dir_unpop").removeClass('hide');
 
+                //$("#Map").switchClass('width12','width6',1000,"easeInOutQuad")
+                var currCenter = map.getCenter();
+                google.maps.event.trigger(map, "resize");
+                map.setCenter(currCenter);
+           
 
+                directionsDisplay.setMap(map1);
+                directionsDisplay.setPanel(document.getElementById('Directions'));
 
-            $("#Directions").addClass('directions',trans, trans_mo);
-            $("#Map").removeClass('width12',trans, trans_mo);
-            $("#Map").addClass('width6',trans, trans_mo);
+                 var request = {
+                   origin: address1, 
+                   destination: address2,
+                   travelMode: google.maps.DirectionsTravelMode.DRIVING
+                 };
 
-            //$("#Map").switchClass('width12','width6',1000,"easeInOutQuad")
-            var currCenter = map.getCenter();
-            google.maps.event.trigger(map, "resize");
-            map.setCenter(currCenter);
-       
-
-            directionsDisplay.setMap(map1);
-            directionsDisplay.setPanel(document.getElementById('Directions'));
-
-             var request = {
-               origin: address1, 
-               destination: address2,
-               travelMode: google.maps.DirectionsTravelMode.DRIVING
-             };
-
-             directionsService.route(request, function(response, status) {
-               if (status == google.maps.DirectionsStatus.OK) {
-                console.log(response.routes[0].legs[0].duration.text);
-                 directionsDisplay.setDirections(response);
-               }
-             });
-
+                 directionsService.route(request, function(response, status) {
+                   if (status == google.maps.DirectionsStatus.OK) {
+                    console.log(response.routes[0].legs[0].duration.text);
+                     directionsDisplay.setDirections(response);
+                   }
+                 });
+        } else {
+            console.log("No date clicked yet");
+        }
 
 
 
@@ -396,6 +397,7 @@ Dashboard = (function() {
             $("#Directions").removeClass('directions',trans);
             $("#Map").removeClass('width6',trans, trans_mo);
             $("#Map").addClass('width12',trans, trans_mo);
+            $("#dir_unpop").addClass('hide');
             var currCenter = map.getCenter();
             google.maps.event.trigger(map, "resize");
             map.setCenter(currCenter);
@@ -457,6 +459,7 @@ Dashboard = (function() {
 
         $('#update-dest').on('click', function(e){
             e.preventDefault();
+            console.log("UPDATING DEST!");
             var formatCorrect = true;
             var errors = [];
 
