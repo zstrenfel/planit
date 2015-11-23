@@ -760,22 +760,34 @@ Dashboard = (function() {
     };
 
     var addDest = function(dest) {
-        var start_time = new Date(dest.start_time);
-        var end_time =  new Date(dest.end_time);
-        var duration = (end_time.getTime() - start_time.getTime()) / 3600000;
-        // console.log(start_time.toLocaleTimeString() + " - " + end_time.toLocaleTimeString() + "is " + duration + " hours");
 
+        var date_start = new Date(dest.start_time);
+        var date_end =  new Date(dest.end_time);
+        var duration = (date_end.getTime() - date_start.getTime()) / 3600000;
+        var start_time;
 
-        var styles = {'left': start_time.getHours() * 75 + 'px',
+        if (date_start.getMinutes() !== 0){
+            start_time = date_start.getHours() + .5;
+        } else {
+            start_time = date_start.getHours();
+        }
+
+        var styles = {'left': start_time * 75 + 'px',
                       'width': duration * 75 + 'px',
                        'top': 50 + 'px',
                        'background-color': 'black' };
         var $dest_div = $('<div></div>').attr("data-dest-id", dest.id).addClass("dest").html(dest.name);
-        var start = start_time.getHours() + '.' + start_time.getUTCMinutes();
-        var end = end_time.getHours() + '.' + end_time.getUTCMinutes();
+        var start = date_start.getHours() + '.' + date_start.getUTCMinutes();
+        var end = date_end.getHours() + '.' + date_end.getUTCMinutes();
         var time_block = [start, end];
 
         $dest_div.css(styles).attr('data-time-frame', time_block);
+        $dest_div.append('<input type="hidden" name="location" value="' + dest.address +'" >');
+        $dest_div.append('<input type="hidden" name="date" value="' + dest.date +'" >');
+        $dest_div.append('<input type="hidden" name="start_time" value="' + start +'" >');
+        $dest_div.append('<input type="hidden" name="end_time" value="' + end +'" >');
+
+
         $('.cal-container').prepend($dest_div);
 
     };
