@@ -529,7 +529,7 @@ Dashboard = (function() {
           store.sort(function(x,y){
           return y[0] - x[0];
         });
-        for(var j=0, len=store.length; i<len; i++){
+        for(var j=0, len=store.length; j<len; j++){
           tbl.appendChild(store[j][1]);
         }
         table = tbl;
