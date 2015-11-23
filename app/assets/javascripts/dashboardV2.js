@@ -342,8 +342,15 @@ Dashboard = (function() {
             var address2 = "";
             var dest2 = {};
 
+            var start_time1 = new Date(destInfo.start_time)
+            var start1 = parseInt(start_time1.getHours() + '.' + start_time1.getUTCMinutes());
+            var start_time2 = "";
+            var start2 = "";
+
             for (i = 0; i < daysDests.length; i++) { 
-                if (daysDests[i].start_time > destInfo.start_time){
+                start_time2 = new Date(daysDests[i].start_time);
+                start2 = parseInt(start_time2.getHours() + '.' + start_time2.getUTCMinutes());
+                if (start2 > start1){
                     address2 = daysDests[i].address;
                    dest2.address = daysDests[i].address;
                    dest2.name = daysDests[i].name;
@@ -871,7 +878,7 @@ Dashboard = (function() {
                       'width': duration * 75 + 'px',
                        'top': 50 + 'px',
                        'background-color': 'black' };
-        var $dest_div = $('<div></div>').attr("data-dest-id", dest.id).addClass("dest").html(dest.name);
+        var $dest_div = $('<div></div>').attr("data-dest-id", dest.id).addClass("dest dir").html(dest.name);
         var start = date_start.getHours() + '.' + date_start.getUTCMinutes();
         var end = date_end.getHours() + '.' + date_end.getUTCMinutes();
         var time_block = [start, end];
