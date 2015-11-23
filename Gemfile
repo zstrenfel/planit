@@ -71,6 +71,7 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'jasmine'
   gem 'selenium-webdriver'
+  gem 'webrat'
 end
 
 group :development do

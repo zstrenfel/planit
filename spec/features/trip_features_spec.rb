@@ -23,50 +23,46 @@ feature "New Trip" do
     click_link 'submit-trip'
   end
   
-  scenario "displays trip info at the top" do
+  # scenario "displays trip info at the top" do
 
-        # <div class="trip-info">
-        #     <h1 data-header="location" class="">No Trip Selected</h1>
-        #         <input type="text" class="hidden" data-function="update-trip-location">
-        #         <input type="text" class="hidden" data-function="update-trip-start">
-        #         <input type="text" class="hidden" data-function="update-trip-end">
-        #     <aside data-header="invited-dates"></aside>
-        #     <aside><a href="" data-function="invite-friends" class="hidden">Invite more friends</a></aside>
+  #       # <div class="trip-info">
+  #       #     <h1 data-header="location" class="">No Trip Selected</h1>
+  #       #         <input type="text" class="hidden" data-function="update-trip-location">
+  #       #         <input type="text" class="hidden" data-function="update-trip-start">
+  #       #         <input type="text" class="hidden" data-function="update-trip-end">
+  #       #     <aside data-header="invited-dates"></aside>
+  #       #     <aside><a href="" data-function="invite-friends" class="hidden">Invite more friends</a></aside>
 
-  end
+  # end
 
-  feature "Edit trip" do
-    before(:each) do
-      # assume a trip selected
-      click_link 'EDIT'
-    end
+  # feature "Edit trip" do
+  #   before(:each) do
+  #     # assume a trip selected
+  #     click_link 'EDIT'
+  #   end
 
-    scenario "fills in update-trip form, then saves updated trip info" do
-      fill_in 'edit-trip-location', with: 'New Location'
-      fill_in 'edit-trip-start', with: '30-10-2015'
-      fill_in 'edit-trip-end', with: 'Dest'
-      # page.should
-      # ... etc (learn should have_css thing)
+  #   scenario "fills in update-trip form, then saves updated trip info" do
+  #     fill_in 'edit-trip-location', with: 'New Location'
+  #     fill_in 'edit-trip-start', with: '30-10-2015'
+  #     fill_in 'edit-trip-end', with: 'Dest'
+  #     # page.should
+  #     # ... etc (learn should have_css thing)
 
-    end
+  #   end
 
-    scenario "cancels updates and deletes the trip" do
-      fill_in 'edit-trip-location', with: 'New Location'
-      click_link 'CANCEL'
-      # verify no changes
+  #   scenario "cancels updates and deletes the trip" do
+  #     fill_in 'edit-trip-location', with: 'New Location'
+  #     click_link 'CANCEL'
+  #     # verify no changes
       
-      # try again, delete
-      click_link 'EDIT'
-      click_link 'DELETE'
+  #     # try again, delete
+  #     click_link 'EDIT'
+  #     click_link 'DELETE'
       
-      # verify 'no trip selected'
+  #     # verify 'no trip selected'
 
-    end
-  end
-
-  scenario "invites friends" do
-    # does emailer work yet?
-  end
+  #   end
+  # end
 
   scenario "manually adds a destination" do
     fill_in 'name', with: 'Dest'
@@ -83,17 +79,17 @@ feature "New Trip" do
     page.should have_css('td', :text => '456 Street Ave')
   end
 
-  feature "Destination search" do
-    before(:each) do
-    end
+  # feature "Destination search" do
+  #   before(:each) do
+  #   end
 
-    scenario "displays search results" do
-    end
+  #   scenario "displays search results" do
+  #   end
 
-    scenario "adds a destination" do
-    end
+  #   scenario "adds a destination" do
+  #   end
 
-  end
+  # end
   
   after(:all) do
     Capybara.use_default_driver
