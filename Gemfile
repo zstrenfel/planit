@@ -70,6 +70,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'database_cleaner'
   gem 'jasmine'
+  gem 'selenium-webdriver'
 end
 
 group :development do

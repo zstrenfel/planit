@@ -1,8 +1,10 @@
 require 'rails_helper'
 
-describe "New Trip" do
+# @selenium
+feature "New Trip" do
   before(:each) do
     # register
+    Capybara.current_driver = :selenium
     visit '/'
     fill_in 'reg-name', :with => 'Capy'
     fill_in 'reg-email', :with => 'capy@example.com'
@@ -21,7 +23,7 @@ describe "New Trip" do
     click_link 'submit-trip'
   end
   
-  it "displays trip info at the top" do
+  scenario "displays trip info at the top" do
 
         # <div class="trip-info">
         #     <h1 data-header="location" class="">No Trip Selected</h1>
@@ -33,13 +35,13 @@ describe "New Trip" do
 
   end
 
-  describe "Edit trip" do
+  feature "Edit trip" do
     before(:each) do
       # assume a trip selected
       click_link 'EDIT'
     end
 
-    it "fills in update-trip form, then saves updated trip info" do
+    scenario "fills in update-trip form, then saves updated trip info" do
       fill_in 'edit-trip-location', with: 'New Location'
       fill_in 'edit-trip-start', with: '30-10-2015'
       fill_in 'edit-trip-end', with: 'Dest'
@@ -48,7 +50,7 @@ describe "New Trip" do
 
     end
 
-    it "cancels updates and deletes the trip" do
+    scenario "cancels updates and deletes the trip" do
       fill_in 'edit-trip-location', with: 'New Location'
       click_link 'CANCEL'
       # verify no changes
@@ -62,11 +64,11 @@ describe "New Trip" do
     end
   end
 
-  it "invites friends" do
+  scenario "invites friends" do
     # does emailer work yet?
   end
 
-  it "manually adds a destination" do
+  scenario "manually adds a destination" do
     fill_in 'name', with: 'Dest'
     fill_in 'address', with: '123 Street Ave'
     click_button 'create-dest-button'
@@ -81,17 +83,20 @@ describe "New Trip" do
     page.should have_css('td', :text => '456 Street Ave')
   end
 
-  describe "Destination search" do
+  feature "Destination search" do
     before(:each) do
     end
 
-    it "displays search results" do
+    scenario "displays search results" do
     end
 
-    it "adds a destination" do
+    scenario "adds a destination" do
     end
 
   end
-
+  
+  after(:all) do
+    Capybara.use_default_driver
+  end
 
 end
