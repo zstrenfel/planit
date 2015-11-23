@@ -3,7 +3,7 @@
 <%= javascript_tag do %>
 	$(window).load(function() {
 	  	Dashboard.start();
-	  	$('#dest-date').datepicker({ dateFormat: 'mm-dd-yy' });
+	  	$('#dest-date').datepicker({ dateFormat: 'dd-mm-yy' });
 	  	$('#trip-start').datepicker({ dateFormat: 'dd-mm-yy' });
 	  	$('#trip-end').datepicker({ dateFormat: 'dd-mm-yy' });
 	  	$('input[data-function="update-trip-start"').datepicker({ dateFormat: 'dd-mm-yy' });

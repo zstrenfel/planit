@@ -373,7 +373,16 @@ Dashboard = (function() {
             $('.edit_dest').find('input').each(function(i, elem) {
                 console.log(elem);
                 if ($(elem).val()) {
+                  if ($(elem).attr('name') === "start_time") {
+                    dest.start_time = $(elem).timepicker('getTime');
+                  } else if ($(elem).attr('name') === "end_time") {
+                      dest.end_time = $(elem).timepicker('getTime');
+                  } else if ($(elem).attr('name') === "date"){
+                    dest.date = $('#dest-date').datepicker('getDate');
+                  } else {
                     dest[$(elem).attr('name')] = $(elem).val();
+                  }
+
                 } else {
                     error = errors.push( $(elem).attr('placeholder'));
                     formatCorrect = false;
@@ -393,6 +402,7 @@ Dashboard = (function() {
 
             };
             var onFailure = function(data) {
+                console.log(data);
                 toastr.error(data);
             };
 
@@ -400,7 +410,7 @@ Dashboard = (function() {
                 console.log(JSON.stringify(dest));
                 toastr.error(errors + " cannot be blank.");
             } else {
-                toggleElement($('.dest_container'), 70, "up");
+                // toggleElement($('.dest_container'), 70, "up");
                 var that = this;
                 var id = $('#update-dest').data("dest-id");
                 url = "/api/destinations/edit?id=" + id + '&trip_id=' + trip_id;
@@ -446,17 +456,21 @@ Dashboard = (function() {
        $('#dest-name').val(data.name);
        $('#dest-location').val(data.loc);
 
-       if (data.date) {
-        $('#dest-date').val(data.date);
-       };
-       if (data.start_time) {
-        var start_time = new Date(data.start_time);
+       if (data.date !== null) {
+        var d = data.date.split("-");
+        // date.setTime( date.getTime() + date.getTimezoneOffset()*60*1000 )
 
-        $('.edit_dest input[name="start_time"]').val(start_time.getUTCHours() + ":" + start_time.getUTCMinutes());
+        $('#dest-date').val( d[2] + "-" + d[1] + "-" + d[0]);
+       };
+       if (data.start_time !== null) {
+        console.log(data.start_time);
+        var start_time = new Date(data.start_time).toLocaleTimeString().replace(':00 ', '');
+        $('.edit_dest input[name="start_time"]').val(start_time);
        }
-       if (data.end_time) {
-        var end_time = new Date(data.end_time);
-        $('.edit_dest input[name="end_time"]').val(end_time.getUTCHours() + ":" + end_time.getUTCMinutes());
+       if (data.end_time !== null) {
+        console.log(data.end_time);
+        var end_time = new Date(data.end_time).toLocaleTimeString().replace(':00 ', '');
+        $('.edit_dest input[name="end_time"]').val(end_time);
        }
      }
 
@@ -527,7 +541,7 @@ Dashboard = (function() {
       row.setAttribute('data-dest-id',dest.id);
       $(row).append('<input type="hidden" name="date" value="' + dest.date + '">');
       $(row).append('<input type="hidden" name="start_time" value="' + dest.start_time + '">');
-      $(row).append('<input type="hidden" name="end_time" value="' + dest.start_time +  '">');
+      $(row).append('<input type="hidden" name="end_time" value="' + dest.end_time +  '">');
       // delete_cell.innerHTML = "<div class='del'>x</div>";
       addMarker(dest.address,map);
 
@@ -887,7 +901,7 @@ Dashboard = (function() {
             for (var i = 0; i < results.length; i++) {
                 obj = results[i];
                 var rating = ""
-                if (obj.rating != undefined){
+                if (obj.rating !== undefined){
                     rating = obj.rating;
                 }
                 var id = obj.name.replace(/\s+/g, '');
