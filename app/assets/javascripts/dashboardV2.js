@@ -544,6 +544,7 @@ Dashboard = (function() {
       like_count_cell.innerHTML = dest.like_count;
 
       $('#like-btn').click(function() {
+      	console.log('click');
         dest.like_count += 1;
         like_count_cell.innerHTML=dest.like_count;
         sortTable();
@@ -830,7 +831,6 @@ Dashboard = (function() {
         // var geocoder;
 
 
-
         submit1.on('click',  function(e){
             e.preventDefault();
             findPlaces();
@@ -841,6 +841,7 @@ Dashboard = (function() {
             var dest = {};
             dest.name = $('#'+this.id).data('destInfo')["name"];
             dest.address = $('#'+this.id).data('destInfo')["address"];
+            dest.like_count = 0;
 
             var onSuccess = function(data) {
                 if (!data.errors){
