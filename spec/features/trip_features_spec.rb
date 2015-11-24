@@ -2,16 +2,24 @@ require 'rails_helper'
 
 # @selenium
 feature "New Trip" do
-  before(:each) do
+  before(:all) do
     # register
     Capybara.current_driver = :selenium
     visit '/'
-    fill_in 'reg-name', :with => 'Capy'
-    fill_in 'reg-email', :with => 'capy@example.com'
+    fill_in 'reg-name', :with => 'Test'
+    fill_in 'reg-email', :with => 't@est.com'
     fill_in 'reg-pw', :with => 'password'
     fill_in 'reg-pw-conf', :with => 'password'
     click_button 'Sign up'
     page.should have_content 'Logout'
+    click_link 'Logout'
+
+    # log in
+    click_link 'Log In'
+    fill_in 'login-email', with: 't@est.com'
+    fill_in 'login-pw', with: 'password'
+    check 'remember-me'
+    click_button 'Log in'
 
     # create a trip
     click_link 'Trips'
@@ -21,6 +29,12 @@ feature "New Trip" do
     fill_in 'start-date', with: '20-11-2015'
     fill_in 'end-date', with: '25-11-2015'
     click_link 'submit-trip'
+    visit '/dashboard'
+  end
+
+  before(:each) do
+    click_link 'Trips'
+    find('.location').click
   end
   
   # scenario "displays trip info at the top" do
@@ -68,7 +82,6 @@ feature "New Trip" do
     fill_in 'name', with: 'Dest'
     fill_in 'address', with: '123 Street Ave'
     click_button 'create-dest-button'
-    save_and_open_page
     page.should have_css('td', :text => 'Dest')
 
     fill_in 'name', with: 'Dest2'
@@ -90,8 +103,14 @@ feature "New Trip" do
   #   end
 
   # end
-  
+
+  # scenario "log out" do
+  # end
+
   after(:all) do
+    click_link "Account"
+    click_button "Cancel my account"
+    page.driver.browser.switch_to.alert.accept
     Capybara.use_default_driver
   end
 
