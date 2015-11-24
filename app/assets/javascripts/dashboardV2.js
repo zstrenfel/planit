@@ -352,12 +352,11 @@ Dashboard = (function() {
                 var start2 = "";
 
                 for (i = 0; i < daysDests.length; i++) {
-                    start_time2 = new Date(daysDests[i].start_time);
-                    start2 = parseInt(start_time2.getHours() + '.' + start_time2.getUTCMinutes());
-                    if (start2 > start1){
+                    if (daysDests[i].start_time_zach > start1){
                         address2 = daysDests[i].address;
                        dest2.address = daysDests[i].address;
                        dest2.name = daysDests[i].name;
+                       break;
                     }
                 }
 
@@ -860,7 +859,14 @@ Dashboard = (function() {
 
     var addCalDestinations = function(data) {
         var dests = data.day.destinations;
-        daysDests = dests;
+        daysDests = dests.slice();
+        daysDests.forEach (function(dest) {
+                start_date = new Date(dest.start_time);
+                start_time = parseInt(start_date.getHours() + '.' + start_date.getUTCMinutes());
+                dest.start_time_zach = start_time
+                
+            });
+        
         var hours = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
                  12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
         if (dests.length > 0) {
@@ -873,15 +879,15 @@ Dashboard = (function() {
         }
 
         function compare(a,b) {
-          if (a.start_time < b.start_time)
+          if (a.start_time_zach < b.start_time_zach)
             return -1;
-          if (a.start_time > b.start_time)
+          if (a.start_time_zach > b.start_time_zach)
             return 1;
           return 0;
         }
 
 
-        daysDests.sort(compare);
+         daysDests.sort(compare);
     };
 
     var addDest = function(dest) {
@@ -989,35 +995,35 @@ Dashboard = (function() {
         var trans = 50000;
         var trans_mo = "easeInOutQuad"
 
-        $("#dir_pop").on('click',  function(e){
-            e.preventDefault();
-            $("#Directions").addClass('directions',trans, trans_mo);
-            $("#Map").removeClass('width12',trans, trans_mo);
-            $("#Map").addClass('width6',trans, trans_mo);
+        // $("#dir_pop").on('click',  function(e){
+        //     e.preventDefault();
+        //     $("#Directions").addClass('directions',trans, trans_mo);
+        //     $("#Map").removeClass('width12',trans, trans_mo);
+        //     $("#Map").addClass('width6',trans, trans_mo);
 
-            //$("#Map").switchClass('width12','width6',1000,"easeInOutQuad")
-            var currCenter = map.getCenter();
-            google.maps.event.trigger(map, "resize");
-            map.setCenter(currCenter);
+        //     //$("#Map").switchClass('width12','width6',1000,"easeInOutQuad")
+        //     var currCenter = map.getCenter();
+        //     google.maps.event.trigger(map, "resize");
+        //     map.setCenter(currCenter);
 
 
-            directionsDisplay.setMap(map1);
-            directionsDisplay.setPanel(document.getElementById('Directions'));
+        //     directionsDisplay.setMap(map1);
+        //     directionsDisplay.setPanel(document.getElementById('Directions'));
 
-             var request = {
-               origin: 'Chicago',
-               destination: 'New York',
-               travelMode: google.maps.DirectionsTravelMode.DRIVING
-             };
+        //      var request = {
+        //        origin: 'Chicago',
+        //        destination: 'New York',
+        //        travelMode: google.maps.DirectionsTravelMode.DRIVING
+        //      };
 
-             directionsService.route(request, function(response, status) {
-               if (status == google.maps.DirectionsStatus.OK) {
-                console.log(response.routes[0].legs[0].duration.text);
-                 directionsDisplay.setDirections(response);
-               }
-             });
+        //      directionsService.route(request, function(response, status) {
+        //        if (status == google.maps.DirectionsStatus.OK) {
+        //         console.log(response.routes[0].legs[0].duration.text);
+        //          directionsDisplay.setDirections(response);
+        //        }
+        //      });
 
-        });
+        // });
 
         // $("#dir_unpop").on('click',  function(e){
         //     e.preventDefault();
