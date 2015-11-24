@@ -82,21 +82,19 @@ Dashboard = (function() {
         var url = '/trips/' + trip_id;
         var onSuccess = function(data) {
             // console.log("succesfully updated dash " + JSON.stringify(data.trip));
-            var geocoder = new google.maps.Geocoder();
-            var h;
             $('#location').attr('data-location', data.trip.location);
             updateHeader(data.trip);
             resetTable();
             initializeMap();
             insertAllDest(data.trip);
             createCalendar(data.trip);
-
+            var geocoder = new google.maps.Geocoder();
             findAddress(geocoder);
             editTripForm(data.trip);
             $('.main-content').removeClass('hidden');
-            // $('.menu-base').height(h)​;
-            h = $('.container').height();
+            var h = $('.container').height();
             console.log(h);
+            $('.menu-base').height(h);
 
         };
 

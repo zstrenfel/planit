@@ -136,6 +136,10 @@ h1 {
 	}
 }
 
+.bottom-block {
+	margin-left: 2%;
+}
+
 table#dest-table {
 	font-size: .9em;
 
@@ -253,8 +257,7 @@ table#dest-table {
 
 //map styles
 .map {
-
-
+	// margin-left: 2%;
 	height: 400px;
 	margin-bottom: 20px;
 }
@@ -266,30 +269,35 @@ table#dest-table {
 
 .width6 {
 	@include span-columns(6);
-	@include omega;
+	// @include omega;
 }
 
 #dir_unpop {
-	font-size: 1.5em;
+	font-size: 1em;
 	font-weight: bold;
-	padding-right: 20px;
+	color: $blue;
+	position: relative;
+	right: -15px;
+	top: 25px;
 }
 
 .dir_width {
-	
+
 }
 
 .directions {
 	@include span-columns(6);
 	@include omega;
-
-	margin-left: 2%;
+	background-color: #fff;
+	border-radius: 3px;
+	// margin-left: 2%;
 	height: 400px;
 	margin-bottom: 20px;
-	margin-left: 20px;
+	padding: 10px;
+	// margin-left: 20px;
 
 	float: left;
-	overflow: scroll;	
+	overflow: scroll;
 }
 
 //search styles
