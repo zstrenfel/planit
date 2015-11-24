@@ -414,6 +414,11 @@ Dashboard = (function() {
             var tr = $(this).closest('tr');
             console.log("this ");
             deleteDestination(tr);
+            id = tr.data("dest-id");
+            marker = markers[id];
+            marker.setMap(null);
+            delete markers[id];
+
         });
 
 
@@ -686,7 +691,7 @@ Dashboard = (function() {
       $(row).append('<input type="hidden" name="end_time" value="' + dest.end_time +  '">');
       $(row).append('<input type="hidden" name="end_time" value="' + dest.address +  '">');
       // delete_cell.innerHTML = "<div class='del'>x</div>";
-      addMarker(dest.address,map);
+      addMarker(dest.address,map,dest.id);
 
     };
 
@@ -932,6 +937,7 @@ Dashboard = (function() {
     var map;
     var infowindow = [];
     var bounds = [];
+    var markers = {};
 
     function initializeMap(){
         var myOptions = {
@@ -946,7 +952,7 @@ Dashboard = (function() {
 
     }
 
-    function addMarker(address, map){
+    function addMarker(address, map, id){
         // calls Google API to convert address to latitudinal/longitudinal value
         $.getJSON('http://maps.googleapis.com/maps/api/geocode/json?address='+address+'&sensor=false', null, function (data) {
             var p = data.results[0].geometry.location
@@ -955,6 +961,7 @@ Dashboard = (function() {
                 position: latlng,
                 map: map
             });
+            markers[id] = marker;
             bounds.extend(marker.position);
             map.fitBounds(bounds);
 
