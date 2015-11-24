@@ -291,6 +291,12 @@ Dashboard = (function() {
 
 /** =========================Destination Handler + Functions ============== */
     var attachSubmitDestHandler = function(e) {
+
+        var directionsService = new google.maps.DirectionsService();
+        var directionsDisplay = new google.maps.DirectionsRenderer();
+        var trans = 50000;
+        var trans_mo = "easeInOutQuad"
+
         submit.on('click', '.submit-input', function(e){
             e.preventDefault ();
             var name = submit.find('.name-input').val();
@@ -323,6 +329,87 @@ Dashboard = (function() {
         });
 
 
+        $('#destTable').on('click', '.dir', function(e){
+            e.preventDefault();
+            if (daysDests!=""){
+                var $curr = $('tr[data-dest-id="' + this.id + '"]');
+                var destInfo = {};
+                destInfo.name = $curr.find('td[data-table-function="name"]').html();
+                destInfo.loc = $curr.find('td[data-table-function="location"]').html();
+                destInfo.date = $curr.find('input[name="date"]').val();
+                destInfo.start_time = $curr.find('input[name="start_time"]').val();
+                destInfo.end_time = $curr.find('input[name="end_time"]').val();
+                destInfo.address = $curr.find('input[name="address"]').val();
+
+                console.log("dest info " + JSON.stringify(destInfo));
+
+                var address1 = destInfo.loc;
+                var address2 = "";
+                var dest2 = {};
+
+                var start_time1 = new Date(destInfo.start_time)
+                var start1 = parseInt(start_time1.getHours() + '.' + start_time1.getUTCMinutes());
+                var start_time2 = "";
+                var start2 = "";
+
+                for (i = 0; i < daysDests.length; i++) {
+                    start_time2 = new Date(daysDests[i].start_time);
+                    start2 = parseInt(start_time2.getHours() + '.' + start_time2.getUTCMinutes());
+                    if (start2 > start1){
+                        address2 = daysDests[i].address;
+                       dest2.address = daysDests[i].address;
+                       dest2.name = daysDests[i].name;
+                    }
+                }
+
+                $("#Directions").addClass('directions',trans, trans_mo);
+                $("#Map").removeClass('width12',trans, trans_mo);
+                $("#Map").addClass('width6',trans, trans_mo);
+                $("#dir_unpop").removeClass('hide');
+
+                //$("#Map").switchClass('width12','width6',1000,"easeInOutQuad")
+                var currCenter = map.getCenter();
+                google.maps.event.trigger(map, "resize");
+                map.setCenter(currCenter);
+
+
+                directionsDisplay.setMap(map1);
+                directionsDisplay.setPanel(document.getElementById('Directions'));
+
+                 var request = {
+                   origin: address1,
+                   destination: address2,
+                   travelMode: google.maps.DirectionsTravelMode.DRIVING
+                 };
+
+                 directionsService.route(request, function(response, status) {
+                   if (status == google.maps.DirectionsStatus.OK) {
+                    console.log(response.routes[0].legs[0].duration.text);
+                     directionsDisplay.setDirections(response);
+                   }
+                 });
+        } else {
+            console.log("No date clicked yet");
+        }
+
+
+
+        });
+
+        $("#dir_unpop").on('click',  function(e){
+            e.preventDefault();
+            $("#Directions").removeClass('directions',trans);
+            $("#Map").removeClass('width6',trans, trans_mo);
+            $("#Map").addClass('width12',trans, trans_mo);
+            $("#dir_unpop").addClass('hide');
+            var currCenter = map.getCenter();
+            google.maps.event.trigger(map, "resize");
+            map.setCenter(currCenter);
+            directionsDisplay.setMap(null);
+            directionsDisplay.setPanel(null);
+        });
+
+
         $('#destTable').on('click', '.del', function(e){
             e.preventDefault ();
             var tr = $(this).closest('tr');
@@ -347,6 +434,7 @@ Dashboard = (function() {
             // $('#dest-name').val($('td[data-table-function="name"]').html());
             toggleElement($('.dest_container'), 70, "down");
         });
+
 
          $('.cal-container').on('click', '.dest', function(e){
             e.preventDefault();
@@ -386,6 +474,7 @@ Dashboard = (function() {
 
         $('#update-dest').on('click', function(e){
             e.preventDefault();
+            console.log("UPDATING DEST!");
             var formatCorrect = true;
             var errors = [];
 
@@ -577,7 +666,7 @@ Dashboard = (function() {
 
 
       // Add some text to the new cells:
-      name_cell.innerHTML = dest.name;
+      name_cell.innerHTML = "<div class='dir' id='" + dest.id + "'>" + dest.name + "</div>";
       $(name_cell).attr("data-table-function", "name");
       address_cell.innerHTML = dest.address;
       $(address_cell).attr("data-table-function", "location");
@@ -588,6 +677,7 @@ Dashboard = (function() {
       $(row).append('<input type="hidden" name="date" value="' + dest.date + '">');
       $(row).append('<input type="hidden" name="start_time" value="' + dest.start_time + '">');
       $(row).append('<input type="hidden" name="end_time" value="' + dest.end_time +  '">');
+      $(row).append('<input type="hidden" name="end_time" value="' + dest.address +  '">');
       // delete_cell.innerHTML = "<div class='del'>x</div>";
       addMarker(dest.address,map);
 
@@ -713,6 +803,9 @@ Dashboard = (function() {
 /** =========================End Friend Handlers ===================================== */
 
 /** ========================= Add Map Handlers ==============================*/
+
+    var daysDests ="";
+
     var attachCalendarHandlers = function() {
         //needs to add an ajax call to update the day on change
         $('.cal-dates').on('click', 'td', function() {
@@ -755,6 +848,7 @@ Dashboard = (function() {
 
     var addCalDestinations = function(data) {
         var dests = data.day.destinations;
+        daysDests = dests;
         var hours = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
                  12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
         if (dests.length > 0) {
@@ -765,6 +859,17 @@ Dashboard = (function() {
         } else {
             console.log('no destinations to log');
         }
+
+        function compare(a,b) {
+          if (a.start_time < b.start_time)
+            return -1;
+          if (a.start_time > b.start_time)
+            return 1;
+          return 0;
+        }
+
+
+        daysDests.sort(compare);
     };
 
     var addDest = function(dest) {
@@ -797,7 +902,7 @@ Dashboard = (function() {
                       'width': duration * 75 + 'px',
                        'top': 50 + 'px',
                        'background-color': colors[random_num] };
-        var $dest_div = $('<div></div>').attr("data-dest-id", dest.id).addClass("dest").html(short_name);
+        var $dest_div = $('<div></div>').attr("data-dest-id", dest.id).addClass("dest dir").html(short_name);
         var start = date_start.getHours() + '.' + date_start.getUTCMinutes();
         var end = date_end.getHours() + '.' + date_end.getUTCMinutes();
         var time_block = [date_start, date_end];
@@ -829,6 +934,7 @@ Dashboard = (function() {
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         map = new google.maps.Map(document.getElementById("Map"), myOptions);
+        map1 = new google.maps.Map(document.getElementById("Map1"), myOptions);
         bounds = new google.maps.LatLngBounds();
 
     }
@@ -864,6 +970,52 @@ Dashboard = (function() {
     function initializeSearch(){
         // var geocoder;
 
+        var directionsService = new google.maps.DirectionsService();
+        var directionsDisplay = new google.maps.DirectionsRenderer();
+        var trans = 50000;
+        var trans_mo = "easeInOutQuad"
+
+        $("#dir_pop").on('click',  function(e){
+            e.preventDefault();
+            $("#Directions").addClass('directions',trans, trans_mo);
+            $("#Map").removeClass('width12',trans, trans_mo);
+            $("#Map").addClass('width6',trans, trans_mo);
+
+            //$("#Map").switchClass('width12','width6',1000,"easeInOutQuad")
+            var currCenter = map.getCenter();
+            google.maps.event.trigger(map, "resize");
+            map.setCenter(currCenter);
+
+
+            directionsDisplay.setMap(map1);
+            directionsDisplay.setPanel(document.getElementById('Directions'));
+
+             var request = {
+               origin: 'Chicago',
+               destination: 'New York',
+               travelMode: google.maps.DirectionsTravelMode.DRIVING
+             };
+
+             directionsService.route(request, function(response, status) {
+               if (status == google.maps.DirectionsStatus.OK) {
+                console.log(response.routes[0].legs[0].duration.text);
+                 directionsDisplay.setDirections(response);
+               }
+             });
+
+        });
+
+        // $("#dir_unpop").on('click',  function(e){
+        //     e.preventDefault();
+        //     $("#Directions").removeClass('directions',trans);
+        //     $("#Map").removeClass('width6',trans, trans_mo);
+        //     $("#Map").addClass('width12',trans, trans_mo);
+        //     var currCenter = map.getCenter();
+        //     google.maps.event.trigger(map, "resize");
+        //     map.setCenter(currCenter);
+        //     directionsDisplay.setMap(null);
+        //     directionsDisplay.setPanel(null);
+        // });
 
         submit1.on('click',  function(e){
             e.preventDefault();

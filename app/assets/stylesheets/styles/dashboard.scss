@@ -253,12 +253,43 @@ table#dest-table {
 
 //map styles
 .map {
+
+
+	height: 400px;
+	margin-bottom: 20px;
+}
+
+.width12 {
 	@include span-columns(12);
+	@include omega;
+}
+
+.width6 {
+	@include span-columns(6);
+	@include omega;
+}
+
+#dir_unpop {
+	font-size: 1.5em;
+	font-weight: bold;
+	padding-right: 20px;
+}
+
+.dir_width {
+	
+}
+
+.directions {
+	@include span-columns(6);
 	@include omega;
 
 	margin-left: 2%;
 	height: 400px;
 	margin-bottom: 20px;
+	margin-left: 20px;
+
+	float: left;
+	overflow: scroll;	
 }
 
 //search styles
@@ -415,6 +446,8 @@ table.cal-dates {
 	.reserved {
 		background-color: $light-gray;
 	}
+
+
 }
 
 //rando
