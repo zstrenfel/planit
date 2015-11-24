@@ -672,7 +672,7 @@ Dashboard = (function() {
 
 
       // Add some text to the new cells:
-      name_cell.innerHTML = "<div class='dir' id='" + dest.id + "'>" + dest.name + "</div>";
+      name_cell.innerHTML = "<div id='" + dest.id + "'>" + dest.name + "</div>";
       $(name_cell).attr("data-table-function", "name");
       address_cell.innerHTML = dest.address;
       $(address_cell).attr("data-table-function", "location");
