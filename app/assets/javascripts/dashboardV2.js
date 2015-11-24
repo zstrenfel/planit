@@ -520,7 +520,7 @@ Dashboard = (function() {
                 console.log("dest " + JSON.stringify(dest));
                   var that = this;
                   var id = $('#update-dest').attr("data-dest-id");
-                  console.log("id " + id);
+                  console.log("id " + id)
                   url = "/api/destinations/edit?id=" + id + '&trip_id=' + trip_id;
                   console.log(url);
                   clearDestForm();
