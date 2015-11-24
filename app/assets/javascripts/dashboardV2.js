@@ -82,15 +82,21 @@ Dashboard = (function() {
         var url = '/trips/' + trip_id;
         var onSuccess = function(data) {
             // console.log("succesfully updated dash " + JSON.stringify(data.trip));
+            var geocoder = new google.maps.Geocoder();
+            var h;
             $('#location').attr('data-location', data.trip.location);
             updateHeader(data.trip);
             resetTable();
             initializeMap();
             insertAllDest(data.trip);
             createCalendar(data.trip);
-            var geocoder = new google.maps.Geocoder();
+
             findAddress(geocoder);
             editTripForm(data.trip);
+            $('.main-content').removeClass('hidden');
+            // $('.menu-base').height(h)​;
+            h = $('.container').height();
+            console.log(h);
 
         };
 
@@ -302,9 +308,7 @@ Dashboard = (function() {
                     submit.find('.name-input').val('');
                     submit.find('.address-input').val('');
                 }else{
-                    for (var i in data.errors){
-                        console.log(data.errors[i]);
-                    }
+                    toastr.error("This conflicts with a destination you have already added to the calendar")
                 }
 
             };
@@ -355,7 +359,7 @@ Dashboard = (function() {
             destInfo.date = $that.find('input[name="date"]').val();
 
             var time_block = $that.attr("data-time-frame").split(',');
-
+            console.log(time_block);
             destInfo.start_time = time_block[0];
             destInfo.end_time = time_block[1];
 
@@ -406,14 +410,12 @@ Dashboard = (function() {
             });
 
             var onSuccess = function(data) {
-                if (!data.errors){
+                if (data.status === 1){
                     console.log(data);
                     insertDest(data["destination"]);
                     toggleElement($('.dest_container'), 70, "up");
-                }else{
-                    for (i in data.errors){
-                        console.log(data.errors[i]);
-                    }
+                } else{
+                    toastr.error("This conflicts with a destination you have already added to the calendar");
                 }
 
             };
@@ -428,17 +430,11 @@ Dashboard = (function() {
                 toastr.error(errors + " cannot be blank.");
             } else {
                 console.log("dest " + JSON.stringify(dest));
-                var conflict = checkTimeConflicts(dest);
-
-                if (conflict) {
-                  toastr.error("This conflicts with a destination you have already added to the calendar");
-                } else {
                   var that = this;
                   var id = $('#update-dest').data("dest-id");
                   url = "/api/destinations/edit?id=" + id + '&trip_id=' + trip_id;
                   console.log(url);
                   makePutRequest(url, dest, onSuccess, onFailure);
-                }
             }
         });
     };
@@ -548,12 +544,14 @@ Dashboard = (function() {
       // var delete_cell = row.insertCell(2);
 
       var like_cell = row.insertCell(2);
-      like_cell.innerHTML = '<input type="button" id="like-btn" type="button" value = "Like"</input>';
+      // like_cell.innerHTML = '<input type="button" id="like-btn" type="button" value = "Like"</input>';
+      like_cell.innerHTML = '<a href="" id="like-btn" class="like">Like</a>';
       //<%= link_to 'like', vote_path(@post), class: 'vote', remote: true, data: { type: :json } %>';
       var like_count_cell = row.insertCell(3);
       like_count_cell.innerHTML = dest.like_count;
 
-      $('#like-btn').click(function() {
+      $('#like-btn').click(function(e) {
+        e.preventDefault();
       	console.log('click');
         dest.like_count += 1;
         like_count_cell.innerHTML=dest.like_count;
@@ -584,7 +582,7 @@ Dashboard = (function() {
       address_cell.innerHTML = dest.address;
       $(address_cell).attr("data-table-function", "location");
       edit_cell.innerHTML = "<div class='hover edit' id='"+ dest.id + "'>Edit</div>";
-      delete_cell.innerHTML = "<div class='del' id='"+ dest.id + "'>x</div>";
+      delete_cell.innerHTML = "<div class='del hover' id='"+ dest.id + "'>x</div>";
 
       row.setAttribute('data-dest-id',dest.id);
       $(row).append('<input type="hidden" name="date" value="' + dest.date + '">');
@@ -773,8 +771,8 @@ Dashboard = (function() {
 
         var date_start = new Date(dest.start_time);
         var date_end =  new Date(dest.end_time);
-        var duration = (date_end.getTime() - date_start.getTime()) / 3600000;
-        var start_time;
+        // var duration = (date_end.getTime() - date_start.getTime()) / 3600000;
+        var start_time, end_time, duration;
 
         if (date_start.getMinutes() !== 0){
             start_time = date_start.getHours() + .5;
@@ -782,14 +780,27 @@ Dashboard = (function() {
             start_time = date_start.getHours();
         }
 
+        if (date_end.getMinutes() !== 0){
+            end_time = date_end.getHours() + .5;
+        } else {
+            end_time = date_end.getHours();
+        }
+
+        duration = end_time - start_time;
+
+        var colors = ['#2574A9','#26A65B','#D35400','#6C7A89','#D91E18'];
+        var random_num = Math.floor(Math.random() * 5);
+
+        var short_name = dest.name.slice(0,4) + '...';
+
         var styles = {'left': start_time * 75 + 'px',
                       'width': duration * 75 + 'px',
                        'top': 50 + 'px',
-                       'background-color': 'black' };
-        var $dest_div = $('<div></div>').attr("data-dest-id", dest.id).addClass("dest").html(dest.name);
+                       'background-color': colors[random_num] };
+        var $dest_div = $('<div></div>').attr("data-dest-id", dest.id).addClass("dest").html(short_name);
         var start = date_start.getHours() + '.' + date_start.getUTCMinutes();
         var end = date_end.getHours() + '.' + date_end.getUTCMinutes();
-        var time_block = [date_end, date_end];
+        var time_block = [date_start, date_end];
 
         $dest_div.css(styles).attr('data-time-frame', time_block);
         $dest_div.append('<input type="hidden" name="name" value="' + dest.name +'" >');
@@ -935,7 +946,7 @@ Dashboard = (function() {
                 row.insertCell(0).innerHTML = obj.name;
                 row.insertCell(1).innerHTML = obj.vicinity;
                 row.insertCell(2).innerHTML = rating;
-                row.insertCell(3).innerHTML = '<div class="add" id="' + id + '">+</div>';
+                row.insertCell(3).innerHTML = '<div class="add hover" id="' + id + '">+</div>';
                 $('#'+id).data('destInfo', { 'name': obj.name, 'address': obj.vicinity });
             }
 

@@ -5,6 +5,7 @@ html, body {
 
 div.container {
   @include outer-container;
+  position: relative;
   overflow: hidden;
 }
 
@@ -65,7 +66,7 @@ div.content {
 	padding: 5px;
 	padding-top: 15px;
 	font-size: .8em;
-	border-bottom: 1px solid $light-gray;
+	border-bottom: 2px solid darken(#fff, 5%);
 }
 
 .omega {
@@ -134,7 +135,6 @@ div.delete {
 		}
 	}
 }
-
 
 
 //tables

@@ -32,26 +32,26 @@
 <div class="menu-open">
 	<%= render "pages/partials/menu" %>
 </div>
-<div class="main-content">
-	<div class="trip-info">
-		<div class="half-col">
-			<h1 data-header="location" class="">No Trip Selected</h1>
-			<div class="half-col-collapse omega">
-				<input type="text" class="hidden" data-function="update-trip-location">
-			</div>
-			<div class="half-col-collapse">
-				<input type="text" class="hidden" data-function="update-trip-start">
-				<input type="text" class="hidden" data-function="update-trip-end">
-			</div>
-			<aside data-header="invited-dates"></aside>
-			<aside><a href="" data-function="invite-friends" class="hidden">Invite more friends</a></aside>
+<div class="trip-info">
+	<div class="half-col">
+		<h1 data-header="location" class="">No Trip Selected</h1>
+		<div class="half-col-collapse omega">
+			<input type="text" class="hidden" data-function="update-trip-location">
 		</div>
-		<a href="" class="button hidden" data-function="form-edit">EDIT</a>
-		<a href="" class="button hidden" data-function="trip-delete">DELETE</a>&nbsp;
-		<a href="" class="button hidden" data-function="form-submit">SAVE</a>&nbsp;
-		<a href="" class="button hidden" data-function="form-cancel">CANCEL</a>
-
+		<div class="half-col-collapse">
+			<input type="text" class="hidden" data-function="update-trip-start">
+			<input type="text" class="hidden" data-function="update-trip-end">
+		</div>
+		<aside data-header="invited-dates"></aside>
+		<aside><a href="" data-function="invite-friends" class="hidden">Invite more friends</a></aside>
 	</div>
+	<a href="" class="button hidden" data-function="form-edit">EDIT</a>
+	<a href="" class="button hidden" data-function="trip-delete">DELETE</a>&nbsp;
+	<a href="" class="button hidden" data-function="form-submit">SAVE</a>&nbsp;
+	<a href="" class="button hidden" data-function="form-cancel">CANCEL</a>
+</div>
+<div class="main-content hidden">
+
 	<div class="calendar">
 		<table class="cal-dates">
 			<tr></tr>
@@ -68,54 +68,51 @@
 	<div id="Map" class="map">
 	</div>
 
-	<div class="destination-list">
+	<div class="destination-list center">
 		<h1>Destinations</h1>
 		<table id="destTable">
 		 <tr class="table-initial">
 
-		    <td>Name:</td>
-		    <td>Address:</td>
-		    <td>Edit:</td>
-		    <td>Delete:</td>
+		    <th>Name</th>
+		    <th>Address</th>
+		    <th class="like-th"></th>
+		    <th>Like Count</th>
+		    <th></th>
+		    <th>Delete</th>
+
+
 		    <!-- <td>Delete:</td> -->
 		 </tr>
 		</table>
 
 	</div>
 
-	<div class="dest-form">
-
-		<h1>Destination (Manual)</h1>
-		<form method="get" action="index.html" class="form">
-                        <input type="text" placeholder="Name" class="name-input" name="name" />
-                        <input type="text" placeholder="Address" class="address-input" name="address" />
-                        <input type="submit" class="submit-input my-button" id="create-button"></input>
+	<div class="dest-form center">
+		<div class="dest-manual hidden">
+			<h1>Destination (Manual)</h1>
+	        <input type="text" placeholder="Name" class="name-input" name="name" />
+	        <input type="text" placeholder="Address" class="address-input" name="address" />
+	        <input type="submit" class="submit-input my-button" id="create-button"></input>
 		</div>
-
-
-	<div class="search">
-		<h1>Search</h1>
-		<div id="myDiv"></div>
-		<div class="actions">
-		    <div class="button">
-		        <label for="gmap_keyword">Keyword:</label>
-		        <input id="gmap_keyword" type="text" name="gmap_keyword" /></div>
-		    <div class="button">
-		        <label for="gmap_type">Type:</label>
-		        <select id="gmap_type">
-		            <option value="art_gallery">art_gallery</option>
-		            <option value="bar">bar</option>
-		            <option value="cafe">cafe</option>
-		            <option value="food">food</option>
-		            <option value="store">store</option>
+		<div class="search">
+			<h1>Search</h1>
+			<div id="myDiv"></div>
+			<div class="actions">
+                <input id="gmap_keyword" type="text" name="gmap_keyword" placeholder="Keyword"/>
+                <select id="gmap_type">
+			            <option value="art_gallery">Art Gallery</option>
+			            <option value="bar">Bar</option>
+			            <option value="cafe">Cafe</option>
+			            <option value="food">Food</option>
+			            <option value="store">Store</option>
 		        </select>
-		    </div>
-		    <input type="hidden" id="lat" name="lat" value="40.7143528" />
-		    <input type="hidden" id="lng" name="lng" value="-74.0059731" />
-		    <!-- <div type ="submit" class="search-button button">Search for objects</div> -->
-		    <input type="submit" class="search-button my-button" id="create-button"></input>
-		</div>
-		    <table id="destList">
+	        </div>
+			    <input type="hidden" id="lat" name="lat" value="40.7143528" />
+			    <input type="hidden" id="lng" name="lng" value="-74.0059731" />
+			    <!-- <div type ="submit" class="search-button button">Search for objects</div> -->
+			    <input type="submit" class="search-button my-button" id="create-button"></input>
+			</div>
+		    <table id="destList" class="">
 		    	<tr>
 		    		<td> Name </td>
 		    		<td> Address </td>
@@ -124,6 +121,10 @@
 		    	</tr>
 		    </table>
 		</div>
+	</div>
+
+
+
 
 
 
