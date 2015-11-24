@@ -418,9 +418,10 @@ Dashboard = (function() {
 
         $('#destTable').on('click', '.edit', function(e){
             e.preventDefault();
-            var $curr = $('tr[data-dest-id="' + this.id + '"]');
+            var $curr = $(this).closest('tr');
+            // var $curr = $('tr[data-dest-id="' + this.id + '"]');
             var destInfo = {};
-            destInfo.name = $curr.find('td[data-table-function="name"]').html();
+            destInfo.name = $curr.find('input[name="name"]').val();
             destInfo.loc = $curr.find('td[data-table-function="location"]').html();
             destInfo.date = $curr.find('input[name="date"]').val();
             destInfo.start_time = $curr.find('input[name="start_time"]').val();
@@ -428,7 +429,7 @@ Dashboard = (function() {
 
             autofillDestForm(destInfo);
 
-            $('#update-dest').attr('data-dest-id',this.id);
+            $('#update-dest').attr('data-dest-id',$curr.attr('data-dest-id'));
             // $('#dest-name').val($('td[data-table-function="name"]').html());
             toggleElement($('.dest_container'), 70, "down");
         });
@@ -518,9 +519,11 @@ Dashboard = (function() {
             } else {
                 console.log("dest " + JSON.stringify(dest));
                   var that = this;
-                  var id = $('#update-dest').data("dest-id");
+                  var id = $('#update-dest').attr("data-dest-id");
+                  console.log("id " + id);
                   url = "/api/destinations/edit?id=" + id + '&trip_id=' + trip_id;
                   console.log(url);
+                  clearDestForm();
                   makePutRequest(url, dest, onSuccess, onFailure);
             }
         });
@@ -585,6 +588,7 @@ Dashboard = (function() {
 
     var autofillDestForm = function(data) {
        $('#dest-name').val(data.name);
+       console.log("name " + data.name);
        $('#dest-location').val(data.loc);
 
        if (data.date !== 'null') {
@@ -672,6 +676,7 @@ Dashboard = (function() {
       delete_cell.innerHTML = "<div class='del hover' id='"+ dest.id + "'>x</div>";
 
       row.setAttribute('data-dest-id',dest.id);
+      $(row).append('<input type="hidden" name="name" value="' + dest.name + '">');
       $(row).append('<input type="hidden" name="date" value="' + dest.date + '">');
       $(row).append('<input type="hidden" name="start_time" value="' + dest.start_time + '">');
       $(row).append('<input type="hidden" name="end_time" value="' + dest.end_time +  '">');

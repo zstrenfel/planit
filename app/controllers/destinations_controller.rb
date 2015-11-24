@@ -53,6 +53,7 @@ class DestinationsController < ApplicationController
         if not checkConflicts(@day, params[:start_time], params[:end_time])
           p 'no conflicts'
           @destination.save
+          p @destination
           @day.destinations << @destination
   	      json1 = {:status => 1, :destination => @destination}
   	      render :json => json1
@@ -89,8 +90,8 @@ def destroy
 
     def checkConflicts(day, start_time, end_time)
       p "checkConflicts"
-      destinations = day.destinations
-      destinations.each{ |dest|
+      # destinations = day.destinations
+      # destinations.each{ |dest|
         # curr_start = start_time.strftime("%H:%M")
         # curr_end = end_time.strftime("%H:%M")
         # p curr_start
@@ -108,7 +109,7 @@ def destroy
         #   p "case 3"
         #   return true
         # end
-      }
+      # }
       p "no conflicts 2"
       return false;
     end
