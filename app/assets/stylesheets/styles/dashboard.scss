@@ -281,8 +281,24 @@ table#dest-table {
 	top: 25px;
 }
 
+.dir{
+	font-size:.75em;
+}
+
+.dir:hover{
+	color: $medium-gray;
+}
+
 .dir_width {
 
+}
+
+#dir_head{
+	font-size:1.2em;
+	float: right;
+	position: relative;
+	bottom: 10px;
+	right: 5px;
 }
 
 .directions {
