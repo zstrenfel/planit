@@ -327,7 +327,7 @@ Dashboard = (function() {
         });
 
 
-        $('#destTable').on('click', '.dir', function(e){
+        $('.edit_dest').on('click', '.dir', function(e){
             e.preventDefault();
             if (daysDests!=""){
                 var $curr = $('tr[data-dest-id="' + this.id + '"]');
@@ -339,9 +339,9 @@ Dashboard = (function() {
                 destInfo.end_time = $curr.find('input[name="end_time"]').val();
                 destInfo.address = $curr.find('input[name="address"]').val();
 
-                console.log("dest info " + JSON.stringify(destInfo));
+                // console.log("dest info " + JSON.stringify(destInfo));
 
-                var address1 = destInfo.loc;
+                var address1 = $('#update-dest').attr('data-dest-loc');
                 var address2 = "";
                 var dest2 = {};
 
@@ -443,6 +443,7 @@ Dashboard = (function() {
             destInfo.name = $that.find('input[name="name"]').val();
             destInfo.loc = $that.find('input[name="location"]').val();
             destInfo.date = $that.find('input[name="date"]').val();
+            $('#update-dest').attr('data-dest-loc',destInfo.loc);
 
             var time_block = $that.attr("data-time-frame").split(',');
             console.log(time_block);
