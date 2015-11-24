@@ -345,7 +345,8 @@ Dashboard = (function() {
                 var address2 = "";
                 var dest2 = {};
 
-                var start_time1 = new Date(destInfo.start_time)
+
+                var start_time1 = new Date($('#update-dest').attr('data-dest-start_time'))
                 var start1 = parseInt(start_time1.getHours() + '.' + start_time1.getUTCMinutes());
                 var start_time2 = "";
                 var start2 = "";
@@ -450,6 +451,8 @@ Dashboard = (function() {
             console.log(time_block);
             destInfo.start_time = time_block[0];
             destInfo.end_time = time_block[1];
+
+            $('#update-dest').attr('data-dest-start_time',destInfo.start_time);
 
             autofillDestForm(destInfo);
             toggleElement($('.dest_container'), 70, "down");
