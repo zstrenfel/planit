@@ -340,10 +340,11 @@ Dashboard = (function() {
                 destInfo.address = $curr.find('input[name="address"]').val();
 
                 // console.log("dest info " + JSON.stringify(destInfo));
-
+                var name1 = $('#update-dest').attr('data-dest-name');
                 var address1 = $('#update-dest').attr('data-dest-loc');
                 var address2 = "";
                 var dest2 = {};
+                dest2.name = "";
 
 
                 var start_time1 = new Date($('#update-dest').attr('data-dest-start_time'))
@@ -360,32 +361,40 @@ Dashboard = (function() {
                     }
                 }
 
-                $("#Directions").addClass('directions',trans, trans_mo);
-                $("#Map").removeClass('width12',trans, trans_mo);
-                $("#Map").addClass('width6',trans, trans_mo);
-                $("#dir_unpop").removeClass('hide');
+                if (dest2.name!=""){
 
-                //$("#Map").switchClass('width12','width6',1000,"easeInOutQuad")
-                var currCenter = map.getCenter();
-                google.maps.event.trigger(map, "resize");
-                map.setCenter(currCenter);
+                    $("#Directions").addClass('directions',trans, trans_mo);
+                    $("#Map").removeClass('width12',trans, trans_mo);
+                    $("#Map").addClass('width6',trans, trans_mo);
+                    $("#dir_unpop").removeClass('hide');
+
+                    $("#dir_head").html(name1 + " to " + dest2.name);
+                    $("#dir_head").removeClass('hide');
+
+                    //$("#Map").switchClass('width12','width6',1000,"easeInOutQuad")
+                    var currCenter = map.getCenter();
+                    google.maps.event.trigger(map, "resize");
+                    map.setCenter(currCenter);
 
 
-                directionsDisplay.setMap(map1);
-                directionsDisplay.setPanel(document.getElementById('Directions'));
+                    directionsDisplay.setMap(map1);
+                    directionsDisplay.setPanel(document.getElementById('Directions'));
 
-                 var request = {
-                   origin: address1,
-                   destination: address2,
-                   travelMode: google.maps.DirectionsTravelMode.DRIVING
-                 };
+                     var request = {
+                       origin: address1,
+                       destination: address2,
+                       travelMode: google.maps.DirectionsTravelMode.DRIVING
+                     };
 
-                 directionsService.route(request, function(response, status) {
-                   if (status == google.maps.DirectionsStatus.OK) {
-                    console.log(response.routes[0].legs[0].duration.text);
-                     directionsDisplay.setDirections(response);
-                   }
-                 });
+                     directionsService.route(request, function(response, status) {
+                       if (status == google.maps.DirectionsStatus.OK) {
+                        console.log(response.routes[0].legs[0].duration.text);
+                         directionsDisplay.setDirections(response);
+                       }
+                     });
+                 }else{
+                    toastr.error("No scheduled destinations after this one!");
+                 }
         } else {
             console.log("No date clicked yet");
         }
@@ -400,6 +409,7 @@ Dashboard = (function() {
             $("#Map").removeClass('width6',trans, trans_mo);
             $("#Map").addClass('width12',trans, trans_mo);
             $("#dir_unpop").addClass('hide');
+            $("#dir_head").addClass('hide');
             var currCenter = map.getCenter();
             google.maps.event.trigger(map, "resize");
             map.setCenter(currCenter);
@@ -450,6 +460,7 @@ Dashboard = (function() {
             destInfo.loc = $that.find('input[name="location"]').val();
             destInfo.date = $that.find('input[name="date"]').val();
             $('#update-dest').attr('data-dest-loc',destInfo.loc);
+            $('#update-dest').attr('data-dest-name',destInfo.name);
 
             var time_block = $that.attr("data-time-frame").split(',');
             console.log(time_block);

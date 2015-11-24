@@ -293,6 +293,14 @@ table#dest-table {
 
 }
 
+#dir_head{
+	font-size:1.2em;
+	float: right;
+	position: relative;
+	bottom: 10px;
+	right: 5px;
+}
+
 .directions {
 	@include span-columns(6);
 	@include omega;
