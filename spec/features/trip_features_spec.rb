@@ -3,21 +3,16 @@ require 'rails_helper'
 # @selenium
 feature "New Trip" do
   before(:all) do
-    # register
     Capybara.current_driver = :selenium
-    visit '/'
-    fill_in 'reg-name', :with => 'Test'
-    fill_in 'reg-email', :with => 't@est.com'
-    fill_in 'reg-pw', :with => 'password'
-    fill_in 'reg-pw-conf', :with => 'password'
-    click_button 'Sign up'
-    page.should have_content 'Logout'
-    click_link 'Logout'
+    @user = FactoryGirl.create(:user)
 
     # log in
+    visit '/'
     click_link 'Log In'
-    fill_in 'login-email', with: 't@est.com'
-    fill_in 'login-pw', with: 'password'
+    fill_in 'login-email', with: @user.email
+    fill_in 'login-pw', with: @user.password
+    # fill_in 'login-email', with: 't@est.com'
+    # fill_in 'login-pw', with: 'password'
     check 'remember-me'
     click_button 'Log in'
 
@@ -25,7 +20,7 @@ feature "New Trip" do
     click_link 'Trips'
     find('.create-trip').click
     fill_in 'location', with: 'Berkeley'
-    fill_in 'name', with: 'Cal'
+    fill_in 'trip-name', with: 'Cal'
     fill_in 'start-date', with: '20-11-2015'
     fill_in 'end-date', with: '25-11-2015'
     click_link 'submit-trip'
@@ -33,10 +28,11 @@ feature "New Trip" do
   end
 
   before(:each) do
+    # select the trip
     click_link 'Trips'
     find('.location').click
   end
-  
+
   # scenario "displays trip info at the top" do
 
   #       # <div class="trip-info">
@@ -78,17 +74,17 @@ feature "New Trip" do
   #   end
   # end
 
-  scenario "manually adds a destination" do
+  # feature deprecated
+  xscenario "manually adds a destination" do
     fill_in 'name', with: 'Dest'
     fill_in 'address', with: '123 Street Ave'
     click_button 'create-dest-button'
-    page.should have_css('td', :text => 'Dest')
+    page.should have_css('td', :text => '123 Street Ave')
 
     fill_in 'name', with: 'Dest2'
     fill_in 'address', with: '456 Street Ave'
     click_button 'create-dest-button' 
-    page.should have_css('td', :text => 'Dest') # previous dest should still exist
-    page.should have_css('td', :text => 'Dest2')
+    page.should have_css('td', :text => '123 Street Ave') # previous dest should still exist
     page.should have_css('td', :text => '456 Street Ave')
   end
 
@@ -104,13 +100,20 @@ feature "New Trip" do
 
   # end
 
-  # scenario "log out" do
-  # end
-
   after(:all) do
+    # test registration and acct deletion
+    click_link 'Logout'
+    fill_in 'reg-name', :with => 'Test'
+    fill_in 'reg-email', :with => 't@est.com'
+    fill_in 'reg-pw', :with => 'password'
+    fill_in 'reg-pw-conf', :with => 'password'
+    click_button 'Sign up'
+    page.should have_content 'Logout'
     click_link "Account"
     click_button "Cancel my account"
     page.driver.browser.switch_to.alert.accept
+
+    @user.destroy
     Capybara.use_default_driver
   end
 
