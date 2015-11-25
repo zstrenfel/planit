@@ -84,6 +84,8 @@ Dashboard = (function() {
             // console.log("succesfully updated dash " + JSON.stringify(data.trip));
             $('#location').attr('data-location', data.trip.location);
             updateHeader(data.trip);
+            console.log('trip data');
+            console.log(data.trip);
             resetTable();
             initializeMap();
             insertAllDest(data.trip);
@@ -664,6 +666,7 @@ Dashboard = (function() {
       $('#like-btn').click(function(e) {
         e.preventDefault();
       	console.log('click');
+      	console.log(e);
         dest.like_count += 1;
         like_count_cell.innerHTML=dest.like_count;
         sortTable();
