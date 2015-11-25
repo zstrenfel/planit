@@ -666,7 +666,6 @@ Dashboard = (function() {
       	console.log('click');
         dest.like_count += 1;
         like_count_cell.innerHTML=dest.like_count;
-        
         sortTable();
       });
       
