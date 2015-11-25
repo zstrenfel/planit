@@ -660,13 +660,44 @@ Dashboard = (function() {
       var like_count_cell = row.insertCell(3);
       like_count_cell.innerHTML = dest.like_count;
 
+
       $('#like-btn').click(function(e) {
         e.preventDefault();
       	console.log('click');
         dest.like_count += 1;
         like_count_cell.innerHTML=dest.like_count;
+        
         sortTable();
       });
+      
+      /*
+      var updateLikeCount = function($elem) {
+
+        var onSuccess = function(data) {
+            if (!data.errors){
+                $elem.fadeOut(400, function(){
+                    $elem.remove();
+                 });
+
+            } else {
+                for (var i in data.errors){
+                    console.log(data.errors[i]);
+                }
+            }
+
+        };
+        var onFailure = function(data) {
+            console.log("failure");
+
+        };
+        
+        // var that = this;
+        var id = $elem.data("dest-id");
+        url = "/api/destinations?id=" + id;
+        console.log(url);
+        makeDeleteRequest(url, onSuccess, onFailure);
+    };*/
+      
 
       function sortTable(){
         var tbl = document.getElementById("destTable").tBodies[0];
