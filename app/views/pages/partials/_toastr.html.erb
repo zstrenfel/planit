@@ -1,0 +1,7 @@
+<% if flash[:toastr] %>
+  <script type="text/javascript">
+    <% flash[:notice].each do |type, message| %>
+      toastr.<%= type %>(<%= message.inspect %>)
+    <% end %>
+  </script>
+<% end %>

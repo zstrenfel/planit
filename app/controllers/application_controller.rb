@@ -24,4 +24,10 @@ class ApplicationController < ActionController::Base
     # return the path based on resource
     return '/dashboard'
   end
+
+  def toast(type, text)
+    flash[:toastr] = { type => text }
+  end
+
+
 end

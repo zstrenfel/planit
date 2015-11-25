@@ -1,24 +1,39 @@
 @import 'base/utilities/variables';
 //main-content styles
 
+
+
+.container {
+	@include linear-gradient(#F9F9F9, #E6E6E6);
+	height: 100%;
+	border-bottom: 30px solid $dark-gray;
+	// background-color: lighten($light-gray, 30%);
+}
+
+h1 {
+	font-weight: 300;
+}
+
+.main-content {
+	padding-bottom: 30px;
+}
+
+
 //sidebar styles
 .menu-base {
-	@include span-columns(1);
-
-	background-color: $subtle;
+	// @include span-columns(1);
+	float: left;
+	width: 60px;
+	// margin-right: 2%;
+	background-color: $dark-gray;
 	height: 100vh;
 	font-size: .8em;
 	font-weight: 600;
+	position: relative;
 	z-index: 2;
 
 	a {
 		color: $medium-gray;
-
-		&:active,
-		&:focus,
-		&:hover {
-			color: shade($medium-gray, 25%);
-		}
 	}
 
 	.img {
@@ -28,10 +43,28 @@
 
 }
 
+.trip-select:hover {
+	cursor: pointer;
+	a {
+		color: shade($medium-gray, 25%);
+	}
+
+	.aircraft-svg {
+		fill: shade($medium-gray, 25%);
+	}
+}
+.aircraft-svg {
+	margin-top: 10px;
+	fill:$medium-gray;
+	height: 40px;
+	width: auto;
+}
+
 .menu-open {
 	width: 180px;
 	float: left;
-	background-color: darken($subtle, 10%);
+	background-color: rgba(255, 255, 255, 0.95);
+
 	height: 100vh;
 	left: -180px;
 	position:absolute;
@@ -43,6 +76,7 @@
 	li {
 		margin: 8px 0;
 		cursor: pointer;
+		opacity: 1;
 	}
 
 	li.create-trip {
@@ -60,14 +94,20 @@
 }
 //trip-info styles
 .trip-info {
-	@include span-columns(12);
-	border-bottom: 1px solid $subtle;
+	width: calc(100% - 60px);
+	float: left;
 	margin-bottom: 20px;
-	padding: 5px;
+	padding: 10px;
 	overflow: auto;
+	padding-left: 30px;
+	background-color: white;
+	border-bottom: 2px solid darken(#fff, 5%);
 
 	h1 {
 		float: left;
+		font-weight: 300;
+		font-size: 3.5em;
+		color: $dark-gray;
 	}
 
 	aside {
@@ -81,66 +121,234 @@
 	}
 }
 //destination-list styles
+
 .destination-list {
 	@include span-columns(6);
-	background-color: $subtle;
+	background-color: #fff;
+	border-radius: 3px;
+	height: 500px;
+	overflow-y: scroll;
+	padding: 10px;
+	color: darken($medium-gray, 25%);
+
+	h1 {
+		color: $dark-gray;
+	}
 }
 
-.form{
-	width:500px;
-	float: left;
-	margin-bottom: 20px;
+.bottom-block {
+	margin-left: 2%;
 }
 
+table#dest-table {
+	font-size: .9em;
+
+	th {
+		color: darken($medium-gray, 15%);
+		text-align: center;
+		font-weight: 400;
+	}
+
+	.like {
+		font-size: .8em;
+	}
+
+	.updated {
+		opacity: .8;
+	}
+}
+
+.dest-form {
+	@include span-columns(6);
+	@include omega;
+	background-color: #fff;
+	border-radius: 3px;
+	height: 500px;
+	overflow-y: scroll;
+	padding: 10px;
+
+
+	h1 {
+		margin-bottom: 15px;
+	}
+}
+
+.table-initial th{
+	text-align: center !important;
+	font-weight: 400 !important;
+}
 //invite friends
-.invite-friends {
+.modal {
 	border-radius: $base-border-radius;
-	background-color: $light-gray;
-	height: 230px;
-	width: 600px;
+	background-color: rgba(255, 255, 255, 0.95);
+	border: 1px solid $light-gray;
 	left: 50%;
-	top: -230px;
-    margin-left: -300px;
-    position: absolute;
+    position: fixed;
     z-index: 100;
-    padding: 10px;
+}
+.invite-friends_container {
+	height: 254;
+	width: 600px;
+	top: -259px;
+    margin-left: -300px;
+}
+
+.invite-friends {
+	height: 100%;
+	width: 100%;
+	position: relative;
+	overflow: auto;
+	padding: 0 10px 10px;
+
+	textarea {
+		margin-bottom: 3px;
+	}
+
+	i {
+		font-size: .8em;
+		color: darken($light-gray, 25%);
+		margin-bottom: 10px;
+		display: block;
+	}
+}
+
+.create-edit-trip_container {
+	height: 275;
+	width: 400px;
+	top: -280px;
+	margin-left: -200px;
 }
 
 .create-edit-trip {
-	border-radius: $base-border-radius;
-	background-color: $light-gray;
-	height: 280px;
+	height: 100%;
+	width: 100%;
+	position: relative;
+	overflow: auto;
+	padding: 0 10px 10px;;
+}
+
+.dest_container {
+	height: 362;
 	width: 400px;
-	left: 50%;
-	top: -280px;
+	top: -367px;
 	margin-left: -200px;
-	position: absolute;
-	z-index: 100;
-	padding: 10px;
+	padding: 0;
+}
+
+.edit_dest {
+	height: 100%;
+	width: 100%;
+	position: relative;
+	overflow: auto;
+	padding: 0 10px 10px;;
+}
+
+.time-container {
+	width: auto;
+	height: auto;
+	overflow: auto;
+}
+
+.time-input {
+	width: 45% !important;
+	float: left;
+	margin-bottom: 0 !important;
 }
 
 //map styles
 .map {
+	// margin-left: 2%;
+	height: 400px;
+	margin-bottom: 20px;
+}
+
+.width12 {
 	@include span-columns(12);
 	@include omega;
-	background-color: $subtle;
-	width: 100%;
-	height: 100%;
+}
+
+.width6 {
+	@include span-columns(6);
+	// @include omega;
+}
+
+#dir_unpop {
+	font-size: 1em;
+	font-weight: bold;
+	color: $blue;
+	position: relative;
+	right: -15px;
+	top: 25px;
+}
+
+.dir{
+	font-size:.75em;
+}
+
+.dir:hover{
+	color: $medium-gray;
+}
+
+.dir_width {
+
+}
+
+#dir_head{
+	font-size:1.2em;
+	float: right;
+	position: relative;
+	bottom: 10px;
+	right: 5px;
+}
+
+.directions {
+	@include span-columns(6);
+	@include omega;
+	background-color: #fff;
+	border-radius: 3px;
+	// margin-left: 2%;
+	height: 400px;
+	margin-bottom: 20px;
+	padding: 10px;
+	// margin-left: 20px;
+
+	float: left;
+	overflow: scroll;
 }
 
 //search styles
+.dest-manual {
+	@include span-columns(12);
+}
 .search {
 	@include span-columns(12);
-	@include omega;
-	background-color: $subtle;
-	padding: 20px;
+	// @include omega;
+
+	input#gmap_keyword {
+		width: 90%;
+		margin: 0 auto;
+		margin-bottom: 10px;
+	}
+
+	select#gmap_type {
+		width: 150px;
+		margin: 0 auto;
+		margin-bottom: 0px;
+	}
+
+	.actions {
+		height: auto;
+		overflow:auto;
+		width: 500px;
+		margin: 0 auto;
+		margin-bottom: 20px;
+	}
 }
 
 .edit_form{
 	@include span-columns(2);
 	@include omega;
 	background-color: $subtle;
-
 }
 
 .hide{
@@ -154,18 +362,20 @@
 //calendar styles
 .calendar {
 	@include span-columns(12);
-	background-color: $light-gray;
 	padding: 5px;
 	overflow-x: scroll;
 	overflow-y: auto;
+	margin-bottom: 20px;
+	background-color: #fff;
+	border-radius: 3px;
+	margin-left: 2%;
 
 	select{
 		width: 100px;
 	}
 }
 
-.calendar table.cal-dates {
-
+.cal-hours {
 }
 
 .cal-container {
@@ -177,52 +387,93 @@
 
 	.dest {
 		position: absolute;
-		height: 60px;
-		top: 50px;
+		height: 30px;
+		top: 40px;
 		background-color: red;
+		border-radius: 7px;
 		z-index: 100;
 		width: 75px;
 		opacity: .6;
 		padding-left: 5px;
 		color: white;
+		font-size: .8em;
 	}
+
+	.dest:hover {
+		cursor: pointer;
+	}
+}
+
+table.cal-dates {
+	td {
+		width: 75px;
+		text-align: center;
+		border: none;
+	}
+
+	.day-label {
+		font-size: 2.5em;
+		font-weight: 700;
+		color: lighten($blue, 10%);
+		transition: color .3s ease-in;
+
+
+		&:hover {
+			color: darken($blue, 15%);
+			cursor: pointer;
+		}
+	}
+
+	.month-label {
+		color: darken($medium-gray, 20%);
+	}
+
 }
 
 .calendar table.cal-dests {
 	width: 100%;
 	height: auto;
-	background-color: white;
 	overflow-x: scroll;
+	border: 1px  solid lighten($light-gray, 10%);
+	border-radius: 3px;
 
 
 	tr {
-		height: 50px;
+		height: 25px;
 	}
 
 	td, th{
-		border: 1px solid $medium-gray;
+		// border: 1px solid $light-gray;
 		width: 75px;
 	}
 
 	th {
 		text-align: center;
-		color: $medium-gray;
-		font-weight: 600;
+		color: $dark-gray;
+		font-weight: 300;
+		border: none;
+		font-size: .9em;
 	}
 
 	td {
 		padding: 0;
 		height: 60px;
+		border: none;
 	}
 
 	.half-cell {
 		@include span-columns(6, collapse);
-		border-right: solid 1px $light-gray;
-		height: 50px;
+		border-right: solid 2px lighten($light-gray, 10%);
+		height: 30px;
 	}
 
 	.reserved {
 		background-color: $light-gray;
 	}
+
+
 }
+
+//rando
+
 

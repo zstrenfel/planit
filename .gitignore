@@ -16,11 +16,14 @@
 !/log/.keep
 /tmp
 
-# Ignore database.yml
+# Ignore Spec Files
+
+#Ignore databse.yml
 /config/database.yml
 
 # Ignore .c9 files
 /.c9/
 
-# Ignore coverage tests
-/coverage/index.html
+
+# Ignore application configuration
+/config/application.yml

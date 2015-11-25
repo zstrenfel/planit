@@ -14,11 +14,13 @@
 
 </head>
 <body>
+<%= render "pages/partials/toastr" %>
 <div class="container">
 	<!-- header logic for all pages (splash and dash) -->
-	<header class="block top-navigation">
-		<ul class="nav-menu">
+
 		<% if user_signed_in? %>
+			<header class="block top-navigation">
+			<ul class="nav-menu">
 			<li>
 			<%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
 			</li>
@@ -28,19 +30,13 @@
 			<li>
 				<%= link_to('Home', root_path) %>
 			</li>
-		<% else %>
-			<li>
-				<a href="" class="log-in">Log In</a>
-			</li>
-			<li>
-				<a href="">About</a>
-			</li>
+			</ul>
+			</header>
 		<% end %>
-		</ul>
-	</header>
+
 	<!-- End header logic -->
-	<p class="notice"><%= notice %></p>
-	<p class="alert"><%= alert %></p>
+<!-- 	<p class="notice"><%= notice %></p>
+	<p class="alert"><%= alert %></p> -->
 
 <%= yield %>
 

@@ -14,6 +14,10 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require jquery-ui/datepicker
+//= require jquery.datepair.js
+//= require utilities/jquery-timepicker-rails
 //= require pages
 //= require dashboardV2
+//= require toastr
+
 

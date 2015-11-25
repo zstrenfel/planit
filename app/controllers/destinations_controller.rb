@@ -44,14 +44,23 @@ class DestinationsController < ApplicationController
   def update
      @destination = Destination.find(params[:id])
      # trip_id = params[:trip_id]
-     p @destination
-      if @destination.update(dest_params)
+     @destination.assign_attributes(dest_params)
+      if @destination.valid?
         #need to add into
         @day = Day.where("date= ? AND trip_id = ?" , params[:date], @destination.trip_id).first;
-        p @day
-        @day.destinations << @destination
-	      json1 = {:status => 1, :destination => @destination}
-	      render :json => json1
+        p params[:start_time]
+        p params[:end_time]
+        if not checkConflicts(@day, params[:start_time], params[:end_time])
+          p 'no conflicts'
+          @destination.save
+          p @destination
+          @day.destinations << @destination
+  	      json1 = {:status => 1, :destination => @destination}
+  	      render :json => json1
+        else
+          json1 = {:status => -1, :errors => "time conflict"}
+          render :json => json1
+        end
       else
    	    json1 = {:status => -1, :errors => @destination.errors}
 	    render :json => json1
@@ -76,8 +85,35 @@ def destroy
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def dest_params
-      params.require(:destination).permit(:name, :date, :time, :address, :trip_id, :like_count, :duration)
+      params.require(:destination).permit(:name, :date, :start_time, :end_time, :address, :date, :trip_id, :like_count)
     end
+
+    def checkConflicts(day, start_time, end_time)
+      p "checkConflicts"
+      # destinations = day.destinations
+      # destinations.each{ |dest|
+        # curr_start = start_time.strftime("%H:%M")
+        # curr_end = end_time.strftime("%H:%M")
+        # p curr_start
+        # prev_start = Time.at(dest.start_time.strftime("%H:%M"))
+        # prev_end = dest.end_time.strftime("%H:%M")
+        # p (prev_start.class)
+        # p prev_end
+        # if (end_time > prev_start && end_time < prev_end)
+        #   p "case 1"
+        #   return true
+        # elsif (start_time > prev_start  && start_time < prev_end)
+        #   p "case 2"
+        #   return true
+        # elsif (start_time > prev_start && end_time <= prev_end)
+        #   p "case 3"
+        #   return true
+        # end
+      # }
+      p "no conflicts 2"
+      return false;
+    end
+
 
 
 end

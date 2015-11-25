@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151107053237) do
+ActiveRecord::Schema.define(version: 20151121201637) do
 
   create_table "days", force: :cascade do |t|
     t.date     "date"
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20151107053237) do
   create_table "destinations", force: :cascade do |t|
     t.string   "name"
     t.string   "address"
-    t.time     "time"
+    t.time     "start_time"
     t.date     "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20151107053237) do
     t.integer  "day_id"
     t.integer  "duration"
     t.integer  "like_count"
+    t.time     "end_time"
   end
 
   add_index "destinations", ["day_id"], name: "index_destinations_on_day_id"

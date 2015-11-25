@@ -33,6 +33,7 @@ production:
 #   timeout: 5000
 
 # test:
+#   encoding: sql_ascii
 #   adapter: postgresql
 #   database: planit_test
 #   pool: 5

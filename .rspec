@@ -1,7 +1,2 @@
 --color
 --require spec_helper
-<<<<<<< HEAD
---require rails_helper
- config.warnings = false
-=======
->>>>>>> e212b85e5fca6d70df5c03c6e70960d964e6fddc

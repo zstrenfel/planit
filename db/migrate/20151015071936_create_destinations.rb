@@ -5,6 +5,7 @@ class CreateDestinations < ActiveRecord::Migration
       t.string :address
       t.time :time
       t.date :date
+      t.integer :like_count
 
       t.timestamps null: false
     end
