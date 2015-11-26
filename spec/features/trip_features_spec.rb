@@ -11,8 +11,6 @@ feature "New Trip" do
     click_link 'Log In'
     fill_in 'login-email', with: @user.email
     fill_in 'login-pw', with: @user.password
-    # fill_in 'login-email', with: 't@est.com'
-    # fill_in 'login-pw', with: 'password'
     check 'remember-me'
     click_button 'Log in'
 
@@ -22,7 +20,7 @@ feature "New Trip" do
     fill_in 'location', with: 'Berkeley'
     fill_in 'trip-name', with: 'Cal'
     fill_in 'start-date', with: '20-11-2015'
-    fill_in 'end-date', with: '25-11-2015'
+    fill_in 'end-date', with: '21-11-2015'
     click_link 'submit-trip'
     visit '/dashboard'
   end
@@ -33,59 +31,34 @@ feature "New Trip" do
     find('.location').click
   end
 
-  # scenario "displays trip info at the top" do
+  feature "Edit trip" do
+    before(:each) do
+      click_link 'EDIT'
+    end
 
-  #       # <div class="trip-info">
-  #       #     <h1 data-header="location" class="">No Trip Selected</h1>
-  #       #         <input type="text" class="hidden" data-function="update-trip-location">
-  #       #         <input type="text" class="hidden" data-function="update-trip-start">
-  #       #         <input type="text" class="hidden" data-function="update-trip-end">
-  #       #     <aside data-header="invited-dates"></aside>
-  #       #     <aside><a href="" data-function="invite-friends" class="hidden">Invite more friends</a></aside>
+    scenario "update trip and save" do
+      page.should have_text "20"
+      page.should have_text "21"
+      fill_in 'edit-trip-location', with: 'Changed Location'
+      fill_in 'edit-trip-start', with: '20-11-2015'
+      fill_in 'edit-trip-end', with: '23-11-2015'
+      click_link 'SAVE'
+      page.should have_text "Changed Location"
+      page.should have_text "22"
+      page.should have_text "23"
+    end
 
-  # end
+    scenario "update trip and cancel" do
+      fill_in 'edit-trip-location', with: 'Changed Again'
+      click_link 'CANCEL'
+      page.should_not have_text "Changed Again"
+    end
 
-  # feature "Edit trip" do
-  #   before(:each) do
-  #     # assume a trip selected
-  #     click_link 'EDIT'
-  #   end
-
-  #   scenario "fills in update-trip form, then saves updated trip info" do
-  #     fill_in 'edit-trip-location', with: 'New Location'
-  #     fill_in 'edit-trip-start', with: '30-10-2015'
-  #     fill_in 'edit-trip-end', with: 'Dest'
-  #     # page.should
-  #     # ... etc (learn should have_css thing)
-
-  #   end
-
-  #   scenario "cancels updates and deletes the trip" do
-  #     fill_in 'edit-trip-location', with: 'New Location'
-  #     click_link 'CANCEL'
-  #     # verify no changes
-      
-  #     # try again, delete
-  #     click_link 'EDIT'
-  #     click_link 'DELETE'
-      
-  #     # verify 'no trip selected'
-
-  #   end
-  # end
-
-  # feature deprecated
-  xscenario "manually adds a destination" do
-    fill_in 'name', with: 'Dest'
-    fill_in 'address', with: '123 Street Ave'
-    click_button 'create-dest-button'
-    page.should have_css('td', :text => '123 Street Ave')
-
-    fill_in 'name', with: 'Dest2'
-    fill_in 'address', with: '456 Street Ave'
-    click_button 'create-dest-button' 
-    page.should have_css('td', :text => '123 Street Ave') # previous dest should still exist
-    page.should have_css('td', :text => '456 Street Ave')
+    after(:all) do
+      click_link 'EDIT'
+      click_link 'DELETE'
+      page.should have_text "No Trip Selected"
+    end
   end
 
   # feature "Destination search" do
@@ -99,6 +72,21 @@ feature "New Trip" do
   #   end
 
   # end
+
+  # feature deprecated
+
+  xscenario "manually adds a destination" do
+    fill_in 'name', with: 'Dest'
+    fill_in 'address', with: '123 Street Ave'
+    click_button 'create-dest-button'
+    page.should have_css('td', :text => '123 Street Ave')
+
+    fill_in 'name', with: 'Dest2'
+    fill_in 'address', with: '456 Street Ave'
+    click_button 'create-dest-button' 
+    page.should have_css('td', :text => '123 Street Ave') # previous dest should still exist
+    page.should have_css('td', :text => '456 Street Ave')
+  end
 
   after(:all) do
     # test registration and acct deletion
