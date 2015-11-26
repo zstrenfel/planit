@@ -140,21 +140,13 @@ h1 {
 	margin-left: 2%;
 }
 
-#destTable {
+#destList, #destTable {
 	font-size: .9em;
-	width: auto;
 
 	th {
 		color: $dark-gray;
 		text-align: center;
 		font-weight: 400;
-	}
-	.like {
-		font-size: 1em;
-	}
-
-	.updated {
-		opacity: .8;
 	}
 
 	td {
@@ -168,6 +160,7 @@ h1 {
 		}
 	}
 }
+
 
 .small-td {
 		max-width: 20px !important;
@@ -379,10 +372,6 @@ h1 {
 	visibility: hidden;
 }
 
-#destList{
-	@extend  #destTable;
-	width: 100%;
-}
 
 //calendar styles
 .calendar {
