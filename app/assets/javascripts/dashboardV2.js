@@ -696,6 +696,11 @@ Dashboard = (function() {
       edit_cell.innerHTML = "<div class='hover edit' id='"+ dest.id + "'>Edit</div>";
       delete_cell.innerHTML = "<div class='del hover' id='"+ dest.id + "'>x</div>";
 
+      // $(edit_cell).addClass('small-td');
+      // $(delete_cell).addClass('small-td');
+      // $(like_cell).addClass('small-td');
+      // $(like_count_cell).addClass('small-td');
+
       row.setAttribute('data-dest-id',dest.id);
       $(row).append('<input type="hidden" name="name" value="' + dest.name + '">');
       $(row).append('<input type="hidden" name="date" value="' + dest.date + '">');

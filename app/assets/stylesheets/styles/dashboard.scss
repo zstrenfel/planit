@@ -140,23 +140,38 @@ h1 {
 	margin-left: 2%;
 }
 
-table#dest-table {
+#destTable {
 	font-size: .9em;
+	width: auto;
 
 	th {
-		color: darken($medium-gray, 15%);
+		color: $dark-gray;
 		text-align: center;
 		font-weight: 400;
 	}
-
 	.like {
-		font-size: .8em;
+		font-size: 1em;
 	}
 
 	.updated {
 		opacity: .8;
 	}
+
+	td {
+		padding: 3px;
+		color: darken($medium-gray, 15%);
+	}
+
+	tr {
+		&:hover {
+			background-color: darken(#fff, 3%);
+		}
+	}
 }
+
+.small-td {
+		max-width: 20px !important;
+	}
 
 .dest-form {
 	@include span-columns(6);
@@ -364,9 +379,10 @@ table#dest-table {
 	visibility: hidden;
 }
 
-/*#destList{
-	float: left;
-}*/
+#destList{
+	@extend  #destTable;
+	width: 100%;
+}
 
 //calendar styles
 .calendar {
