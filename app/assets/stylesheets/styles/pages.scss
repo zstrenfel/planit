@@ -94,6 +94,11 @@ div.third-col {
   padding: 10px;
 }
 
+.front-eg {
+  -webkit-box-shadow: 19px -15px 21px -15px rgba(0,0,0,0.25);
+-moz-box-shadow: 19px -15px 21px -15px rgba(0,0,0,0.25);
+box-shadow: 19px -15px 21px -15px rgba(0,0,0,0.25);
+}
 .main-text {
 
   font-size: 1.3em;
