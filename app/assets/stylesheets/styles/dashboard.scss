@@ -228,9 +228,9 @@ table#dest-table {
 }
 
 .dest_container {
-	height: 362;
+	height: 398px;
 	width: 400px;
-	top: -367px;
+	top: -398px;
 	margin-left: -200px;
 	padding: 0;
 }
@@ -283,11 +283,13 @@ table#dest-table {
 
 .dir{
 	font-size:.75em;
+	color: lighten($blue, 15%);
+	transition: color .2s ease-in;
+	&:hover {
+		color: darken($blue, 10%);
+	}
 }
 
-.dir:hover{
-	color: $medium-gray;
-}
 
 .dir_width {
 

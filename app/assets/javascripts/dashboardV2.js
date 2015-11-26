@@ -497,6 +497,7 @@ Dashboard = (function() {
             var errors = [];
 
             var dest = {};
+            dest.id = $('#update-dest').attr("data-dest-id");
             $('.edit_dest').find('input').each(function(i, elem) {
                 console.log(elem);
                 if ($(elem).val()) {
@@ -516,15 +517,15 @@ Dashboard = (function() {
                 }
             });
 
+
             var onSuccess = function(data) {
                 if (data.status === 1){
                     console.log(data);
                     insertDest(data["destination"]);
                     toggleElement($('.dest_container'), 70, "up");
                 } else{
-                    toastr.error("This conflicts with a destination you have already added to the calendar");
+                    toastr.error("Something went wrong when saving this destination. Please try again.");
                 }
-
             };
             var onFailure = function(data) {
                 console.log(data);
@@ -536,41 +537,70 @@ Dashboard = (function() {
                 console.log(JSON.stringify(dest));
                 toastr.error(errors + " cannot be blank.");
             } else {
-                console.log("dest " + JSON.stringify(dest));
-                  var that = this;
-                  var id = $('#update-dest').attr("data-dest-id");
-                  console.log("id " + id)
-                  url = "/api/destinations/edit?id=" + id + '&trip_id=' + trip_id;
-                  console.log(url);
-                  clearDestForm();
-                  makePutRequest(url, dest, onSuccess, onFailure);
+                conflict = checkTimeConflicts(dest);
+                if (conflict.conflict) {
+                    toastr.error(conflict.err);
+                } else {
+                    var that = this;
+                    var id = $('#update-dest').attr("data-dest-id");
+                    console.log("id " + id)
+                    url = "/api/destinations/edit?id=" + id + '&trip_id=' + trip_id;
+                    console.log(url);
+                    clearDestForm();
+                    makePutRequest(url, dest, onSuccess, onFailure);
+                }
+
             }
         });
     };
 
     var checkTimeConflicts = function(dest) {
+        // var date = new Date
         var start_time = new Date(dest.start_time);
         var end_time = new Date(dest.end_time);
-        var start = parseInt(start_time.getHours() + '.' + start_time.getUTCMinutes());
-        var end = parseInt(end_time.getHours() + '.' + end_time.getUTCMinutes());
+        var start = parseFloat(start_time.getHours() + '.' + start_time.getUTCMinutes());
+        var end = parseFloat(end_time.getHours() + '.' + end_time.getUTCMinutes());
+        var conflict = {}
+        conflict.err = "This change conflicts with the times you have set for ";
 
         // var url = '/days/' +
-        // var prev_dests = makeGetRequest()
-        $('.cal-container').find('.dest'); //find all existing destinations in the calendar
+        var prev_dests = $('#destTable').find('tr:not(.table-initial)'); //find all existing destinations in the calendar
 
         // //iterate through them looking for conflicts
         for(var i = 0; i < prev_dests.length; i++) {
-            var times = $(prev_dests[i]).attr("data-time-frame").split(',');
-            var prev_start = parseInt(times[0])
-            var prev_end = parseInt(times[1]);
-            if (start > prev_start && start < prev_end) {
-              return true;
-            } else if (end < prev_end || end > prev_start) {
-              return true;
-            } else {
-              return false;
-            };
+            var $curr = $(prev_dests[i]);
+            var curr_date = $curr.find('input[name="date"]').val();
+            console.log(prev_dests[i]);
+            var curr_id = $curr.attr('data-dest-id');
+
+            if (curr_date === dest.date && curr_id !== dest.id) {
+                var p_start = new Date($curr.find('input[name="start_time"]').val());
+                var p_end = new Date($curr.find('input[name="end_time"]').val());
+                var prev_start = parseFloat(p_start.getHours() + '.' + p_start.getUTCMinutes())
+                var prev_end = parseFloat(p_end.getHours() + '.' + p_end.getUTCMinutes());
+
+                conflict.err = conflict.err + $curr.find('input[name="name"]').val();
+                if (start > prev_start && start < prev_end) {
+                  conflict.conflict = true;
+                  return conflict;
+                } else if (end < prev_end && end > prev_start) {
+                  conflict.conflict = true;
+                  return conflict;
+                } else if (start < prev_start && end > prev_end){
+                  conflict.conflict = true;
+                  return conflict;
+                } else if (start === prev_start) {
+                  conflict.conflict = true;
+                  return conflict;
+                } else if (start > end) {
+                	conflict.conflict = true;
+                	conflict.err = "End time cannot be earlier than start time. Please edit destination information and try again.";
+                	return conflict;
+                }
+            }
         }
+        conflict.conflict = false;
+        return conflict;
     };
 
     var deleteDestination = function($elem) {
@@ -662,7 +692,7 @@ Dashboard = (function() {
 
       $('#like-btn').click(function(e) {
         e.preventDefault();
-      	console.log('click');
+        console.log('click');
         dest.like_count += 1;
         like_count_cell.innerHTML=dest.like_count;
         sortTable();
@@ -875,9 +905,9 @@ Dashboard = (function() {
                 start_date = new Date(dest.start_time);
                 start_time = parseInt(start_date.getHours() + '.' + start_date.getUTCMinutes());
                 dest.start_time_zach = start_time
-                
+
             });
-        
+
         var hours = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
                  12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
         if (dests.length > 0) {
