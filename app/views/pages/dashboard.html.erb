@@ -65,13 +65,20 @@
 		</div>
 	</div>
 
-	<div id="dir_unpop" class="hide hover" align="right">X</div>
-	<div id="dir_head" class="hide hover" align="right">Bakery to Museum</div>
+	<!-- <div id="dir_unpop" class="hide hover" align="right">X</div> -->
+
 	<div class="block bottom-block">
 		<div id="Map" class="map width12">
 		</div>
-		<div id="Directions">
+		<div class="directions-container hidden">
+			<a  id="dir_unpop" href="" class="right close" >Close</a>
+			<div id="dir_head" class="hide center">
+				Bakery to Museum
+			</div>
+			<div id="Directions">
+			</div>
 		</div>
+
 	</div>
 
 
@@ -93,13 +100,17 @@
 	</div>
 	<div class="dest-form center">
 		<div class="dest-manual hidden">
-			<h1>Destination (Manual)</h1>
-	        <input type="text" placeholder="Name" class="name-input" name="name" />
-	        <input type="text" placeholder="Address" class="address-input" name="address" />
-	        <input type="submit" class="submit-input my-button" id="create-button"></input>
+			<h1>Add Destination</h1>
+			<a href="" class="search-dest">Search for a destination</a>
+			<div class="actions">
+		        <input type="text" placeholder="Name" class="name-input" name="name" />
+		        <input type="text" placeholder="Address" class="address-input" name="address" />
+		        <input type="submit" class="submit-input my-button" id="create-button"></input>
+	        </div>
 		</div>
 		<div class="search">
 			<h1>Search</h1>
+			<a href="" class="manual">Manually enter a destination</a>
 			<div id="myDiv"></div>
 			<div class="actions">
                 <input id="gmap_keyword" type="text" name="gmap_keyword" placeholder="Keyword"/>
@@ -119,8 +130,7 @@
 			    <input type="hidden" id="lng" name="lng" value="-74.0059731" />
 			    <!-- <div type ="submit" class="search-button button">Search for objects</div> -->
 			    <input type="submit" class="search-button my-button" id="create-button"></input>
-			</div>
-		    <table id="destList" class="">
+			    <table id="destList" class="">
 		    	<tr>
 		    		<td> Name </td>
 		    		<td> Address </td>
@@ -128,6 +138,8 @@
 		    		<td class="add">Add</td>
 		    	</tr>
 		    </table>
+			</div>
+
 		</div>
 	</div>
 	</div>
