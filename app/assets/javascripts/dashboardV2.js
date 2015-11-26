@@ -561,6 +561,12 @@ Dashboard = (function() {
             var curr_date = $curr.find('input[name="date"]').val();
             var curr_id = $curr.attr('data-dest-id');
 
+            if (start >= end) {
+                conflict.conflict = true;
+                conflict.err = "End time cannot be earlier than start time. Please edit destination information and try again.";
+                return conflict;
+            };
+
             if (curr_date === dest.date && curr_id !== dest.id) {
                 var p_start = new Date($curr.find('input[name="start_time"]').val());
                 var p_end = new Date($curr.find('input[name="end_time"]').val());
@@ -580,10 +586,6 @@ Dashboard = (function() {
                 } else if (start === prev_start) {
                   conflict.conflict = true;
                   return conflict;
-                } else if (start >= end) {
-                	conflict.conflict = true;
-                	conflict.err = "End time cannot be earlier than start time. Please edit destination information and try again.";
-                	return conflict;
                 }
             }
         }
