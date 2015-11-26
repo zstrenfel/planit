@@ -21,7 +21,7 @@ feature "New Trip" do
     fill_in 'trip-name', with: 'Cal'
     fill_in 'start-date', with: '20-11-2015'
     fill_in 'end-date', with: '21-11-2015'
-    click_link 'submit-trip'
+    click_button 'Create Trip'
     visit '/dashboard'
   end
 
@@ -61,20 +61,15 @@ feature "New Trip" do
     end
   end
 
-  # feature "Destination search" do
-  #   before(:each) do
-  #   end
-
-  #   scenario "displays search results" do
-  #   end
-
-  #   scenario "adds a destination" do
-  #   end
-
-  # end
+  scenario "displays search results" do
+    fill_in 'gmap_keyword', with: 'sushi'
+    select "Food", from: "gmap_type"
+    click_button "create-button"
+    find('.add').click
+    find('#destTable')
+  end
 
   # feature deprecated
-
   xscenario "manually adds a destination" do
     fill_in 'name', with: 'Dest'
     fill_in 'address', with: '123 Street Ave'
