@@ -87,13 +87,13 @@ Dashboard = (function() {
             resetTable();
             initializeMap();
             insertAllDest(data.trip);
-            sortTable();
             createCalendar(data.trip);
             var geocoder = new google.maps.Geocoder();
             findAddress(geocoder);
             editTripForm(data.trip);
             $('.main-content').removeClass('hidden');
             var h = $('.container').height();
+            console.log(h);
             $('.menu-base').height(h);
 
         };
@@ -113,11 +113,11 @@ Dashboard = (function() {
     var createCalendar = function(data) {
       updateCalendarTime(data);
       addCalDates(data);
-      showDay(data.days[0].id);
       // addCalendarRow();
     }
 
     var updateHeader = function(trip) {
+        console.log(JSON.stringify(trip));
         var users = trip.users;
         var user_count = Object.keys(users).length;
         var start = trip.start_date;
@@ -134,6 +134,7 @@ Dashboard = (function() {
 
     var toggleElement = function($that, offset, toggle) {
         var height = $that.height() + offset;
+        console.log($that.height());
         if (toggle === "down") {
             $that.animate({"top": '+=' + height}, 'slow','swing');
             $('.main-content').css('opacity', 0.5);
@@ -176,8 +177,10 @@ Dashboard = (function() {
         $('.trip-select').on('click', function(e) {
             e.preventDefault();
             if($menu.css('left') == width - 180 + 'px') {
+                console.log("closing");
                 menu_close();
             } else {
+                console.log("opening");
                 menu_open();
             }
         });
@@ -209,6 +212,7 @@ Dashboard = (function() {
     var editTriphandler = function(e) {
         $('a[data-function="form-edit"]').on('click', function(e) {
             e.preventDefault();
+            console.log('clicked');
             $('input[data-function="update-trip-location"]').removeClass('hidden');
             $('input[data-function="update-trip-start"]').removeClass('hidden');
             $('input[data-function="update-trip-end"]').removeClass('hidden');
@@ -230,6 +234,7 @@ Dashboard = (function() {
 
         $('a[data-function="form-submit"]').on('click', function(e) {
             e.preventDefault();
+            console.log('here we go');
             trip = {};
             if ($('input[data-function="update-trip-location"]').val()) {
                 trip.location =  $('input[data-function="update-trip-location"]').val();
@@ -240,6 +245,9 @@ Dashboard = (function() {
             if ($('input[data-function="update-trip-end"]').val()) {
                 trip.end_date = $('input[data-function="update-trip-end"]').val();
             }
+
+            console.log('trip ' + JSON.stringify(trip));
+
             var url = '/trips/' + trip_id;
             makePutRequest(url, trip, updateDash, onFailureGlobal);
             closeTripForm();
@@ -299,6 +307,7 @@ Dashboard = (function() {
 
             var onSuccess = function(data) {
                 if (!data.errors){
+                    console.log(data);
                     insertDest(data.destination);
                     submit.find('.name-input').val('');
                     submit.find('.address-input').val('');
@@ -313,6 +322,7 @@ Dashboard = (function() {
             };
             var that = this;
             url = "/api/destinations?trip_id=" + trip_id;
+            console.log(url);
             makePostRequest(url, dest, onSuccess, onFailure);
         });
 
@@ -329,6 +339,7 @@ Dashboard = (function() {
                 destInfo.end_time = $curr.find('input[name="end_time"]').val();
                 destInfo.address = $curr.find('input[name="address"]').val();
 
+                // console.log("dest info " + JSON.stringify(destInfo));
                 var name1 = $('#update-dest').attr('data-dest-name');
                 var address1 = $('#update-dest').attr('data-dest-loc');
                 var address2 = "";
@@ -353,7 +364,6 @@ Dashboard = (function() {
                 if (dest2.name!=""){
 
                     $("#Directions").addClass('directions',trans, trans_mo);
-                    $('.directions-container').removeClass('hidden');
                     $("#Map").removeClass('width12',trans, trans_mo);
                     $("#Map").addClass('width6',trans, trans_mo);
                     $("#dir_unpop").removeClass('hide');
@@ -382,7 +392,6 @@ Dashboard = (function() {
                          directionsDisplay.setDirections(response);
                        }
                      });
-                     toggleElement($('.dest_container'), 70, "up");
                  }else{
                     toastr.error("No scheduled destinations after this one!");
                  }
@@ -396,7 +405,6 @@ Dashboard = (function() {
 
         $("#dir_unpop").on('click',  function(e){
             e.preventDefault();
-            $('.directions-container').addClass('hidden');
             $("#Directions").removeClass('directions',trans);
             $("#Map").removeClass('width6',trans, trans_mo);
             $("#Map").addClass('width12',trans, trans_mo);
@@ -413,6 +421,7 @@ Dashboard = (function() {
         $('#destTable').on('click', '.del', function(e){
             e.preventDefault ();
             var tr = $(this).closest('tr');
+            console.log("this ");
             deleteDestination(tr);
             id = tr.data("dest-id");
             marker = markers[id];
@@ -454,6 +463,7 @@ Dashboard = (function() {
             $('#update-dest').attr('data-dest-name',destInfo.name);
 
             var time_block = $that.attr("data-time-frame").split(',');
+            console.log(time_block);
             destInfo.start_time = time_block[0];
             destInfo.end_time = time_block[1];
 
@@ -474,6 +484,7 @@ Dashboard = (function() {
         $('.delete-dest').on('click', function(e) {
             e.preventDefault();
             var elem = $("tr[data-dest-id='" + $('#update-dest').attr('data-dest-id') + "'");
+            console.log(elem);
             deleteDestination(elem);
             clearDestForm();
             toggleElement($('.dest_container'), 70, "up");
@@ -481,12 +492,13 @@ Dashboard = (function() {
 
         $('#update-dest').on('click', function(e){
             e.preventDefault();
+            console.log("UPDATING DEST!");
             var formatCorrect = true;
             var errors = [];
 
             var dest = {};
-            dest.id = $('#update-dest').attr("data-dest-id");
             $('.edit_dest').find('input').each(function(i, elem) {
+                console.log(elem);
                 if ($(elem).val()) {
                   if ($(elem).attr('name') === "start_time") {
                     dest.start_time = $(elem).timepicker('getTime');
@@ -504,24 +516,19 @@ Dashboard = (function() {
                 }
             });
 
-
             var onSuccess = function(data) {
                 if (data.status === 1){
-                	clearDestForm();
+                    console.log(data);
                     insertDest(data["destination"]);
                     toggleElement($('.dest_container'), 70, "up");
-                    showDay(data.destination.day_id);
                 } else{
-                    toastr.error("Something went wrong when saving this destination. Please try again.");
+                    toastr.error("This conflicts with a destination you have already added to the calendar");
                 }
+
             };
             var onFailure = function(data) {
                 console.log(data);
-                if (data.status === 500) {
-                	toastr.error("Something went wrong. Please make sure the date you have selected is within your trip range.");
-                } else {
-                	toastr.error("Something went wrong when saving this destination. Please try again.");
-                }
+                toastr.error(data);
             };
 
 
@@ -529,71 +536,45 @@ Dashboard = (function() {
                 console.log(JSON.stringify(dest));
                 toastr.error(errors + " cannot be blank.");
             } else {
-                conflict = checkTimeConflicts(dest);
-                if (conflict.conflict) {
-                    toastr.error(conflict.err);
-                } else {
-                    var that = this;
-                    var id = $('#update-dest').attr("data-dest-id");
-                    url = "/api/destinations/edit?id=" + id + '&trip_id=' + trip_id;
-                    makePutRequest(url, dest, onSuccess, onFailure);
-                }
-
+                console.log("dest " + JSON.stringify(dest));
+                  var that = this;
+                  var id = $('#update-dest').attr("data-dest-id");
+                  console.log("id " + id);
+                  url = "/api/destinations/edit?id=" + id + '&trip_id=' + trip_id;
+                  console.log(url);
+                  clearDestForm();
+                  makePutRequest(url, dest, onSuccess, onFailure);
             }
         });
     };
 
     var checkTimeConflicts = function(dest) {
-        // var date = new Date
         var start_time = new Date(dest.start_time);
         var end_time = new Date(dest.end_time);
-        var start = parseFloat(start_time.getHours() + '.' + start_time.getUTCMinutes());
-        var end = parseFloat(end_time.getHours() + '.' + end_time.getUTCMinutes());
-        var conflict = {}
-        conflict.err = "This change conflicts with the times you have set for ";
+        var start = parseInt(start_time.getHours() + '.' + start_time.getUTCMinutes());
+        var end = parseInt(end_time.getHours() + '.' + end_time.getUTCMinutes());
 
         // var url = '/days/' +
-        var prev_dests = $('#destTable').find('tr:not(.table-initial)'); //find all existing destinations in the calendar
+        // var prev_dests = makeGetRequest()
+        $('.cal-container').find('.dest'); //find all existing destinations in the calendar
 
         // //iterate through them looking for conflicts
         for(var i = 0; i < prev_dests.length; i++) {
-            var $curr = $(prev_dests[i]);
-            var curr_date = $curr.find('input[name="date"]').val();
-            var curr_id = $curr.attr('data-dest-id');
-
-            if (start >= end) {
-                conflict.conflict = true;
-                conflict.err = "End time cannot be earlier than start time. Please edit destination information and try again.";
-                return conflict;
+            var times = $(prev_dests[i]).attr("data-time-frame").split(',');
+            var prev_start = parseInt(times[0])
+            var prev_end = parseInt(times[1]);
+            if (start > prev_start && start < prev_end) {
+              return true;
+            } else if (end < prev_end || end > prev_start) {
+              return true;
+            } else {
+              return false;
             };
-
-            if (curr_date === dest.date && curr_id !== dest.id) {
-                var p_start = new Date($curr.find('input[name="start_time"]').val());
-                var p_end = new Date($curr.find('input[name="end_time"]').val());
-                var prev_start = parseFloat(p_start.getHours() + '.' + p_start.getUTCMinutes())
-                var prev_end = parseFloat(p_end.getHours() + '.' + p_end.getUTCMinutes());
-
-                conflict.err = conflict.err + $curr.find('input[name="name"]').val();
-                if (start > prev_start && start < prev_end) {
-                  conflict.conflict = true;
-                  return conflict;
-                } else if (end < prev_end && end > prev_start) {
-                  conflict.conflict = true;
-                  return conflict;
-                } else if (start < prev_start && end > prev_end){
-                  conflict.conflict = true;
-                  return conflict;
-                } else if (start === prev_start) {
-                  conflict.conflict = true;
-                  return conflict;
-                }
-            }
         }
-        conflict.conflict = false;
-        return conflict;
     };
 
     var deleteDestination = function($elem) {
+
         var onSuccess = function(data) {
             if (!data.errors){
                 $elem.fadeOut(400, function(){
@@ -614,6 +595,7 @@ Dashboard = (function() {
         // var that = this;
         var id = $elem.data("dest-id");
         url = "/api/destinations?id=" + id;
+        console.log(url);
         makeDeleteRequest(url, onSuccess, onFailure);
     };
 
@@ -625,6 +607,7 @@ Dashboard = (function() {
 
     var autofillDestForm = function(data) {
        $('#dest-name').val(data.name);
+       console.log("name " + data.name);
        $('#dest-location').val(data.loc);
 
        if (data.date !== 'null') {
@@ -633,10 +616,12 @@ Dashboard = (function() {
        };
 
        if (data.start_time !== 'null') {
+        console.log(data.start_time);
         var start_time = new Date(data.start_time).toLocaleTimeString().replace(':00 ', '');
         $('.edit_dest input[name="start_time"]').val(start_time);
        }
        if (data.end_time !== 'null') {
+        console.log(data.end_time);
         var end_time = new Date(data.end_time).toLocaleTimeString().replace(':00 ', '');
         $('.edit_dest input[name="end_time"]').val(end_time);
        }
@@ -664,10 +649,6 @@ Dashboard = (function() {
 
       var name_cell = row.insertCell(0);
       var address_cell = row.insertCell(1);
-      var edit_cell = row.insertCell(2);
-      var delete_cell = row.insertCell(3);
-      // var delete_cell = row.insertCell(2);
-
       var like_cell = row.insertCell(2);
       // like_cell.innerHTML = '<input type="button" id="like-btn" type="button" value = "Like"</input>';
       like_cell.innerHTML = '<a href="" id="like-btn" class="like">Like</a>';
@@ -677,16 +658,29 @@ Dashboard = (function() {
 
       $('#like-btn').click(function(e) {
         e.preventDefault();
+      	console.log('click');
         dest.like_count += 1;
         like_count_cell.innerHTML=dest.like_count;
-        var onSuccess = function(data) {
-        	console.log("udpated like count");
-        }
-
-        var url = "/api/destinations/edit?id=" + dest.id + '&trip_id=' + trip_id;
-        makePutRequest(url, dest, onSuccess, onFailureGlobal);
         sortTable();
       });
+
+      function sortTable(){
+        var tbl = document.getElementById("destTable").tBodies[0];
+        var store = [];
+        for(var i=1, len=tbl.rows.length; i<len; i++){
+          var row = tbl.rows[i];
+          store.push([table.rows[i].cells[3].innerHTML, row]);
+        }
+          store.sort(function(x,y){
+          return y[0] - x[0];
+        });
+        for(var j=0, len=store.length; j<len; j++){
+          tbl.appendChild(store[j][1]);
+        }
+        table = tbl;
+        store = null;
+        }
+
 
       // Add some text to the new cells:
       name_cell.innerHTML = "<div id='" + dest.id + "'>" + dest.name + "</div>";
@@ -707,23 +701,6 @@ Dashboard = (function() {
 
     };
 
-    var sortTable = function(){
-        var tbl = document.getElementById("destTable").tBodies[0];
-        var store = [];
-        for(var i=1, len=tbl.rows.length; i<len; i++){
-          var row = tbl.rows[i];
-          store.push([tbl.rows[i].cells[3].innerHTML, row]);
-        }
-          store.sort(function(x,y){
-          return y[0] - x[0];
-        });
-        for(var j=0, len=store.length; j<len; j++){
-          tbl.appendChild(store[j][1]);
-        }
-        table = tbl;
-        store = null;
-    }
-
     var insertAllDest = function(trip){
         var d = trip.destinations;
         for (i in d){
@@ -738,7 +715,7 @@ Dashboard = (function() {
 /** =======================End of destinations handlers ======================= */
 
 /** =======================Create Trip Handlers/Functions ===================== */
-    var  attachCreateTripHandler= function(e) {
+    var attachCreateTripHandler= function(e) {
         var down = false;
         var trip ={};
 
@@ -763,9 +740,10 @@ Dashboard = (function() {
             //getting trip fields
             trip = {};
             trip.location = $('input[name="location').val();
-            trip.name = $('input[name="name').val();
+            trip.name = $('input[name="trip-name').val();
             trip.start_date = $('input[name="start-date').val();
             trip.end_date = $('input[name="end-date').val();
+            console.log(JSON.stringify(trip));
 
 
             var valid = validateTripForm(trip); //returns true or false
@@ -874,6 +852,7 @@ Dashboard = (function() {
         })
         });
     }
+
 /** =========================End Friend Handlers ===================================== */
 
 /** ========================= Add Map Handlers ==============================*/
@@ -883,18 +862,12 @@ Dashboard = (function() {
     var attachCalendarHandlers = function() {
         //needs to add an ajax call to update the day on change
         $('.cal-dates').on('click', 'td', function() {
+            $('.cal-container').find('.dest').remove();
+            $('.cal-container').find('.dest-row:not(.keep)').remove();
             var id = $(this).data("date-id");
-            showDay(id);
+            makeGetRequest('/days/' + id, addCalDestinations, onFailureGlobal);
         })
     };
-
-    var showDay = function(id) {
-    	$('.cal-container').find('.dest').remove();
-        $('.cal-container').find('.dest-row:not(.keep)').remove();
-         $('.cal-dates').find('div.selected').removeClass('selected');
-        $('.cal-dates').find('td[data-date-id="' + id +'"]').find('div.day-label').addClass('selected');
-    	makeGetRequest('/days/' + id, addCalDestinations, onFailureGlobal);
-    }
 
     var updateCalendarTime = function(data) {
         // var day = data.days;
@@ -933,15 +906,16 @@ Dashboard = (function() {
                 start_date = new Date(dest.start_time);
                 start_time = parseInt(start_date.getHours() + '.' + start_date.getUTCMinutes());
                 dest.start_time_zach = start_time
-
+                
             });
-
+        
         var hours = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
                  12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
         if (dests.length > 0) {
             dests.forEach (function(dest) {
                 addDest(dest);
             })
+            console.log('destinations have arrived ');
         } else {
             console.log('no destinations to log');
         }
@@ -1055,20 +1029,6 @@ Dashboard = (function() {
 
 /** ========================= Add Search Handlers ==============================*/
 
-	var attachManualDestHandler = function() {
-		$('a.manual').on('click', function(e) {
-			e.preventDefault();
-			$('div.search').addClass('hidden');
-			$('div.dest-manual').removeClass('hidden');
-		})
-
-		$('a.search-dest').on('click', function(e) {
-			e.preventDefault();
-			$('div.dest-manual').addClass('hidden');
-			$('div.search').removeClass('hidden');
-		})
-	}
-
     function initializeSearch(){
         // var geocoder;
 
@@ -1133,6 +1093,7 @@ Dashboard = (function() {
 
             var onSuccess = function(data) {
                 if (!data.errors){
+                    console.log(data);
                     insertDest(data["destination"]);
                 }else{
                     for (i in data.errors){
@@ -1147,6 +1108,7 @@ Dashboard = (function() {
             };
             var that = this;
             url = "/api/destinations?trip_id=" + trip_id;
+            console.log(url);
             makePostRequest(url, dest, onSuccess, onFailure);
 
         });
@@ -1181,6 +1143,7 @@ Dashboard = (function() {
 //Callback function after search for findlaces returns
     function createList(results, status){
         if (status == google.maps.places.PlacesServiceStatus.OK) {
+            console.log(results);
             $("#destList").find("tr:gt(0)").remove();
             var table = document.getElementById("destList");
             for (var i = 0; i < results.length; i++) {
@@ -1251,7 +1214,7 @@ Dashboard = (function() {
         initializeSearch();
         attachCalendarHandlers();
         editTriphandler();
-        attachManualDestHandler();
+        
     };
 
     return {

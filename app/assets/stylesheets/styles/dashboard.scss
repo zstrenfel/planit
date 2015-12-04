@@ -140,31 +140,23 @@ h1 {
 	margin-left: 2%;
 }
 
-#destList, #destTable {
+table#dest-table {
 	font-size: .9em;
 
 	th {
-		color: $dark-gray;
+		color: darken($medium-gray, 15%);
 		text-align: center;
 		font-weight: 400;
 	}
 
-	td {
-		padding: 3px;
-		color: darken($medium-gray, 15%);
+	.like {
+		font-size: .8em;
 	}
 
-	tr {
-		&:hover {
-			background-color: darken(#fff, 3%);
-		}
+	.updated {
+		opacity: .8;
 	}
 }
-
-
-.small-td {
-		max-width: 20px !important;
-	}
 
 .dest-form {
 	@include span-columns(6);
@@ -176,10 +168,8 @@ h1 {
 	padding: 10px;
 
 
-	a {
-		margin-bottom: 10px;
-		font-size: .8em;
-		display: block;
+	h1 {
+		margin-bottom: 15px;
 	}
 }
 
@@ -238,9 +228,9 @@ h1 {
 }
 
 .dest_container {
-	height: 398px;
+	height: 362;
 	width: 400px;
-	top: -398px;
+	top: -367px;
 	margin-left: -200px;
 	padding: 0;
 }
@@ -267,6 +257,7 @@ h1 {
 
 //map styles
 .map {
+	// margin-left: 2%;
 	height: 400px;
 	margin-bottom: 20px;
 }
@@ -282,60 +273,52 @@ h1 {
 }
 
 #dir_unpop {
-	font-size: 0.7em;
-	margin: 2px 4px;
+	font-size: 1em;
+	font-weight: bold;
+	color: $blue;
+	position: relative;
+	right: -15px;
+	top: 25px;
 }
 
 .dir{
 	font-size:.75em;
-	color: lighten($blue, 15%);
-	transition: color .2s ease-in;
-	&:hover {
-		color: darken($blue, 10%);
-	}
 }
 
+.dir:hover{
+	color: $medium-gray;
+}
 
 .dir_width {
 
 }
 
 #dir_head{
-	font-size: 1.2em;
-	font-weight: 300;
-	margin-top: 10px;
+	font-size:1.2em;
+	float: right;
+	position: relative;
+	bottom: 10px;
+	right: 5px;
 }
 
-.directions-container {
+.directions {
 	@include span-columns(6);
 	@include omega;
 	background-color: #fff;
 	border-radius: 3px;
+	// margin-left: 2%;
 	height: 400px;
 	margin-bottom: 20px;
+	padding: 10px;
 	// margin-left: 20px;
 
 	float: left;
 	overflow: scroll;
-
-	.directions {
-		width: 100%;
-		height: auto;
-		padding: 10px;
-	}
 }
 
 //search styles
 .dest-manual {
 	@include span-columns(12);
-
-	.actions {
-		height: auto;
-		overflow:auto;
-		width: 500px;
-		margin: 0 auto;
-		margin-bottom: 20px;
-	}
 }
 .search {
 	@include span-columns(12);
@@ -372,6 +355,9 @@ h1 {
 	visibility: hidden;
 }
 
+/*#destList{
+	float: left;
+}*/
 
 //calendar styles
 .calendar {
@@ -420,7 +406,6 @@ h1 {
 
 table.cal-dates {
 	td {
-		min-width: 40px;
 		width: 75px;
 		text-align: center;
 		border: none;
@@ -438,10 +423,6 @@ table.cal-dates {
 			cursor: pointer;
 		}
 	}
-
-	.selected {
-			color: darken($blue, 20%);
-		}
 
 	.month-label {
 		color: darken($medium-gray, 20%);
