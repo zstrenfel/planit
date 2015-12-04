@@ -760,14 +760,13 @@ Dashboard = (function() {
         //save then save trip to db
         $('button[data-function ="save-trip"]').on('click', function(e) {
             e.preventDefault();
-            toggleElement($('.create-edit-trip_container'), 70, "up");
-            down = false;
             //getting trip fields
             trip = {};
             trip.location = $('input[name="location').val();
             trip.name = $('input[name="name').val();
             trip.start_date = $('input[name="start-date').val();
             trip.end_date = $('input[name="end-date').val();
+
 
             var valid = validateTripForm(trip); //returns true or false
 
@@ -784,19 +783,54 @@ Dashboard = (function() {
                 console.log("failed to create a new trip object");
             }
 
-            if (valid) {
+            if (valid.valid) {
                 makePostRequest('/trips/', trip, onSuccess, onFailure);
                 $('.trip-form').trigger("reset");
+                toggleElement($('.create-edit-trip_container'), 70, "up");
+                down = false;
             } else {
                 console.log("invalid trip")
-                console.log(trip);
+                toastr.error(valid.error);
             }
         })
     }
 
+    var myParseInt = function(val) {
+        return parseInt(val);
+    }
     //need to validate
     var validateTripForm = function(trip) {
-        return true;
+        console.log(trip.start_date + " " + trip.end_date);
+        var start = $.map(trip.start_date.split("-"), myParseInt) ;
+        var end =  $.map(trip.end_date.split("-"), myParseInt);
+        var valid = {}
+
+        if (start[2] === end[2]) {
+            console.log("year is the same");
+            if (start[1] === end[1]) {
+                console.log('month is the same');
+                valid.valid = true;
+            } else {
+                if (start[1] > end[1]) {
+                    valid.valid = false;
+                    valid.error = "Start date needs to be before the end date."
+                } else if (start[1] !== (end[1] - 1)) {
+                    valid.valid = false;
+                    valid.error =  "We currently only support trips that are less than 2 months in length";
+                } else {
+                    valid.valid = true;
+                }
+            }
+        } else {
+            if (start[1] === 12 && end[1] === 1 ) {
+                valid.valid = true;
+            } else {
+                valid.valid = false;
+                valid.error =  "We currently only support trips that are less than 2 months in length";
+            }
+
+        }
+        return valid;
     }
 /** ========================= End Location Handlers ============================ */
 
