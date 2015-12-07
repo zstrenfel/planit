@@ -655,6 +655,8 @@ Dashboard = (function() {
       //<%= link_to 'like', vote_path(@post), class: 'vote', remote: true, data: { type: :json } %>';
       var like_count_cell = row.insertCell(3);
       like_count_cell.innerHTML = dest.like_count;
+      var edit_cell = row.insertCell(4);
+      var delete_cell = row.insertCell(5);
 
       $('#like-btn').click(function(e) {
         e.preventDefault();
@@ -906,9 +908,9 @@ Dashboard = (function() {
                 start_date = new Date(dest.start_time);
                 start_time = parseInt(start_date.getHours() + '.' + start_date.getUTCMinutes());
                 dest.start_time_zach = start_time
-                
+
             });
-        
+
         var hours = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
                  12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
         if (dests.length > 0) {
@@ -1214,7 +1216,7 @@ Dashboard = (function() {
         initializeSearch();
         attachCalendarHandlers();
         editTriphandler();
-        
+
     };
 
     return {
